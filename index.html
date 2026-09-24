@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cô Hường - Tư vấn Tâm lý Học đường</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="chat-container">
+        <!-- Header -->
+        <div class="chat-header">
+            <div class="avatar">
+                <i class="fas fa-user-nurse"></i>
+            </div>
+            <div class="header-info">
+                <h2>Cô Hường</h2>
+                <p>Chuyên gia Tư vấn Tâm lý Học đường</p>
+            </div>
+            <div class="status online">
+                <span class="dot"></span>
+                Trực tuyến
+            </div>
+        </div>
+
+        <!-- Khung hội thoại -->
+        <div class="chat-messages" id="chatMessages">
+            <div class="message bot-message">
+                <div class="bot-avatar">
+                    <i class="fas fa-user-nurse"></i>
+                </div>
+                <div class="message-content">
+                    <p>Chào em! 👋 Cô Hường rất vui được trò chuyện cùng em!</p>
+                    <p>Nếu em có bất kỳ khó khăn, lo lắng nào trong học tập, bạn bè, gia đình hay cảm xúc, hãy chia sẻ với cô nhé 💜</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Nút gợi ý nhanh -->
+        <div class="quick-replies" id="quickReplies">
+            <button class="reply-btn" data-message="Em muốn được tư vấn">
+                <i class="fas fa-lightbulb"></i> Tôi muốn được tư vấn
+            </button>
+            <button class="reply-btn" data-message="Em đang gặp khó khăn">
+                <i class="fas fa-hand-holding-heart"></i> Tôi đang gặp khó khăn
+            </button>
+            <button class="reply-btn" data-message="Em muốn tâm sự">
+                <i class="fas fa-heart"></i> Tôi muốn tâm sự
+            </button>
+        </div>
+
+        <!-- Ô nhập tin nhắn -->
+        <div class="chat-input-container">
+            <input type="text" id="messageInput" placeholder="Nhập câu hỏi của em..." autocomplete="off">
+            <button id="sendBtn" class="send-btn">
+                <i class="fas fa-paper-plane"></i>
+            </button>
+        </div>
+
+        <div class="footer-note">
+            Chatbot Cô Hường • Luôn lắng nghe em
+        </div>
+    </div>
+
+    <script src="knowledge.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
