@@ -5,7 +5,7 @@
 // ==================== CẤU HÌNH API ====================
 const CONFIG = {
     // ⬇️ BẠN DÁN KHÓA API CỦA BẠN VÀO GIỮA DẤU NGOẶC KÉP BÊN DƯỚI ⬇️
-    GEMINI_API_KEY: "AQ.Ab8RN6IECQPJFLtXnkQ6Z_LL_YAABtbfplUkLslzJwyiuROZ4A", 
+    GEMINI_API_KEY: "AQ.Ab8RN6L7ofDQqoLXJd8qZXnxoIO4G-Gs98x6qZJQq94Q8DRA-A", 
     // ⬆️ Ví dụ: GEMINI_API_KEY: "AIzaSyCbvXxxxxxx_xxxxxxxxxxxxxx",
     API_URL: "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent"
 };
