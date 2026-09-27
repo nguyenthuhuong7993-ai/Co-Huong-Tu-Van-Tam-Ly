@@ -4,8 +4,8 @@
 
 // ==================== CẤU HÌNH ====================
 const CONFIG = {
-    GEMINI_API_KEY: "AQ.Ab8RN6L7ofDQqoLXJd8qZXnxoIO4G-Gs98x6qZJQq94Q8DRA-A",
-    API_URL: "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent"
+    GEMINI_API_KEY: "AQ.Ab8RN6KqHA1srczobZtb9SzUUTZDJMxImsEkdzWr6WKxYNbmaw",
+    API_URL: "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-exp:generateContent"
 };
 
 // ==================== THÔNG TIN ====================
