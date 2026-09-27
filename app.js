@@ -1,14 +1,14 @@
-// ================================================================
-// CHATBOT TÂM LÝ HỌC ĐƯỜNG + GOOGLE GEMINI AI - HOÀN CHỈNH
-// ================================================================
+// ==============================================================
+// CHATBOT TÂM LÝ HỌC ĐƯỜNG + GEMINI - ĐÃ SỬA LỖI
+// ==============================================================
 
-// ==================== CẤU HÌNH API ====================
+// ==================== CẤU HÌNH ====================
 const CONFIG = {
     GEMINI_API_KEY: "AQ.Ab8RN6L7ofDQqoLXJd8qZXnxoIO4G-Gs98x6qZJQq94Q8DRA-A",
     API_URL: "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent"
 };
 
-// ==================== THÔNG TIN CƠ BẢN ====================
+// ==================== THÔNG TIN ====================
 const INFO = {
     name: "Cô Hường",
     fullName: "Nguyễn Thị Thu Hường",
@@ -19,45 +19,51 @@ const INFO = {
     room: "Phòng tư vấn tâm lý học đường"
 };
 
-// ==================== LỊCH SỬ TRÒ CHUYỆN ====================
 let chatHistory = [];
 
-// ==================== KHO KIẾN THỨC CỐT LÕI ====================
+// ==================== KIẾN THỨC CỐT LÕI ====================
 const KNOWLEDGE_BASE = [
     {
-        keywords: ["liên hệ", "gặp cô", "số điện thoại", "điện thoại", "phòng tư vấn", "thông tin liên hệ", "gọi cô"],
-        answer: `<strong>📞 THÔNG TIN LIÊN HỆ TƯ VẤN</strong><br><br>
-            👩‍🏫 <strong>Tên:</strong> ${INFO.fullName}<br>
-            💼 <strong>Chức vụ:</strong> ${INFO.role}<br>
-            🏫 <strong>Trường:</strong> ${INFO.school}<br>
-            📍 <strong>Nơi:</strong> ${INFO.room}<br>
-            🕐 <strong>Thời gian:</strong> ${INFO.contactTime}<br>
-            ☎️ <strong>Điện thoại:</strong> ${INFO.phone}<br><br>
-            Em cứ đến hoặc gọi bất kỳ lúc nào nhé, cô luôn sẵn sàng lắng nghe em 💜`
+        keywords: ["liên hệ", "gặp cô", "số điện thoại", "điện thoại", "phòng tư vấn"],
+        answer: `<strong>📞 THÔNG TIN LIÊN HỆ</strong><br><br>
+            👩‍🏫 ${INFO.fullName}<br>
+            💼 ${INFO.role}<br>
+            🏫 ${INFO.school}<br>
+            📍 ${INFO.room}<br>
+            🕐 ${INFO.contactTime}<br>
+            ☎️ ${INFO.phone}<br><br>
+            Em cứ đến hoặc gọi nhé, cô luôn sẵn sàng lắng nghe em 💜`
     },
     {
-        keywords: ["tự tử", "không muốn sống", "muốn chết", "tổn thương bản thân", "nguy hiểm", "mệt quá", "không ai quan tâm"],
-        answer: `💜 Cô rất quan tâm đến em. Đừng ở một mình nhé!<br>
-            Hãy tìm ngay người lớn em tin tưởng hoặc gọi cô: <strong>${INFO.phone}</strong><br>
-            Em rất đáng được yêu thương và giúp đỡ, đừng từ bỏ mình! 💜`
+        keywords: ["có thai", "mang thai", "đã có thai"],
+        answer: `💜 Cô rất quan tâm đến em. Đây là chuyện rất nghiêm túc, đừng một mình nhé!<br><br>
+            📞 Gọi ngay: <strong>${INFO.phone}</strong><br>
+            Hoặc nói với bố mẹ/người thân em tin tưởng nhất.<br><br>
+            Em không có lỗi và không một mình. Hãy nói với người lớn ngay nhé 💜`
+    },
+    {
+        keywords: ["quá giới hạn", "vượt quá giới hạn", "đi quá nhanh", "quan hệ vượt mức"],
+        answer: `Cô lắng nghe em rất kỹ 💜<br><br>
+        Khi mối quan hệ đi quá nhanh hoặc vượt giới hạn, em có quyền nói "dừng" bất cứ lúc nào.<br>
+        ✅ Không ai có thể ép em làm điều em không muốn<br>
+        ✅ Em có quyền đặt ranh giới<br>
+        ✅ Em không một mình, cô luôn ở đây<br><br>
+        Em có cảm thấy áp lực hoặc không muốn điều đó không? Kể thêm cho cô nghe nhé 💜`
     }
 ];
 
-// ==================== HƯỚNG DẪN HÀNH VI CHO AI ====================
+// ==================== HƯỚNG DẪN AI ====================
 const SYSTEM_PROMPT = `
 Bạn là Cô Hường, giáo viên tư vấn tâm lý học đường tại ${INFO.school}.
-✅ Nguyên tắc trả lời:
 - Gọi học sinh là "em", xưng "cô"
-- Ngôn ngữ ấm áp, gần gũi, không giáo điều, không phán xét
-- Xác nhận cảm xúc trước khi đưa ra lời khuyên
-- Dùng biểu tượng cảm xúc nhẹ nhàng 💜 🌸 💛
-- Khi gặp vấn đề nghiêm trọng: hướng dẫn liên hệ: ${INFO.phone}
-- Không đưa ra chẩn đoán y khoa, không khẳng định bệnh lý
-- Nhấn mạnh: chia sẻ không phải yếu đuối, không chịu đựng một mình
-- Thông tin liên hệ: ${INFO.fullName} - ${INFO.phone} - ${INFO.room}
+- Ngôn ngữ ấm áp, gần gũi, không phán xét
+- Lắng nghe kỹ, trả lời đúng nội dung em chia sẻ
+- Xác nhận cảm xúc trước khi khuyên
+- Khi có nguy hiểm/hỗ trợ khẩn cấp: hướng dẫn gọi ${INFO.phone}
+- Không đưa ra chẩn đoán y khoa
+- Thông tin liên hệ: ${INFO.fullName} - ${INFO.phone}
 `;
 
-// ==================== CHUẨN HÓA VĂN BẢN ====================
 function normalizeText(text) {
     return String(text || "")
         .toLowerCase()
@@ -68,9 +74,8 @@ function normalizeText(text) {
         .trim();
 }
 
-// ==================== KIỂM TRA KHO KIẾN THỨC CỐT LÕI ====================
-function checkLocalKnowledge(userInput) {
-    const norm = normalizeText(userInput);
+function checkLocalKnowledge(input) {
+    const norm = normalizeText(input);
     for (const item of KNOWLEDGE_BASE) {
         if (item.keywords.some(kw => norm.includes(normalizeText(kw)))) {
             return item.answer;
@@ -79,133 +84,89 @@ function checkLocalKnowledge(userInput) {
     return null;
 }
 
-// ==================== GỌI GOOGLE GEMINI ====================
-async function callGemini(userInput) {
-    if (!CONFIG.GEMINI_API_KEY || CONFIG.GEMINI_API_KEY === "") {
-        return "⚠️ Chưa có khóa API. Hãy điền khóa GEMINI_API_KEY trong file app.js nhé 💜";
+async function callGemini(input) {
+    if (!CONFIG.GEMINI_API_KEY || CONFIG.GEMINI_API_KEY.length < 10) {
+        return "⚠️ Chưa có khóa API hợp lệ. Kiểm tra lại dòng GEMINI_API_KEY nhé 💜";
     }
 
     try {
         const messages = [
             { role: "user", parts: [{ text: SYSTEM_PROMPT }] },
-            ...chatHistory.map(msg => [
-                { role: "user", parts: [{ text: msg.user }] },
-                { role: "model", parts: [{ text: msg.assistant }] }
-            ]).flat(),
-            { role: "user", parts: [{ text: userInput }] }
+            ...chatHistory.flatMap(m => [
+                { role: "user", parts: [{ text: m.user }] },
+                { role: "model", parts: [{ text: m.assistant }] }
+            ]),
+            { role: "user", parts: [{ text: input }] }
         ];
 
-        const response = await fetch(`${CONFIG.API_URL}?key=${CONFIG.GEMINI_API_KEY}`, {
+        const res = await fetch(`${CONFIG.API_URL}?key=${CONFIG.GEMINI_API_KEY}`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
                 contents: messages,
-                generationConfig: {
-                    temperature: 0.7,
-                    maxOutputTokens: 800
-                }
+                generationConfig: { temperature: 0.7, maxOutputTokens: 600 }
             })
         });
 
-        const data = await response.json();
-        if (data.candidates && data.candidates[0]?.content?.parts?.[0]?.text) {
+        const data = await res.json();
+        if (data?.candidates?.[0]?.content?.parts?.[0]?.text) {
             return data.candidates[0].content.parts[0].text;
         }
         return "Cô vẫn lắng nghe em 💜 Em có thể nói lại một chút được không?";
-    } catch (error) {
-        console.error("Lỗi gọi AI:", error);
+    } catch (err) {
+        console.error("Lỗi gọi AI:", err);
         return "Cô vẫn ở đây với em 💜 Hãy nói tiếp chuyện của em nhé.";
     }
 }
 
-// ==================== CHỦ TRÌNH TRẢ LỜI ====================
-async function getResponse(userInput) {
-    const localReply = checkLocalKnowledge(userInput);
-    if (localReply) return localReply;
-    return await callGemini(userInput);
+async function getResponse(input) {
+    const local = checkLocalKnowledge(input);
+    if (local) return local;
+    return await callGemini(input);
 }
 
-// ==================== HIỂN THỊ TIN NHẮN ====================
 function addMessage(text, isUser = false) {
-    const chatMessages = document.getElementById("chatMessages");
-    if (!chatMessages) return;
-
+    const box = document.getElementById("chatMessages");
+    if (!box) return;
     const div = document.createElement("div");
     div.className = `message ${isUser ? "user-message" : "bot-message"}`;
-    
     const avatar = isUser
         ? `<div class="avatar user-avatar"></div>`
-        : `<div class="avatar bot-avatar">
-            <img src="avatar_co_huong.jpg" alt="Cô Hường" style="width:40px;height:40px;border-radius:50%;object-fit:cover;">
-           </div>`;
-
-    div.innerHTML = `
-        ${avatar}
-        <div class="bubble">${text.replace(/\n/g, "<br>")}</div>
-    `;
-    chatMessages.appendChild(div);
-    chatMessages.scrollTop = chatMessages.scrollHeight;
+        : `<div class="avatar bot-avatar"><img src="avatar_co_huong.jpg" alt="Cô Hường" style="width:40px;height:40px;border-radius:50%;"></div>`;
+    div.innerHTML = `${avatar}<div class="bubble">${text.replace(/\n/g, "<br>")}</div>`;
+    box.appendChild(div);
+    box.scrollTop = box.scrollHeight;
 }
 
-// ==================== GỬI TIN NHẮN ====================
 async function sendMessage(text) {
-    if (!text || !text.trim()) return;
-    
+    if (!text?.trim()) return;
     addMessage(text.trim(), true);
-    const input = document.getElementById("messageInput");
-    if (input) input.value = "";
+    document.getElementById("messageInput").value = "";
 
-    const chatMessages = document.getElementById("chatMessages");
-    const typingId = "typing-" + Date.now();
-    if (chatMessages) {
-        const typing = document.createElement("div");
-        typing.id = typingId;
-        typing.className = "message bot-message";
-        typing.innerHTML = `<div class="avatar bot-avatar"><img src="avatar_co_huong.jpg" alt="Đang suy nghĩ" style="width:40px;height:40px;border-radius:50%;"></div><div class="bubble">Đang suy nghĩ... 💭</div>`;
-        chatMessages.appendChild(typing);
-        chatMessages.scrollTop = chatMessages.scrollHeight;
-    }
+    const typing = document.createElement("div");
+    typing.className = "message bot-message";
+    typing.innerHTML = `<div class="avatar bot-avatar"><img src="avatar_co_huong.jpg" style="width:40px;height:40px;border-radius:50%;"></div><div class="bubble">Đang suy nghĩ... 💭</div>`;
+    document.getElementById("chatMessages").appendChild(typing);
 
     const reply = await getResponse(text);
     chatHistory.push({ user: text, assistant: reply });
-    if (chatHistory.length > 10) chatHistory.shift();
-
-    const typing = document.getElementById(typingId);
-    if (typing) typing.remove();
+    if (chatHistory.length > 8) chatHistory.shift();
+    typing.remove();
     addMessage(reply, false);
 }
 
-// ==================== KHỞI TẠO ====================
-document.addEventListener("DOMContentLoaded", function() {
-    console.log("✅ Chatbot + Google Gemini đã sẵn sàng!");
+document.addEventListener("DOMContentLoaded", () => {
+    console.log("✅ Chatbot đã sẵn sàng! Khóa:", CONFIG.GEMINI_API_KEY ? "Đã có" : "Chưa có");
 
     const sendBtn = document.getElementById("sendBtn");
-    const messageInput = document.getElementById("messageInput");
-    const quickReplies = document.getElementById("quickReplies");
+    const input = document.getElementById("messageInput");
+    const replies = document.getElementById("quickReplies");
 
-    if (sendBtn) {
-        sendBtn.addEventListener("click", () => sendMessage(messageInput?.value));
-    }
+    sendBtn?.addEventListener("click", () => sendMessage(input?.value));
+    input?.addEventListener("keydown", e => e.key === "Enter" && (e.preventDefault(), sendMessage(input.value)));
+    replies?.querySelectorAll("button").forEach(btn => 
+        btn.addEventListener("click", () => sendMessage(btn.dataset.message || btn.textContent.trim()))
+    );
 
-    if (messageInput) {
-        messageInput.addEventListener("keydown", e => {
-            if (e.key === "Enter") {
-                e.preventDefault();
-                sendMessage(messageInput.value);
-            }
-        });
-    }
-
-    if (quickReplies) {
-        quickReplies.querySelectorAll("button").forEach(btn => {
-            btn.addEventListener("click", () => {
-                const msg = btn.dataset.message || btn.textContent.trim();
-                sendMessage(msg);
-            });
-        });
-    }
-
-    setTimeout(() => {
-        addMessage(`Chào em! 🌸 Cô Hường rất vui được trò chuyện cùng em!\nNếu em có bất kỳ khó khăn, lo lắng nào trong học tập, bạn bè, gia đình hay cảm xúc, hãy chia sẻ với cô nhé 💜`);
-    }, 300);
+    setTimeout(() => addMessage(`Chào em! 🌸 Cô Hường rất vui được trò chuyện cùng em! Em cứ chia sẻ thật lòng nhé, cô luôn lắng nghe em 💜`), 300);
 });
