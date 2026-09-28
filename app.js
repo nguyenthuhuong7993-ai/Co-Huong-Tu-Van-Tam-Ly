@@ -72,11 +72,7 @@ const KNOWLEDGE = {
             `Chào em 🌸 Cô Hường rất vui được trò chuyện cùng em.
 Em có thể chia sẻ về học tập, bạn bè, gia đình, cảm xúc hoặc bất kỳ điều gì đang băn khoăn.
 Em muốn kể chuyện gì trước? 💜`,
-            `Chào em 💜 Cô đang lắng nghe em đây.
-Em cứ nói tự nhiên nhất nhé, không cần diễn đạt hoàn hảo.
-Hôm nay điều gì khiến em suy nghĩ nhiều nhất?`
-        ]
-    },
+            },
 
     // ============================================================
     // CHỦ ĐỀ 1: NHẬN DIỆN & QUẢN LÝ CẢM XÚC (Câu 1–100)
