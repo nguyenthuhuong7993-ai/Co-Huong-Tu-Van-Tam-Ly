@@ -131,9 +131,9 @@
         <div class="chat-messages" id="chatMessages"></div>
 
         <div class="quick-replies" id="quickReplies">
-            <button class="quick-btn" id="q1">Tôi muốn được tư vấn</button>
-            <button class="quick-btn" id="q2">Tôi đang gặp khó khăn</button>
-            <button class="quick-btn" id="q3">Tôi muốn tâm sự</button>
+            <button class="quick-btn" id="qBtn1">Tôi muốn được tư vấn</button>
+            <button class="quick-btn" id="qBtn2">Tôi đang gặp khó khăn</button>
+            <button class="quick-btn" id="qBtn3">Tôi muốn tâm sự</button>
         </div>
 
         <div class="input-area">
@@ -147,62 +147,65 @@
     </div>
 
     <script>
+        // ===== THÔNG TIN =====
         const INFO = {
             phone: "0989836893",
             fullName: "Nguyễn Thị Thu Hường",
             role: "Giáo viên tư vấn tâm lý học đường",
             school: "Trường THCS Phụng Công",
-            contactTime: "7h00 – 22h00",
+            time: "7h00 – 22h00",
             room: "Phòng tư vấn tâm lý học đường"
         };
 
-        function normalizeText(text) {
-            return String(text || "").toLowerCase()
+        // ===== XỬ LÝ VĂN BẢN =====
+        function normText(txt) {
+            return String(txt || "").toLowerCase()
                 .normalize("NFD").replace(/[\u0300-\u036f]/g, "")
                 .replace(/đ/g, "d").replace(/[.,!?;:()[\]{}"'`]/g, " ")
                 .replace(/\s+/g, " ").trim();
         }
 
-        const KNOWLEDGE = {
+        // ===== DỮ LIỆU TRẢ LỜI =====
+        const DB = {
             chao: {
                 keys: ["chao", "xin chao", "co oi", "hello", "hi"],
                 res: ["Chào em! 🌸 Cô Hường rất vui được trò chuyện cùng em!<br>Nếu em có khó khăn, lo lắng, hãy chia sẻ nhé 💜"]
             },
-            tu_van: {
+            tuvan: {
                 keys: ["tu van", "muon duoc tu van", "can ho tro", "chia se", "tam su", "gap kho khan", "kho khan"],
                 res: [
                     "Cô luôn sẵn sàng lắng nghe em 💜 Em muốn nói về chuyện gì vậy?",
                     "Cô đang lắng nghe em 🌱 Hãy cứ tự nhiên chia sẻ những điều em nghĩ nhé!"
                 ]
             },
-            hoc_tap: {
+            hoctap: {
                 keys: ["hoc tap", "diem", "thi", "ap luc", "hoc khong vao", "bo me ky vong"],
                 res: [
                     "Điểm số không phải là tất cả giá trị của em 💜 Em có thể chia sẻ cụ thể hơn không?",
                     "Mỗi người có tốc độ học khác nhau 💛 Em gặp khó khăn ở đâu?"
                 ]
             },
-            ban_be: {
+            banbe: {
                 keys: ["ban be", "cai nhau", "bi bo roi", "bi bat nat", "che gieu", "co lap"],
                 res: [
                     "Tình bạn đẹp là khi em được tôn trọng 💜 Em có đang gặp chuyện gì với bạn bè?",
                     "Bị cô lập hay bắt nạt KHÔNG PHẢI LỖI CỦA EM ⚠️ Hãy nói với người lớn em tin tưởng hoặc gọi: " + INFO.phone
                 ]
             },
-            gia_dinh: {
+            giadinh: {
                 keys: ["gia dinh", "cha me", "bo me", "cai nhau", "khong hieu", "so sanh"],
                 res: [
                     "Muốn có ý kiến riêng là hoàn toàn bình thường 💜 Em thử nói: 'Con cảm thấy...' thay vì đối đầu nhé!",
                     "Khác biệt thế hệ tạo khoảng cách, nhưng hiểu nhau sẽ thu hẹp lại 💛"
                 ]
             },
-            lien_he: {
+            lienhe: {
                 keys: ["lien he", "so dien thoai", "sdt", "co o dau"],
                 res: [
-                    "<strong>📞 THÔNG TIN LIÊN HỆ</strong><br><br>👩‍🏫 " + INFO.fullName + "<br>💼 " + INFO.role + "<br>🏫 " + INFO.school + "<br>📍 " + INFO.room + "<br>🕐 " + INFO.contactTime + "<br>☎️ " + INFO.phone
+                    "<strong>📞 THÔNG TIN LIÊN HỆ</strong><br><br>👩‍🏫 " + INFO.fullName + "<br>💼 " + INFO.role + "<br>🏫 " + INFO.school + "<br>📍 " + INFO.room + "<br>🕐 " + INFO.time + "<br>☎️ " + INFO.phone
                 ]
             },
-            an_toan: {
+            antoan: {
                 keys: ["lam hai", "khong muon song", "tu tu", "bi danh", "bi de doa", "nguy hiem"],
                 res: [
                     "<strong>💜 Cô rất quan tâm em!</strong><br>Hãy tìm ngay người lớn đáng tin cậy hoặc gọi: 📞 " + INFO.phone + "<br>Em không đơn độc đâu 💛"
@@ -210,80 +213,110 @@
             }
         };
 
-        function checkSafety(text) {
-            const n = normalizeText(text);
-            const danger = ["lam hai", "khong muon song", "tu tu", "bi danh", "bi de doa", "nguy hiem"];
-            for (let w of danger) if (n.includes(w)) return KNOWLEDGE.an_toan.res[0];
+        // ===== KIỂM TRA AN TOÀN =====
+        function kiemTraAnToan(txt) {
+            const n = normText(txt);
+            const nguyHiem = ["lam hai", "khong muon song", "tu tu", "bi danh", "bi de doa", "nguy hiem"];
+            for (let w of nguyHiem) {
+                if (n.includes(w)) return DB.antoan.res[0];
+            }
             return null;
         }
 
-        function getReply(text) {
-            if (!text.trim()) return "Em hãy nhập điều muốn chia sẻ nhé 💜";
-            const safe = checkSafety(text);
-            if (safe) return safe;
+        // ===== LẤY CÂU TRẢ LỜI =====
+        function layTraLoi(txt) {
+            if (!txt.trim()) return "Em hãy nhập điều muốn chia sẻ nhé 💜";
+            const anToan = kiemTraAnToan(txt);
+            if (anToan) return anToan;
             
-            const n = normalizeText(text);
-            for (let t in KNOWLEDGE) {
-                for (let k of KNOWLEDGE[t].keys) {
-                    if (n.includes(normalizeText(k))) {
-                        const arr = KNOWLEDGE[t].res;
-                        return arr[Math.floor(Math.random() * arr.length)];
+            const n = normText(txt);
+            for (let chuDe in DB) {
+                for (let tuKhoa of DB[chuDe].keys) {
+                    if (n.includes(normText(tuKhoa))) {
+                        const ds = DB[chuDe].res;
+                        return ds[Math.floor(Math.random() * ds.length)];
                     }
                 }
             }
             return "Cô đang lắng nghe em 💜 Em có thể nói rõ hơn một chút được không?";
         }
 
-        // === KHỞI TẠO ===
-        const input = document.getElementById("messageInput");
-        const sendBtn = document.getElementById("sendBtn");
-        const chat = document.getElementById("chatMessages");
-        const q1 = document.getElementById("q1");
-        const q2 = document.getElementById("q2");
-        const q3 = document.getElementById("q3");
+        // ===== LẤY PHẦN TỬ =====
+        const oNhap = document.getElementById("messageInput");
+        const nutGui = document.getElementById("sendBtn");
+        const khungChat = document.getElementById("chatMessages");
+        const nutGoi1 = document.getElementById("qBtn1");
+        const nutGoi2 = document.getElementById("qBtn2");
+        const nutGoi3 = document.getElementById("qBtn3");
 
-        function addMsg(text, isUser) {
+        // ===== THÊM TIN NHẮN =====
+        function themTinNhan(noiDung, laNguoiDung) {
             const div = document.createElement("div");
-            div.className = "message " + (isUser ? "user-message" : "bot-message");
-            div.innerHTML = '<div class="msg-avatar">' + (isUser ? "👤" : "👩‍🏫") + '</div><div class="msg-content">' + text + '</div>';
-            chat.appendChild(div);
-            chat.scrollTop = chat.scrollHeight;
+            div.className = "message " + (laNguoiDung ? "user-message" : "bot-message");
+            div.innerHTML = 
+                '<div class="msg-avatar">' + (laNguoiDung ? "👤" : "👩‍🏫") + '</div>' +
+                '<div class="msg-content">' + noiDung + '</div>';
+            khungChat.appendChild(div);
+            khungChat.scrollTop = khungChat.scrollHeight;
         }
 
-        function showTyping() {
+        // ===== HIỆU ỨNG ĐANG GÕ =====
+        function hienDangGoi() {
             const div = document.createElement("div");
-            div.id = "typing";
+            div.id = "dangGoi";
             div.className = "message bot-message";
-            div.innerHTML = '<div class="msg-avatar">👩‍🏫</div><div class="msg-content typing-indicator">Đang suy nghĩ... 💭</div>';
-            chat.appendChild(div);
-            chat.scrollTop = chat.scrollHeight;
+            div.innerHTML = 
+                '<div class="msg-avatar">👩‍🏫</div>' +
+                '<div class="msg-content typing-indicator">Đang suy nghĩ... 💭</div>';
+            khungChat.appendChild(div);
+            khungChat.scrollTop = khungChat.scrollHeight;
         }
-        function hideTyping() {
-            const el = document.getElementById("typing");
+        function anDangGoi() {
+            const el = document.getElementById("dangGoi");
             if (el) el.remove();
         }
 
-        function doSend(text) {
-            const t = text.trim();
-            if (!t) return;
-            addMsg(t, true);
-            input.value = "";
-            showTyping();
+        // ===== CHỨC NĂNG GỬI TIN NHẮN =====
+        function guiTin(noiDung) {
+            const sach = noiDung.trim();
+            if (!sach) return;
+            
+            // Hiện tin nhắn em
+            themTinNhan(sach, true);
+            oNhap.value = "";
+            
+            // Hiện trạng thái cô đang suy nghĩ
+            hienDangGoi();
+            
+            // Trả lời sau 0.7 giây
             setTimeout(function() {
-                hideTyping();
-                addMsg(getReply(t), false);
+                anDangGoi();
+                const traLoi = layTraLoi(sach);
+                themTinNhan(traLoi, false);
             }, 700);
         }
 
-        // === GẮN SỰ KIỆN - HOẠT ĐỘNG 100% ===
-        sendBtn.onclick = function() { doSend(input.value); };
-        input.onkeydown = function(e) { if (e.key === "Enter") { e.preventDefault(); doSend(input.value); }};
-        q1.onclick = function() { doSend("Tôi muốn được tư vấn"); };
-        q2.onclick = function() { doSend("Tôi đang gặp khó khăn"); };
-        q3.onclick = function() { doSend("Tôi muốn tâm sự"); };
+        // === GẮN SỰ KIỆN — HOẠT ĐỘNG 100% ===
+        // Nút mũi tên tím
+        nutGui.onclick = function() {
+            guiTin(oNhap.value);
+        };
 
-        // === LỜI CHÀO ĐẦU ===
-        addMsg("<strong>Chào em! 🌸</strong><br><br>Cô Hường rất vui được trò chuyện cùng em!<br>Nếu em có bất kỳ khó khăn, lo lắng trong học tập, bạn bè, gia đình hay cảm xúc, hãy chia sẻ với cô nhé 💜");
+        // Nhấn Enter để gửi
+        oNhap.onkeydown = function(e) {
+            if (e.key === "Enter") {
+                e.preventDefault();
+                guiTin(oNhap.value);
+            }
+        };
+
+        // Nút gợi ý
+        nutGoi1.onclick = function() { guiTin("Tôi muốn được tư vấn"); };
+        nutGoi2.onclick = function() { guiTin("Tôi đang gặp khó khăn"); };
+        nutGoi3.onclick = function() { guiTin("Tôi muốn tâm sự"); };
+
+        // === LỜI CHÀO MỞ ĐẦU ===
+        themTinNhan("<strong>Chào em! 🌸</strong><br><br>Cô Hường rất vui được trò chuyện cùng em!<br>Nếu em có bất kỳ khó khăn, lo lắng trong học tập, bạn bè, gia đình hay cảm xúc, hãy chia sẻ với cô nhé 💜", false);
     </script>
 </body>
 </html>
