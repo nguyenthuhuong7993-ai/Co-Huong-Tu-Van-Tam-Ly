@@ -17,7 +17,6 @@
             display: flex; flex-direction: column; overflow: hidden;
         }
 
-        /* ===== HEADER ===== */
         .chat-header {
             background: linear-gradient(90deg, #6366f1, #7c3aed);
             color: white;
@@ -41,13 +40,8 @@
             border-radius: 12px;
             display: flex; align-items: center; gap: 5px;
         }
-        .status-dot {
-            width: 7px; height: 7px;
-            background: #86efac;
-            border-radius: 50%;
-        }
+        .status-dot { width: 7px; height: 7px; background: #86efac; border-radius: 50%; }
 
-        /* ===== KHU VỰC TIN NHẮN ===== */
         .chat-messages {
             flex: 1;
             padding: 20px;
@@ -77,76 +71,52 @@
             font-size: 14.5px;
         }
         .bot-message .msg-content {
-            background: white;
-            border: 1px solid #e6e7f9;
-            border-radius: 18px 18px 18px 6px;
-            color: #1f2937;
+            background: white; border: 1px solid #e6e7f9;
+            border-radius: 18px 18px 18px 6px; color: #1f2937;
         }
         .user-message .msg-content {
-            background: #6366f1;
-            color: white;
+            background: #6366f1; color: white;
             border-radius: 18px 18px 6px 18px;
         }
         .typing-indicator { color: #9ca3af; font-size: 13px; }
 
-        /* ===== NÚT GỢI Ý NHANH ===== */
         .quick-replies {
             display: flex; flex-wrap: wrap; gap: 8px;
             padding: 12px 20px;
-            background: white;
-            border-top: 1px solid #f0f0f7;
+            background: white; border-top: 1px solid #f0f0f7;
         }
         .quick-btn {
-            padding: 9px 14px;
-            background: #f3f4f6;
-            border: none; border-radius: 20px;
-            font-size: 13px;
-            cursor: pointer;
-            transition: all 0.2s;
-            color: #374151;
+            padding: 9px 14px; background: #f3f4f6;
+            border: none; border-radius: 20px; font-size: 13px;
+            cursor: pointer; transition: all 0.2s; color: #374151;
         }
         .quick-btn:hover { background: #e5e7eb; }
 
-        /* ===== Ô NHẬP & NÚT GỬI ===== */
         .input-area {
-            display: flex; gap: 10px;
-            padding: 16px 20px;
-            background: white;
-            border-top: 1px solid #f0f0f7;
+            display: flex; gap: 10px; padding: 16px 20px;
+            background: white; border-top: 1px solid #f0f0f7;
         }
         .input-box {
-            flex: 1;
-            padding: 12px 18px;
-            border: 1px solid #e5e7eb;
-            border-radius: 24px;
-            outline: none;
-            font-size: 14.5px;
-            transition: border-color 0.2s;
+            flex: 1; padding: 12px 18px;
+            border: 1px solid #e5e7eb; border-radius: 24px;
+            outline: none; font-size: 14.5px;
         }
         .input-box:focus { border-color: #6366f1; }
         .send-btn {
-            width: 42px; height: 42px;
-            border-radius: 50%;
-            background: #6366f1;
-            color: white;
-            border: none;
-            cursor: pointer;
-            font-size: 16px;
-            transition: background 0.2s;
+            width: 42px; height: 42px; border-radius: 50%;
+            background: #6366f1; color: white; border: none;
+            cursor: pointer; font-size: 16px;
         }
         .send-btn:hover { background: #4f46e5; }
 
         .footer-text {
-            text-align: center;
-            padding: 8px;
-            font-size: 11px;
-            color: #9ca3af;
+            text-align: center; padding: 8px;
+            font-size: 11px; color: #9ca3af;
         }
     </style>
 </head>
 <body>
     <div class="chat-container">
-        <!-- HEADER -->
         <div class="chat-header">
             <div class="header-avatar">👩‍🏫</div>
             <div class="header-info">
@@ -154,22 +124,18 @@
                 <div class="header-role">Giáo viên Tư vấn Tâm lý Học đường</div>
             </div>
             <div class="status-badge">
-                <span class="status-dot"></span>
-                Trực tuyến
+                <span class="status-dot"></span>Trực tuyến
             </div>
         </div>
 
-        <!-- KHU VỰC TIN NHẮN -->
         <div class="chat-messages" id="chatMessages"></div>
 
-        <!-- NÚT GỢI Ý NHANH -->
         <div class="quick-replies" id="quickReplies">
-            <button class="quick-btn" data-text="Tôi muốn được tư vấn">Tôi muốn được tư vấn</button>
-            <button class="quick-btn" data-text="Tôi đang gặp khó khăn">Tôi đang gặp khó khăn</button>
-            <button class="quick-btn" data-text="Tôi muốn tâm sự">Tôi muốn tâm sự</button>
+            <button class="quick-btn" id="q1">Tôi muốn được tư vấn</button>
+            <button class="quick-btn" id="q2">Tôi đang gặp khó khăn</button>
+            <button class="quick-btn" id="q3">Tôi muốn tâm sự</button>
         </div>
 
-        <!-- Ô NHẬP & NÚT GỬI -->
         <div class="input-area">
             <input type="text" class="input-box" id="messageInput" placeholder="Nhập câu hỏi của em...">
             <button class="send-btn" id="sendBtn">
@@ -181,239 +147,143 @@
     </div>
 
     <script>
-        // ================= THÔNG TIN LIÊN HỆ =================
         const INFO = {
-            name: "Cô Hường",
+            phone: "0989836893",
             fullName: "Nguyễn Thị Thu Hường",
             role: "Giáo viên tư vấn tâm lý học đường",
             school: "Trường THCS Phụng Công",
-            phone: "0989836893",
             contactTime: "7h00 – 22h00",
             room: "Phòng tư vấn tâm lý học đường"
         };
 
-        // ================= CHUẨN HÓA VĂN BẢN =================
         function normalizeText(text) {
-            return String(text || "")
-                .toLowerCase()
-                .normalize("NFD")
-                .replace(/[\u0300-\u036f]/g, "")
-                .replace(/đ/g, "d")
-                .replace(/[.,!?;:()[\]{}"'`]/g, " ")
-                .replace(/\s+/g, " ")
-                .trim();
+            return String(text || "").toLowerCase()
+                .normalize("NFD").replace(/[\u0300-\u036f]/g, "")
+                .replace(/đ/g, "d").replace(/[.,!?;:()[\]{}"'`]/g, " ")
+                .replace(/\s+/g, " ").trim();
         }
 
-        // ================= KHO KIẾN THỨC =================
         const KNOWLEDGE = {
-            chao_hoi: {
-                priority: 20,
-                keywords: ["chao", "xin chao", "co oi", "em chao co", "bat dau", "hello", "hi"],
-                responses: [
-                    "Chào em! 🌸 Cô Hường rất vui được trò chuyện cùng em!<br>Em có thể chia sẻ về bất kỳ điều gì đang băn khoăn nhé 💜",
-                    "Chào em! 💜 Cô luôn ở đây lắng nghe em. Em cứ nói thật lòng những điều mình nghĩ nhé!"
-                ]
+            chao: {
+                keys: ["chao", "xin chao", "co oi", "hello", "hi"],
+                res: ["Chào em! 🌸 Cô Hường rất vui được trò chuyện cùng em!<br>Nếu em có khó khăn, lo lắng, hãy chia sẻ nhé 💜"]
             },
-            tu_van_tong_quat: {
-                priority: 90,
-                keywords: ["tu van", "muon duoc tu van", "can ho tro", "co giup em", "gap kho khan", "kho khan", "tam su", "chia se"],
-                responses: [
-                    "Cô rất sẵn lòng lắng nghe em 💜 Em có thể kể rõ hơn về chuyện đang xảy ra không? Em cứ nói tự nhiên nhất nhé!",
-                    "Cô đang lắng nghe em 🌱 Em muốn chia sẻ về điều gì: cảm xúc, học tập, bạn bè, gia đình hay chuyện khác? Kể cho cô nghe nhé!"
-                ]
-            },
-            cam_xuc: {
-                priority: 85,
-                keywords: ["buon", "met", "lo lang", "so", "tuc gian", "khong vui", "co don", "cam xuc"],
-                responses: [
-                    "Những cảm xúc như buồn, mệt, lo lắng đều rất bình thường 💜 Khóc cũng không phải yếu đuối đâu.<br>Em có thể nói rõ hơn em đang cảm thấy như thế nào không?",
-                    "Cảm xúc của em luôn đáng được lắng nghe 💛 Viết ra giấy những điều em nghĩ sẽ giúp nhẹ lòng hơn. Em đang buồn/lo về chuyện gì?"
+            tu_van: {
+                keys: ["tu van", "muon duoc tu van", "can ho tro", "chia se", "tam su", "gap kho khan", "kho khan"],
+                res: [
+                    "Cô luôn sẵn sàng lắng nghe em 💜 Em muốn nói về chuyện gì vậy?",
+                    "Cô đang lắng nghe em 🌱 Hãy cứ tự nhiên chia sẻ những điều em nghĩ nhé!"
                 ]
             },
             hoc_tap: {
-                priority: 85,
-                keywords: ["hoc tap", "diem", "thi", "ap luc", "so thi", "hoc khong vao", "bo me ky vong", "so sanh", "kho mon"],
-                responses: [
-                    "Điểm số quan trọng nhưng không phải là tất cả giá trị của em 📚<br>✅ Học 45 phút nghỉ 5–10 phút<br>✅ Chia nhỏ bài thành từng phần<br>✅ Nói với gia đình: 'Con cố gắng hết sức mình'<br>Em đang áp lực từ đâu nhiều nhất?",
-                    "Mỗi người có tốc độ học khác nhau 💜 Không cần chạy đua với ai. Em gặp khó khăn ở môn nào hoặc chuyện nào?"
+                keys: ["hoc tap", "diem", "thi", "ap luc", "hoc khong vao", "bo me ky vong"],
+                res: [
+                    "Điểm số không phải là tất cả giá trị của em 💜 Em có thể chia sẻ cụ thể hơn không?",
+                    "Mỗi người có tốc độ học khác nhau 💛 Em gặp khó khăn ở đâu?"
                 ]
             },
             ban_be: {
-                priority: 85,
-                keywords: ["ban be", "tinh ban", "cai nhau", "bi bo roi", "bi bat nat", "che gieu", "co lap", "noi xau", "bao luc"],
-                responses: [
-                    "Tình bạn đẹp là khi em cảm thấy thoải mái, được tôn trọng 💜<br>Nếu bạn khiến em mệt mỏi hoặc sợ hãi → đó không phải tình bạn lành mạnh. Em đang gặp chuyện gì với bạn bè?",
-                    "Bị cô lập, chế giễu, bắt nạt KHÔNG PHẢI LỖI CỦA EM ⚠️ Hãy nói ngay với người lớn em tin tưởng: bố mẹ, giáo viên hoặc cô.<br>📞 " + INFO.phone + "<br>Em có đang trải qua điều này không?"
+                keys: ["ban be", "cai nhau", "bi bo roi", "bi bat nat", "che gieu", "co lap"],
+                res: [
+                    "Tình bạn đẹp là khi em được tôn trọng 💜 Em có đang gặp chuyện gì với bạn bè?",
+                    "Bị cô lập hay bắt nạt KHÔNG PHẢI LỖI CỦA EM ⚠️ Hãy nói với người lớn em tin tưởng hoặc gọi: " + INFO.phone
                 ]
             },
             gia_dinh: {
-                priority: 80,
-                keywords: ["gia dinh", "cha me", "bo me", "cai nhau", "khong hieu", "so sanh", "kiem soat", "nghiem khac"],
-                responses: [
-                    "Muốn độc lập và có ý kiến riêng ở tuổi em là hoàn toàn bình thường 💜<br>✅ Nói: 'Con cảm thấy...' thay vì đối đầu<br>✅ Viết thư nếu khó nói trực tiếp<br>✅ Bố mẹ yêu em theo cách của họ, dù đôi khi không đúng cách<br>Em có dám chia sẻ với bố mẹ không?",
-                    "Khác biệt thế hệ tạo khoảng cách, nhưng hiểu nhau sẽ thu hẹp lại 💛 Em muốn cô hướng dẫn cách nói chuyện với bố mẹ không?"
+                keys: ["gia dinh", "cha me", "bo me", "cai nhau", "khong hieu", "so sanh"],
+                res: [
+                    "Muốn có ý kiến riêng là hoàn toàn bình thường 💜 Em thử nói: 'Con cảm thấy...' thay vì đối đầu nhé!",
+                    "Khác biệt thế hệ tạo khoảng cách, nhưng hiểu nhau sẽ thu hẹp lại 💛"
                 ]
             },
             lien_he: {
-                priority: 100,
-                keywords: ["lien he", "so dien thoai", "gap co", "phong tu van", "sdt", "co o dau"],
-                responses: [
-                    "<strong>📞 THÔNG TIN LIÊN HỆ</strong><br><br>👩‍🏫 " + INFO.fullName + "<br>💼 " + INFO.role + "<br>🏫 " + INFO.school + "<br>📍 " + INFO.room + "<br>🕐 " + INFO.contactTime + "<br>☎️ " + INFO.phone + "<br><br>Em cứ đến hoặc gọi nhé, cô luôn sẵn sàng 💜"
+                keys: ["lien he", "so dien thoai", "sdt", "co o dau"],
+                res: [
+                    "<strong>📞 THÔNG TIN LIÊN HỆ</strong><br><br>👩‍🏫 " + INFO.fullName + "<br>💼 " + INFO.role + "<br>🏫 " + INFO.school + "<br>📍 " + INFO.room + "<br>🕐 " + INFO.contactTime + "<br>☎️ " + INFO.phone
                 ]
             },
             an_toan: {
-                priority: 150,
-                keywords: ["muon lam hai", "khong muon song", "dang bi danh", "bi de doa", "bi xam hai", "can cuu", "nguy hiem"],
-                responses: [
-                    "<strong>💜 Ưu tiên an toàn của em!</strong><br><br>Nếu em đang gặp nguy hiểm hoặc có ý nghĩ làm đau bản thân, hãy tìm ngay người lớn đáng tin cậy hoặc gọi:<br>📞 <strong>" + INFO.phone + "</strong><br>Em không đơn độc, đừng từ bỏ nhé 💛"
+                keys: ["lam hai", "khong muon song", "tu tu", "bi danh", "bi de doa", "nguy hiem"],
+                res: [
+                    "<strong>💜 Cô rất quan tâm em!</strong><br>Hãy tìm ngay người lớn đáng tin cậy hoặc gọi: 📞 " + INFO.phone + "<br>Em không đơn độc đâu 💛"
                 ]
             }
         };
 
-        // ================= KIỂM TRA AN TOÀN =================
         function checkSafety(text) {
-            const norm = normalizeText(text);
-            const dangerWords = ["lam hai ban than", "khong muon song", "muon tu tu", "dang bi danh", "bi de doa", "bi xam hai"];
-            for (let i = 0; i < dangerWords.length; i++) {
-                if (norm.includes(normalizeText(dangerWords[i]))) {
-                    return "<strong>💜 Ưu tiên an toàn của em!</strong><br><br>Hãy tìm ngay người lớn đáng tin cậy hoặc gọi:<br>📞 <strong>" + INFO.phone + "</strong><br>Em không đơn độc đâu 💛";
-                }
-            }
+            const n = normalizeText(text);
+            const danger = ["lam hai", "khong muon song", "tu tu", "bi danh", "bi de doa", "nguy hiem"];
+            for (let w of danger) if (n.includes(w)) return KNOWLEDGE.an_toan.res[0];
             return null;
         }
 
-        // ================= NHẬN DIỆN CHỦ ĐỀ =================
-        function detectTopic(text) {
-            const norm = normalizeText(text);
-            let best = null;
-            let maxScore = 0;
-            for (const name in KNOWLEDGE) {
-                if (KNOWLEDGE.hasOwnProperty(name)) {
-                    const topic = KNOWLEDGE[name];
-                    let score = 0;
-                    for (let i = 0; i < topic.keywords.length; i++) {
-                        const nkw = normalizeText(topic.keywords[i]);
-                        if (norm.includes(nkw)) {
-                            score += nkw.length * 2;
-                        }
-                    }
-                    if (score > 0) {
-                        score += topic.priority;
-                        if (score > maxScore) {
-                            maxScore = score;
-                            best = name;
-                        }
+        function getReply(text) {
+            if (!text.trim()) return "Em hãy nhập điều muốn chia sẻ nhé 💜";
+            const safe = checkSafety(text);
+            if (safe) return safe;
+            
+            const n = normalizeText(text);
+            for (let t in KNOWLEDGE) {
+                for (let k of KNOWLEDGE[t].keys) {
+                    if (n.includes(normalizeText(k))) {
+                        const arr = KNOWLEDGE[t].res;
+                        return arr[Math.floor(Math.random() * arr.length)];
                     }
                 }
             }
-            return best;
+            return "Cô đang lắng nghe em 💜 Em có thể nói rõ hơn một chút được không?";
         }
 
-        // ================= LẤY CÂU TRẢ LỜI =================
-        function getReply(userText) {
-            if (!userText.trim()) {
-                return "Em hãy nhập điều muốn chia sẻ nhé 💜";
-            }
-            
-            const safety = checkSafety(userText);
-            if (safety) {
-                return safety;
-            }
-
-            const topic = detectTopic(userText);
-            if (topic) {
-                const list = KNOWLEDGE[topic].responses;
-                return list[Math.floor(Math.random() * list.length)];
-            }
-            const fallback = [
-                "Cô đang lắng nghe em 💜 Em có thể nói rõ hơn về điều mình đang nghĩ không?",
-                "Cô chưa hiểu hết nhưng luôn lắng nghe em 🌱 Em thử nói thêm về chuyện đó nhé!"
-            ];
-            return fallback[Math.floor(Math.random() * fallback.length)];
-        }
-
-        // ================= BIẾN TOÀN CỤC =================
-        const messageInput = document.getElementById("messageInput");
+        // === KHỞI TẠO ===
+        const input = document.getElementById("messageInput");
         const sendBtn = document.getElementById("sendBtn");
-        const chatMessages = document.getElementById("chatMessages");
-        const quickReplies = document.getElementById("quickReplies");
+        const chat = document.getElementById("chatMessages");
+        const q1 = document.getElementById("q1");
+        const q2 = document.getElementById("q2");
+        const q3 = document.getElementById("q3");
 
-        // ================= THÊM TIN NHẮN RA MÀN HÌNH =================
-        function addMessage(text, isUser) {
-            if (typeof isUser === "undefined") {
-                isUser = false;
-            }
+        function addMsg(text, isUser) {
             const div = document.createElement("div");
             div.className = "message " + (isUser ? "user-message" : "bot-message");
-            div.innerHTML =
-                '<div class="msg-avatar">' + (isUser ? "👤" : "👩‍🏫") + '</div>' +
-                '<div class="msg-content">' + text + '</div>';
-            chatMessages.appendChild(div);
-            chatMessages.scrollTop = chatMessages.scrollHeight;
+            div.innerHTML = '<div class="msg-avatar">' + (isUser ? "👤" : "👩‍🏫") + '</div><div class="msg-content">' + text + '</div>';
+            chat.appendChild(div);
+            chat.scrollTop = chat.scrollHeight;
         }
 
-        // ================= HIỆU ỨNG ĐANG GÕ =================
         function showTyping() {
             const div = document.createElement("div");
             div.id = "typing";
             div.className = "message bot-message";
-            div.innerHTML =
-                '<div class="msg-avatar">👩‍🏫</div>' +
-                '<div class="msg-content typing-indicator">Đang suy nghĩ... 💭</div>';
-            chatMessages.appendChild(div);
-            chatMessages.scrollTop = chatMessages.scrollHeight;
+            div.innerHTML = '<div class="msg-avatar">👩‍🏫</div><div class="msg-content typing-indicator">Đang suy nghĩ... 💭</div>';
+            chat.appendChild(div);
+            chat.scrollTop = chat.scrollHeight;
         }
         function hideTyping() {
             const el = document.getElementById("typing");
-            if (el) {
-                el.parentNode.removeChild(el);
-            }
+            if (el) el.remove();
         }
 
-        // ================= CHỨC NĂNG GỬI TIN =================
-        function sendMessage(text) {
-            const cleanText = text.trim();
-            if (!cleanText) {
-                return;
-            }
-
-            // Hiện tin nhắn người dùng
-            addMessage(cleanText, true);
-            messageInput.value = "";
-
-            // Hiện trạng thái đang gõ
+        function doSend(text) {
+            const t = text.trim();
+            if (!t) return;
+            addMsg(t, true);
+            input.value = "";
             showTyping();
             setTimeout(function() {
                 hideTyping();
-                const reply = getReply(cleanText);
-                addMessage(reply, false);
+                addMsg(getReply(t), false);
             }, 700);
         }
 
-        // === GẮN SỰ KIỆN - HOẠT ĐỘNG TRÊN MỌI TRÌNH DUYỆT ===
-        // Nút gửi
-        sendBtn.addEventListener("click", function() {
-            sendMessage(messageInput.value);
-        });
+        // === GẮN SỰ KIỆN - HOẠT ĐỘNG 100% ===
+        sendBtn.onclick = function() { doSend(input.value); };
+        input.onkeydown = function(e) { if (e.key === "Enter") { e.preventDefault(); doSend(input.value); }};
+        q1.onclick = function() { doSend("Tôi muốn được tư vấn"); };
+        q2.onclick = function() { doSend("Tôi đang gặp khó khăn"); };
+        q3.onclick = function() { doSend("Tôi muốn tâm sự"); };
 
-        // Nhấn Enter gửi
-        messageInput.addEventListener("keydown", function(e) {
-            if (e.key === "Enter") {
-                e.preventDefault();
-                sendMessage(messageInput.value);
-            }
-        });
-
-        // Nút gợi ý nhanh
-        const quickBtns = quickReplies.querySelectorAll(".quick-btn");
-        for (let i = 0; i < quickBtns.length; i++) {
-            quickBtns[i].addEventListener("click", function() {
-                sendMessage(this.getAttribute("data-text"));
-            });
-        }
-
-        // === LỜI CHÀO MỞ ĐẦU ===
-        addMessage("<strong>Chào em! 🌸</strong><br><br>Cô Hường rất vui được trò chuyện cùng em!<br>Nếu em có bất kỳ khó khăn, lo lắng trong học tập, bạn bè, gia đình hay cảm xúc, hãy chia sẻ với cô nhé 💜");
+        // === LỜI CHÀO ĐẦU ===
+        addMsg("<strong>Chào em! 🌸</strong><br><br>Cô Hường rất vui được trò chuyện cùng em!<br>Nếu em có bất kỳ khó khăn, lo lắng trong học tập, bạn bè, gia đình hay cảm xúc, hãy chia sẻ với cô nhé 💜");
     </script>
 </body>
 </html>
