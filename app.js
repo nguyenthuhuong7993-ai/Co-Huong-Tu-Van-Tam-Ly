@@ -1,322 +1,906 @@
-<!DOCTYPE html>
-<html lang="vi">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cô Hường - Tư vấn Tâm lý Học đường</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Roboto, sans-serif; }
-        body { background: #f0eefc; min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 20px; }
-        
-        .chat-container {
-            width: 100%; max-width: 540px;
-            background: white;
-            border-radius: 16px;
-            box-shadow: 0 4px 20px rgba(99, 102, 241, 0.15);
-            display: flex; flex-direction: column; overflow: hidden;
+// ============================================================
+// CHATBOT CÔ HƯỜNG - TƯ VẤN TÂM LÝ HỌC ĐƯỜNG
+// PHIÊN BẢN HOÀN CHỈNH
+// ============================================================
+
+document.addEventListener("DOMContentLoaded", function () {
+
+    // ========================================================
+    // 1. THÔNG TIN CHATBOT
+    // ========================================================
+
+    const INFO = {
+        fullName: "Nguyễn Thị Thu Hường",
+        role: "Giáo viên tư vấn tâm lý học đường",
+        school: "Trường THCS Phụng Công",
+        room: "Phòng tư vấn tâm lý học đường",
+        time: "7h00 – 22h00",
+        phone: "0989836893"
+    };
+
+
+    // ========================================================
+    // 2. LẤY CÁC PHẦN TỬ TRÊN GIAO DIỆN
+    // ========================================================
+
+    const chatMessages = document.getElementById("chatMessages");
+    const messageInput = document.getElementById("messageInput");
+    const sendBtn = document.getElementById("sendBtn");
+
+    const qBtn1 = document.getElementById("qBtn1");
+    const qBtn2 = document.getElementById("qBtn2");
+    const qBtn3 = document.getElementById("qBtn3");
+
+
+    // ========================================================
+    // 3. KIỂM TRA GIAO DIỆN
+    // ========================================================
+
+    if (!chatMessages || !messageInput || !sendBtn) {
+
+        console.error(
+            "CHATBOT: Không tìm thấy các phần tử cần thiết trên giao diện."
+        );
+
+        return;
+    }
+
+
+    // ========================================================
+    // 4. CHUẨN HÓA VĂN BẢN
+    // ========================================================
+
+    function normalizeText(text) {
+
+        return String(text || "")
+            .toLowerCase()
+            .normalize("NFD")
+            .replace(/[\u0300-\u036f]/g, "")
+            .replace(/đ/g, "d")
+            .replace(/[.,!?;:()[\]{}"'`]/g, " ")
+            .replace(/\s+/g, " ")
+            .trim();
+    }
+
+
+    // ========================================================
+    // 5. NGÂN HÀNG KIẾN THỨC
+    // ========================================================
+
+    const KNOWLEDGE = [
+
+        // ----------------------------------------------------
+        // CHÀO HỎI
+        // ----------------------------------------------------
+
+        {
+            keywords: [
+                "chao",
+                "xin chao",
+                "hello",
+                "hi",
+                "co oi",
+                "em chao co",
+                "chao co"
+            ],
+
+            responses: [
+                "Chào em! 🌸 Cô Hường rất vui được trò chuyện cùng em. Em đang muốn chia sẻ điều gì với cô vậy? 💜",
+
+                "Chào em! 👩‍🏫 Cô đang ở đây và sẵn sàng lắng nghe em. Em cứ chia sẻ thật tự nhiên nhé.",
+
+                "Cô chào em! 🌷 Có chuyện gì khiến em muốn tìm đến cô hôm nay?"
+            ]
+        },
+
+
+        // ----------------------------------------------------
+        // MUỐN TÂM SỰ
+        // ----------------------------------------------------
+
+        {
+            keywords: [
+                "tam su",
+                "muon tam su",
+                "muon noi chuyen",
+                "muon chia se",
+                "chia se",
+                "ke voi co",
+                "noi voi co"
+            ],
+
+            responses: [
+                "Cô đang lắng nghe em 💜 Em cứ kể cho cô từ điều khiến em suy nghĩ nhiều nhất nhé.",
+
+                "Em có thể chia sẻ với cô từng chút một. Không cần phải nói mọi thứ cùng lúc đâu 🌱",
+
+                "Cô ở đây để lắng nghe em. Điều gì đang khiến em cảm thấy khó chịu hoặc buồn nhất?"
+            ]
+        },
+
+
+        // ----------------------------------------------------
+        // CẦN TƯ VẤN
+        // ----------------------------------------------------
+
+        {
+            keywords: [
+                "tu van",
+                "muon duoc tu van",
+                "can tu van",
+                "can ho tro",
+                "giup em",
+                "co the giup em",
+                "gap kho khan"
+            ],
+
+            responses: [
+                "Được chứ em 💜 Cô sẽ cùng em nhìn lại vấn đề một cách bình tĩnh. Em có thể nói cho cô biết chuyện gì đang xảy ra.",
+
+                "Cô sẵn sàng hỗ trợ em 🌷 Em hãy chia sẻ hoàn cảnh của mình, cô sẽ cùng em tìm hướng giải quyết phù hợp.",
+
+                "Em không cần phải tự giải quyết mọi chuyện một mình. Hãy kể cho cô nghe nhé."
+            ]
+        },
+
+
+        // ----------------------------------------------------
+        // HỌC TẬP
+        // ----------------------------------------------------
+
+        {
+            keywords: [
+                "hoc tap",
+                "hoc",
+                "diem",
+                "diem kem",
+                "diem thap",
+                "thi",
+                "kiem tra",
+                "bai tap",
+                "hoc khong vao",
+                "khong hoc duoc",
+                "mat tap trung",
+                "ap luc hoc tap"
+            ],
+
+            responses: [
+                "Nếu việc học đang khiến em áp lực, trước tiên hãy bình tĩnh nhé 💜 Em có thể nói cho cô biết môn học hoặc vấn đề cụ thể khiến em khó khăn.",
+
+                "Điểm số không phải là toàn bộ giá trị của em 🌱 Mỗi người có tốc độ học tập khác nhau. Điều quan trọng là mình tìm được nguyên nhân và cách cải thiện phù hợp.",
+
+                "Nếu em đang cảm thấy quá tải, hãy thử chia việc học thành những mục tiêu nhỏ hơn. Em muốn kể cho cô nghe điều gì đang khiến em áp lực nhất không?"
+            ]
+        },
+
+
+        // ----------------------------------------------------
+        // ÁP LỰC
+        // ----------------------------------------------------
+
+        {
+            keywords: [
+                "ap luc",
+                "cang thang",
+                "stress",
+                "met moi",
+                "qua tai",
+                "lo lang",
+                "lo au",
+                "bat an",
+                "khong thoai mai"
+            ],
+
+            responses: [
+                "Cảm giác áp lực và mệt mỏi có thể xuất hiện khi em phải đối mặt với quá nhiều việc cùng lúc 💜 Em hãy thử dừng lại một chút, hít thở chậm và chia sẻ với cô điều khiến em lo nhất.",
+
+                "Cô hiểu rằng khi có quá nhiều điều phải suy nghĩ, mình rất dễ cảm thấy quá tải. Em không cần giải quyết tất cả cùng một lúc đâu 🌱",
+
+                "Em đang cảm thấy áp lực vì học tập, gia đình, bạn bè hay một chuyện khác? Em có thể nói với cô."
+            ]
+        },
+
+
+        // ----------------------------------------------------
+        // BẠN BÈ
+        // ----------------------------------------------------
+
+        {
+            keywords: [
+                "ban be",
+                "ban",
+                "cai nhau",
+                "mau thuan",
+                "xich mich",
+                "bi bo roi",
+                "bi co lap",
+                "khong co ban",
+                "mat ban"
+            ],
+
+            responses: [
+                "Chuyện với bạn bè đôi khi khiến chúng ta rất buồn 💜 Em có thể kể cho cô biết chuyện gì đã xảy ra không?",
+
+                "Một tình bạn tốt cần có sự tôn trọng và lắng nghe. Em đang gặp vấn đề với một người bạn hay với cả nhóm bạn?",
+
+                "Nếu em cảm thấy bị bỏ rơi hoặc cô lập, em không cần phải chịu đựng một mình. Hãy chia sẻ với cô hoặc một người lớn mà em tin tưởng nhé."
+            ]
+        },
+
+
+        // ----------------------------------------------------
+        // BẮT NẠT
+        // ----------------------------------------------------
+
+        {
+            keywords: [
+                "bat nat",
+                "bi bat nat",
+                "bi danh",
+                "danh em",
+                "che gieu",
+                "nhan xet",
+                "dua",
+                "de doa",
+                "ep buoc",
+                "bi lam phien"
+            ],
+
+            responses: [
+                "Bị bắt nạt không phải là lỗi của em 💜 Em hãy tìm một người lớn đáng tin cậy để chia sẻ và hỗ trợ em.",
+
+                "Nếu có người đánh, đe dọa hoặc ép buộc em, điều quan trọng nhất là đảm bảo an toàn cho mình. Em hãy báo ngay cho cha mẹ, thầy cô hoặc người lớn mà em tin tưởng.",
+
+                "Cô rất quan tâm đến sự an toàn của em. Em có thể kể cụ thể hơn chuyện gì đang xảy ra không?"
+            ]
+        },
+
+
+        // ----------------------------------------------------
+        // GIA ĐÌNH
+        // ----------------------------------------------------
+
+        {
+            keywords: [
+                "gia dinh",
+                "bo me",
+                "cha me",
+                "me",
+                "bo",
+                "ba me",
+                "anh chi",
+                "anh",
+                "chi",
+                "em trai",
+                "em gai"
+            ],
+
+            responses: [
+                "Chuyện gia đình đôi khi rất khó nói 💜 Em có thể chia sẻ với cô điều gì đang khiến em buồn hoặc khó xử?",
+
+                "Khác biệt giữa cha mẹ và con cái đôi khi có thể dẫn đến hiểu lầm. Em hãy kể cho cô nghe điều khiến em cảm thấy khó chịu nhất nhé.",
+
+                "Cảm xúc của em cũng rất quan trọng. Em có quyền được lắng nghe và tôn trọng."
+            ]
+        },
+
+
+        // ----------------------------------------------------
+        // BỊ SO SÁNH
+        // ----------------------------------------------------
+
+        {
+            keywords: [
+                "so sanh",
+                "bi so sanh",
+                "bo me so sanh",
+                "kem ban",
+                "khong bang ban",
+                "thua ban"
+            ],
+
+            responses: [
+                "Mỗi người có điểm mạnh và tốc độ phát triển khác nhau 🌱 Việc bị so sánh có thể khiến em buồn, nhưng điều đó không quyết định giá trị của em.",
+
+                "Em không cần phải trở thành một người khác để có giá trị 💜 Hãy cùng cô tìm xem em đang mạnh ở điều gì và điều gì em muốn cải thiện."
+            ]
+        },
+
+
+        // ----------------------------------------------------
+        // CẢM XÚC BUỒN
+        // ----------------------------------------------------
+
+        {
+            keywords: [
+                "buon",
+                "rat buon",
+                "buon qua",
+                "khoc",
+                "muon khoc",
+                "co don",
+                "co doc",
+                "that vong"
+            ],
+
+            responses: [
+                "Cô nghe thấy em đang có một cảm xúc rất nặng nề 💜 Em không cần phải che giấu cảm xúc của mình. Điều gì đã khiến em buồn như vậy?",
+
+                "Buồn là một cảm xúc bình thường và em có quyền được buồn. Cô ở đây để nghe em chia sẻ 🌷",
+
+                "Nếu em muốn khóc, em có thể cho phép mình khóc. Sau đó chúng ta sẽ từ từ tìm hiểu chuyện gì đang xảy ra nhé."
+            ]
+        },
+
+
+        // ----------------------------------------------------
+        // TỰ TI
+        // ----------------------------------------------------
+
+        {
+            keywords: [
+                "tu ti",
+                "khong tu tin",
+                "kem coi",
+                "vo dung",
+                "khong gioi",
+                "xau",
+                "khong ai thich em"
+            ],
+
+            responses: [
+                "Cô không nghĩ rằng một điểm yếu hay một lần thất bại có thể quyết định giá trị của một con người 💜",
+
+                "Em không cần phải hoàn hảo mới xứng đáng được yêu thương và tôn trọng 🌱",
+
+                "Hãy thử nói với cô một điều mà em từng làm tốt. Có thể đó là một việc rất nhỏ cũng được."
+            ]
+        },
+
+
+        // ----------------------------------------------------
+        // CÔ ĐƠN
+        // ----------------------------------------------------
+
+        {
+            keywords: [
+                "co don",
+                "khong ai hieu",
+                "khong ai quan tam",
+                "khong ai nghe",
+                "khong co ai"
+            ],
+
+            responses: [
+                "Cảm giác cô đơn có thể rất khó chịu 💜 Nhưng em không nhất thiết phải đối mặt với nó một mình. Cô đang ở đây để lắng nghe em.",
+
+                "Em hãy thử nghĩ đến một người mà em cảm thấy an toàn khi nói chuyện: cha mẹ, thầy cô, anh chị hoặc một người bạn đáng tin cậy."
+            ]
+        },
+
+
+        // ----------------------------------------------------
+        // TÌNH CẢM TUỔI HỌC TRÒ
+        // ----------------------------------------------------
+
+        {
+            keywords: [
+                "thich ban",
+                "thich nguoi",
+                "yeu",
+                "tinh cam",
+                "crush",
+                "nguoi yeu",
+                "chia tay",
+                "that tinh"
+            ],
+
+            responses: [
+                "Những cảm xúc rung động ở tuổi học trò là điều rất tự nhiên 🌷 Em có thể chia sẻ với cô mà không cần xấu hổ.",
+
+                "Khi thích một người, mình có thể vui, hồi hộp hoặc lo lắng. Em đang gặp điều gì khiến em khó xử?",
+
+                "Nếu em vừa trải qua chuyện chia tay hoặc thất vọng, hãy cho bản thân thời gian để bình tĩnh và chăm sóc chính mình nhé 💜"
+            ]
+        },
+
+
+        // ----------------------------------------------------
+        // MẤT NGỦ
+        // ----------------------------------------------------
+
+        {
+            keywords: [
+                "mat ngu",
+                "khong ngu",
+                "kho ngu",
+                "ngu khong du",
+                "thuc dem"
+            ],
+
+            responses: [
+                "Nếu gần đây em thường xuyên khó ngủ, em hãy thử duy trì giờ ngủ đều đặn và hạn chế sử dụng điện thoại trước khi ngủ 🌙",
+
+                "Cô muốn biết thêm: em khó ngủ vì học tập, lo lắng, chuyện gia đình hay một nguyên nhân khác?"
+            ]
+        },
+
+
+        // ----------------------------------------------------
+        // LIÊN HỆ CÔ HƯỜNG
+        // ----------------------------------------------------
+
+        {
+            keywords: [
+                "lien he",
+                "so dien thoai",
+                "sdt",
+                "dien thoai",
+                "co o dau",
+                "tim co",
+                "gap co"
+            ],
+
+            responses: [
+                `
+                <strong>📞 THÔNG TIN LIÊN HỆ</strong><br><br>
+                👩‍🏫 ${INFO.fullName}<br>
+                💼 ${INFO.role}<br>
+                🏫 ${INFO.school}<br>
+                📍 ${INFO.room}<br>
+                🕐 ${INFO.time}<br>
+                ☎️ ${INFO.phone}
+                `
+            ]
         }
 
-        .chat-header {
-            background: linear-gradient(90deg, #6366f1, #7c3aed);
-            color: white;
-            padding: 16px 20px;
-            display: flex; align-items: center; gap: 12px;
-        }
-        .header-avatar {
-            width: 40px; height: 40px;
-            background: rgba(255,255,255,0.25);
-            border-radius: 50%;
-            display: flex; align-items: center; justify-content: center;
-            font-size: 18px;
-        }
-        .header-info { flex: 1; }
-        .header-name { font-weight: 600; font-size: 15px; }
-        .header-role { font-size: 12px; opacity: 0.85; margin-top: 2px; }
-        .status-badge {
-            font-size: 12px;
-            background: rgba(255,255,255,0.18);
-            padding: 4px 10px;
-            border-radius: 12px;
-            display: flex; align-items: center; gap: 5px;
-        }
-        .status-dot { width: 7px; height: 7px; background: #86efac; border-radius: 50%; }
+    ];
 
-        .chat-messages {
-            flex: 1;
-            padding: 20px;
-            overflow-y: auto;
-            min-height: 420px;
-            background: #fafbff;
-        }
-        .message {
-            display: flex; gap: 10px; margin-bottom: 20px; align-items: flex-start;
-        }
-        .user-message { flex-direction: row-reverse; }
-        
-        .msg-avatar {
-            width: 36px; height: 36px;
-            border-radius: 50%; flex-shrink: 0;
-            display: flex; align-items: center; justify-content: center;
-            font-size: 16px;
-        }
-        .bot-message .msg-avatar { background: #eef2ff; color: #6366f1; }
-        .user-message .msg-avatar { background: #e5e7eb; color: #4b5563; }
-        
-        .msg-content {
-            padding: 12px 16px;
-            border-radius: 18px;
-            max-width: 76%;
-            line-height: 1.55;
-            font-size: 14.5px;
-        }
-        .bot-message .msg-content {
-            background: white; border: 1px solid #e6e7f9;
-            border-radius: 18px 18px 18px 6px; color: #1f2937;
-        }
-        .user-message .msg-content {
-            background: #6366f1; color: white;
-            border-radius: 18px 18px 6px 18px;
-        }
-        .typing-indicator { color: #9ca3af; font-size: 13px; }
 
-        .quick-replies {
-            display: flex; flex-wrap: wrap; gap: 8px;
-            padding: 12px 20px;
-            background: white; border-top: 1px solid #f0f0f7;
-        }
-        .quick-btn {
-            padding: 9px 14px; background: #f3f4f6;
-            border: none; border-radius: 20px; font-size: 13px;
-            cursor: pointer; transition: all 0.2s; color: #374151;
-        }
-        .quick-btn:hover { background: #e5e7eb; }
+    // ========================================================
+    // 6. CÁC TỪ KHÓA CẦN ƯU TIÊN VỀ AN TOÀN
+    // ========================================================
 
-        .input-area {
-            display: flex; gap: 10px; padding: 16px 20px;
-            background: white; border-top: 1px solid #f0f0f7;
-        }
-        .input-box {
-            flex: 1; padding: 12px 18px;
-            border: 1px solid #e5e7eb; border-radius: 24px;
-            outline: none; font-size: 14.5px;
-        }
-        .input-box:focus { border-color: #6366f1; }
-        .send-btn {
-            width: 42px; height: 42px; border-radius: 50%;
-            background: #6366f1; color: white; border: none;
-            cursor: pointer; font-size: 16px;
-        }
-        .send-btn:hover { background: #4f46e5; }
+    const SAFETY_KEYWORDS = [
 
-        .footer-text {
-            text-align: center; padding: 8px;
-            font-size: 11px; color: #9ca3af;
-        }
-    </style>
-</head>
-<body>
-    <div class="chat-container">
-        <div class="chat-header">
-            <div class="header-avatar">👩‍🏫</div>
-            <div class="header-info">
-                <div class="header-name">Cô Hường</div>
-                <div class="header-role">Giáo viên Tư vấn Tâm lý Học đường</div>
-            </div>
-            <div class="status-badge">
-                <span class="status-dot"></span>Trực tuyến
-            </div>
-        </div>
+        "tu tu",
+        "tu sat",
+        "muon chet",
+        "muon tu tu",
+        "khong muon song",
+        "muon bien mat",
+        "lam hai ban than",
+        "tu lam hai",
+        "lam dau ban than",
+        "bi danh",
+        "bi bao hanh",
+        "bi de doa",
+        "nguy hiem",
+        "co nguoi danh",
+        "co nguoi de doa"
 
-        <div class="chat-messages" id="chatMessages"></div>
+    ];
 
-        <div class="quick-replies" id="quickReplies">
-            <button class="quick-btn" id="qBtn1">Tôi muốn được tư vấn</button>
-            <button class="quick-btn" id="qBtn2">Tôi đang gặp khó khăn</button>
-            <button class="quick-btn" id="qBtn3">Tôi muốn tâm sự</button>
-        </div>
 
-        <div class="input-area">
-            <input type="text" class="input-box" id="messageInput" placeholder="Nhập câu hỏi của em...">
-            <button class="send-btn" id="sendBtn">
-                <i class="fas fa-paper-plane"></i>
-            </button>
-        </div>
+    // ========================================================
+    // 7. KIỂM TRA AN TOÀN
+    // ========================================================
 
-        <div class="footer-text">Chatbot Cô Hường • Luôn lắng nghe em 💜</div>
-    </div>
+    function checkSafety(text) {
 
-    <script>
-        // ===== THÔNG TIN =====
-        const INFO = {
-            phone: "0989836893",
-            fullName: "Nguyễn Thị Thu Hường",
-            role: "Giáo viên tư vấn tâm lý học đường",
-            school: "Trường THCS Phụng Công",
-            time: "7h00 – 22h00",
-            room: "Phòng tư vấn tâm lý học đường"
-        };
+        const normalized = normalizeText(text);
 
-        // ===== XỬ LÝ VĂN BẢN =====
-        function normText(txt) {
-            return String(txt || "").toLowerCase()
-                .normalize("NFD").replace(/[\u0300-\u036f]/g, "")
-                .replace(/đ/g, "d").replace(/[.,!?;:()[\]{}"'`]/g, " ")
-                .replace(/\s+/g, " ").trim();
-        }
+        for (const keyword of SAFETY_KEYWORDS) {
 
-        // ===== DỮ LIỆU TRẢ LỜI =====
-        const DB = {
-            chao: {
-                keys: ["chao", "xin chao", "co oi", "hello", "hi"],
-                res: ["Chào em! 🌸 Cô Hường rất vui được trò chuyện cùng em!<br>Nếu em có khó khăn, lo lắng, hãy chia sẻ nhé 💜"]
-            },
-            tuvan: {
-                keys: ["tu van", "muon duoc tu van", "can ho tro", "chia se", "tam su", "gap kho khan", "kho khan"],
-                res: [
-                    "Cô luôn sẵn sàng lắng nghe em 💜 Em muốn nói về chuyện gì vậy?",
-                    "Cô đang lắng nghe em 🌱 Hãy cứ tự nhiên chia sẻ những điều em nghĩ nhé!"
-                ]
-            },
-            hoctap: {
-                keys: ["hoc tap", "diem", "thi", "ap luc", "hoc khong vao", "bo me ky vong"],
-                res: [
-                    "Điểm số không phải là tất cả giá trị của em 💜 Em có thể chia sẻ cụ thể hơn không?",
-                    "Mỗi người có tốc độ học khác nhau 💛 Em gặp khó khăn ở đâu?"
-                ]
-            },
-            banbe: {
-                keys: ["ban be", "cai nhau", "bi bo roi", "bi bat nat", "che gieu", "co lap"],
-                res: [
-                    "Tình bạn đẹp là khi em được tôn trọng 💜 Em có đang gặp chuyện gì với bạn bè?",
-                    "Bị cô lập hay bắt nạt KHÔNG PHẢI LỖI CỦA EM ⚠️ Hãy nói với người lớn em tin tưởng hoặc gọi: " + INFO.phone
-                ]
-            },
-            giadinh: {
-                keys: ["gia dinh", "cha me", "bo me", "cai nhau", "khong hieu", "so sanh"],
-                res: [
-                    "Muốn có ý kiến riêng là hoàn toàn bình thường 💜 Em thử nói: 'Con cảm thấy...' thay vì đối đầu nhé!",
-                    "Khác biệt thế hệ tạo khoảng cách, nhưng hiểu nhau sẽ thu hẹp lại 💛"
-                ]
-            },
-            lienhe: {
-                keys: ["lien he", "so dien thoai", "sdt", "co o dau"],
-                res: [
-                    "<strong>📞 THÔNG TIN LIÊN HỆ</strong><br><br>👩‍🏫 " + INFO.fullName + "<br>💼 " + INFO.role + "<br>🏫 " + INFO.school + "<br>📍 " + INFO.room + "<br>🕐 " + INFO.time + "<br>☎️ " + INFO.phone
-                ]
-            },
-            antoan: {
-                keys: ["lam hai", "khong muon song", "tu tu", "bi danh", "bi de doa", "nguy hiem"],
-                res: [
-                    "<strong>💜 Cô rất quan tâm em!</strong><br>Hãy tìm ngay người lớn đáng tin cậy hoặc gọi: 📞 " + INFO.phone + "<br>Em không đơn độc đâu 💛"
-                ]
+            if (normalized.includes(normalizeText(keyword))) {
+
+                return `
+                    <strong>💜 Cô rất quan tâm đến sự an toàn của em.</strong>
+                    <br><br>
+                    Nếu em đang gặp nguy hiểm hoặc có ý nghĩ làm hại bản thân,
+                    em hãy tìm ngay một người lớn đáng tin cậy ở bên cạnh mình.
+                    <br><br>
+                    👩‍🏫 Em có thể liên hệ với cô Hường:
+                    <strong>${INFO.phone}</strong>
+                    <br><br>
+                    Nếu có nguy hiểm ngay lập tức, hãy nhờ người lớn đưa em
+                    đến cơ sở y tế hoặc gọi dịch vụ khẩn cấp phù hợp.
+                    <br><br>
+                    <strong>Em không cần phải đối mặt với chuyện này một mình. 💜</strong>
+                `;
             }
-        };
-
-        // ===== KIỂM TRA AN TOÀN =====
-        function kiemTraAnToan(txt) {
-            const n = normText(txt);
-            const nguyHiem = ["lam hai", "khong muon song", "tu tu", "bi danh", "bi de doa", "nguy hiem"];
-            for (let w of nguyHiem) {
-                if (n.includes(w)) return DB.antoan.res[0];
-            }
-            return null;
         }
 
-        // ===== LẤY CÂU TRẢ LỜI =====
-        function layTraLoi(txt) {
-            if (!txt.trim()) return "Em hãy nhập điều muốn chia sẻ nhé 💜";
-            const anToan = kiemTraAnToan(txt);
-            if (anToan) return anToan;
-            
-            const n = normText(txt);
-            for (let chuDe in DB) {
-                for (let tuKhoa of DB[chuDe].keys) {
-                    if (n.includes(normText(tuKhoa))) {
-                        const ds = DB[chuDe].res;
-                        return ds[Math.floor(Math.random() * ds.length)];
-                    }
+        return null;
+    }
+
+
+    // ========================================================
+    // 8. TÌM CÂU TRẢ LỜI
+    // ========================================================
+
+    function getAnswer(text) {
+
+        if (!text || !text.trim()) {
+
+            return "Em hãy nhập điều muốn chia sẻ với cô nhé 💜";
+        }
+
+
+        // Kiểm tra an toàn trước
+
+        const safetyAnswer = checkSafety(text);
+
+        if (safetyAnswer) {
+
+            return safetyAnswer;
+        }
+
+
+        const normalized = normalizeText(text);
+
+
+        // ----------------------------------------------------
+        // Tìm chủ đề phù hợp
+        // ----------------------------------------------------
+
+        let matchedTopic = null;
+        let bestScore = 0;
+
+
+        for (const topic of KNOWLEDGE) {
+
+            let score = 0;
+
+            for (const keyword of topic.keywords) {
+
+                const key = normalizeText(keyword);
+
+                if (normalized.includes(key)) {
+
+                    // Từ khóa càng dài thì mức độ phù hợp càng cao
+
+                    score += key.length;
                 }
             }
-            return "Cô đang lắng nghe em 💜 Em có thể nói rõ hơn một chút được không?";
-        }
 
-        // ===== LẤY PHẦN TỬ =====
-        const oNhap = document.getElementById("messageInput");
-        const nutGui = document.getElementById("sendBtn");
-        const khungChat = document.getElementById("chatMessages");
-        const nutGoi1 = document.getElementById("qBtn1");
-        const nutGoi2 = document.getElementById("qBtn2");
-        const nutGoi3 = document.getElementById("qBtn3");
 
-        // ===== THÊM TIN NHẮN =====
-        function themTinNhan(noiDung, laNguoiDung) {
-            const div = document.createElement("div");
-            div.className = "message " + (laNguoiDung ? "user-message" : "bot-message");
-            div.innerHTML = 
-                '<div class="msg-avatar">' + (laNguoiDung ? "👤" : "👩‍🏫") + '</div>' +
-                '<div class="msg-content">' + noiDung + '</div>';
-            khungChat.appendChild(div);
-            khungChat.scrollTop = khungChat.scrollHeight;
-        }
+            if (score > bestScore) {
 
-        // ===== HIỆU ỨNG ĐANG GÕ =====
-        function hienDangGoi() {
-            const div = document.createElement("div");
-            div.id = "dangGoi";
-            div.className = "message bot-message";
-            div.innerHTML = 
-                '<div class="msg-avatar">👩‍🏫</div>' +
-                '<div class="msg-content typing-indicator">Đang suy nghĩ... 💭</div>';
-            khungChat.appendChild(div);
-            khungChat.scrollTop = khungChat.scrollHeight;
-        }
-        function anDangGoi() {
-            const el = document.getElementById("dangGoi");
-            if (el) el.remove();
-        }
-
-        // ===== CHỨC NĂNG GỬI TIN NHẮN =====
-        function guiTin(noiDung) {
-            const sach = noiDung.trim();
-            if (!sach) return;
-            
-            // Hiện tin nhắn em
-            themTinNhan(sach, true);
-            oNhap.value = "";
-            
-            // Hiện trạng thái cô đang suy nghĩ
-            hienDangGoi();
-            
-            // Trả lời sau 0.7 giây
-            setTimeout(function() {
-                anDangGoi();
-                const traLoi = layTraLoi(sach);
-                themTinNhan(traLoi, false);
-            }, 700);
-        }
-
-        // === GẮN SỰ KIỆN — HOẠT ĐỘNG 100% ===
-        // Nút mũi tên tím
-        nutGui.onclick = function() {
-            guiTin(oNhap.value);
-        };
-
-        // Nhấn Enter để gửi
-        oNhap.onkeydown = function(e) {
-            if (e.key === "Enter") {
-                e.preventDefault();
-                guiTin(oNhap.value);
+                bestScore = score;
+                matchedTopic = topic;
             }
-        };
+        }
 
-        // Nút gợi ý
-        nutGoi1.onclick = function() { guiTin("Tôi muốn được tư vấn"); };
-        nutGoi2.onclick = function() { guiTin("Tôi đang gặp khó khăn"); };
-        nutGoi3.onclick = function() { guiTin("Tôi muốn tâm sự"); };
 
-        // === LỜI CHÀO MỞ ĐẦU ===
-        themTinNhan("<strong>Chào em! 🌸</strong><br><br>Cô Hường rất vui được trò chuyện cùng em!<br>Nếu em có bất kỳ khó khăn, lo lắng trong học tập, bạn bè, gia đình hay cảm xúc, hãy chia sẻ với cô nhé 💜", false);
-    </script>
-</body>
-</html>
+        // ----------------------------------------------------
+        // Nếu tìm thấy chủ đề
+        // ----------------------------------------------------
+
+        if (matchedTopic) {
+
+            const responses = matchedTopic.responses;
+
+            return responses[
+                Math.floor(Math.random() * responses.length)
+            ];
+        }
+
+
+        // ----------------------------------------------------
+        // Không tìm thấy
+        // ----------------------------------------------------
+
+        return `
+            Cô đang lắng nghe em 💜
+            <br><br>
+            Em có thể nói rõ hơn một chút về điều đang khiến em
+            suy nghĩ hoặc lo lắng không?
+            <br><br>
+            Em có thể bắt đầu bằng:
+            <br>
+            • "Em đang buồn vì..."
+            <br>
+            • "Em đang lo vì..."
+            <br>
+            • "Em gặp vấn đề với bạn..."
+            <br>
+            • "Em đang gặp khó khăn trong học tập..."
+        `;
+    }
+
+
+    // ========================================================
+    // 9. THÊM TIN NHẮN VÀO KHUNG CHAT
+    // ========================================================
+
+    function addMessage(content, isUser) {
+
+        const message = document.createElement("div");
+
+        message.className =
+            "message " +
+            (isUser ? "user-message" : "bot-message");
+
+
+        const avatar = document.createElement("div");
+
+        avatar.className = "msg-avatar";
+
+        avatar.textContent =
+            isUser ? "👤" : "👩‍🏫";
+
+
+        const contentBox = document.createElement("div");
+
+        contentBox.className = "msg-content";
+
+
+        // Tin của chatbot có thể chứa <br>, <strong>
+
+        if (!isUser) {
+
+            contentBox.innerHTML = content;
+
+        } else {
+
+            // Tin người dùng sử dụng textContent
+            // để tránh chèn HTML nguy hiểm
+
+            contentBox.textContent = content;
+        }
+
+
+        message.appendChild(avatar);
+
+        message.appendChild(contentBox);
+
+        chatMessages.appendChild(message);
+
+
+        // Tự động cuộn xuống cuối
+
+        setTimeout(function () {
+
+            chatMessages.scrollTop =
+                chatMessages.scrollHeight;
+
+        }, 50);
+    }
+
+
+    // ========================================================
+    // 10. HIỂN THỊ "ĐANG SUY NGHĨ..."
+    // ========================================================
+
+    function showTyping() {
+
+        removeTyping();
+
+
+        const message = document.createElement("div");
+
+        message.id = "typingMessage";
+
+        message.className = "message bot-message";
+
+
+        const avatar = document.createElement("div");
+
+        avatar.className = "msg-avatar";
+
+        avatar.textContent = "👩‍🏫";
+
+
+        const content = document.createElement("div");
+
+        content.className =
+            "msg-content typing-indicator";
+
+        content.textContent =
+            "Cô đang suy nghĩ... 💭";
+
+
+        message.appendChild(avatar);
+
+        message.appendChild(content);
+
+        chatMessages.appendChild(message);
+
+
+        chatMessages.scrollTop =
+            chatMessages.scrollHeight;
+    }
+
+
+    // ========================================================
+    // 11. XÓA "ĐANG SUY NGHĨ..."
+    // ========================================================
+
+    function removeTyping() {
+
+        const typing =
+            document.getElementById("typingMessage");
+
+
+        if (typing) {
+
+            typing.remove();
+        }
+    }
+
+
+    // ========================================================
+    // 12. GỬI TIN NHẮN
+    // ========================================================
+
+    function sendMessage(text) {
+
+        const message =
+            String(text || "").trim();
+
+
+        if (!message) {
+
+            messageInput.focus();
+
+            return;
+        }
+
+
+        // Hiển thị tin người dùng
+
+        addMessage(message, true);
+
+
+        // Xóa ô nhập
+
+        messageInput.value = "";
+
+
+        // Hiệu ứng chatbot
+
+        showTyping();
+
+
+        // Khóa nút gửi tạm thời
+
+        sendBtn.disabled = true;
+
+        sendBtn.style.opacity = "0.6";
+
+
+        // Chatbot trả lời
+
+        setTimeout(function () {
+
+            removeTyping();
+
+
+            const answer =
+                getAnswer(message);
+
+
+            addMessage(answer, false);
+
+
+            sendBtn.disabled = false;
+
+            sendBtn.style.opacity = "1";
+
+
+            messageInput.focus();
+
+        }, 600);
+    }
+
+
+    // ========================================================
+    // 13. NÚT GỬI
+    // ========================================================
+
+    sendBtn.addEventListener("click", function () {
+
+        sendMessage(messageInput.value);
+
+    });
+
+
+    // ========================================================
+    // 14. NHẤN ENTER ĐỂ GỬI
+    // ========================================================
+
+    messageInput.addEventListener("keydown", function (event) {
+
+        if (event.key === "Enter") {
+
+            event.preventDefault();
+
+            sendMessage(messageInput.value);
+        }
+
+    });
+
+
+    // ========================================================
+    // 15. CÁC NÚT GỢI Ý
+    // ========================================================
+
+    if (qBtn1) {
+
+        qBtn1.addEventListener("click", function () {
+
+            sendMessage(
+                "Tôi muốn được tư vấn"
+            );
+
+        });
+
+    }
+
+
+    if (qBtn2) {
+
+        qBtn2.addEventListener("click", function () {
+
+            sendMessage(
+                "Tôi đang gặp khó khăn"
+            );
+
+        });
+
+    }
+
+
+    if (qBtn3) {
+
+        qBtn3.addEventListener("click", function () {
+
+            sendMessage(
+                "Tôi muốn tâm sự"
+            );
+
+        });
+
+    }
+
+
+    // ========================================================
+    // 16. LỜI CHÀO BAN ĐẦU
+    // ========================================================
+
+    addMessage(
+        `
+        <strong>Chào em! 🌸</strong>
+        <br><br>
+        Cô Hường rất vui được trò chuyện cùng em!
+        <br>
+        Nếu em có bất kỳ khó khăn, lo lắng trong học tập,
+        bạn bè, gia đình hay cảm xúc, hãy chia sẻ với cô nhé 💜
+        `,
+        false
+    );
+
+
+    // ========================================================
+    // 17. ĐẶT CON TRỎ VÀO Ô NHẬP
+    // ========================================================
+
+    messageInput.focus();
+
+
+    // ========================================================
+    // 18. THÔNG BÁO TRÊN CONSOLE
+    // ========================================================
+
+    console.log(
+        "✅ Chatbot Cô Hường đã khởi động thành công!"
+    );
+
+    console.log(
+        "📚 Hệ thống kiến thức:",
+        KNOWLEDGE.length,
+        "chủ đề"
+    );
+
+});
