@@ -688,5 +688,138 @@ document.getElementById("confirmMood")?.addEventListener("click", () => {
     ". Nếu muốn, em có thể chọn Tư vấn trực tuyến để trò chuyện cùng cô Hường nhé 💙";
 });
 </script>
+  
+/* ===== CHỨC NĂNG NHIỆT KẾ CẢM XÚC ===== */
+
+(() => {
+  const folderButton = document.querySelector(
+    "[data-scroll-thermometer]"
+  );
+
+  const thermometerSection = document.getElementById(
+    "nhiet-ke-cam-xuc"
+  );
+
+  const feedback = document.getElementById(
+    "thermometer-feedback"
+  );
+
+  const feedbackTitle = document.getElementById(
+    "thermometer-feedback-title"
+  );
+
+  const feedbackMessage = document.getElementById(
+    "thermometer-feedback-message"
+  );
+
+  const resetButton = document.getElementById(
+    "thermometer-reset"
+  );
+
+  const levels = document.querySelectorAll(
+    "[data-emotion-level]"
+  );
+
+  const bulb = document.querySelector(
+    ".thermometer-bulb"
+  );
+
+  if (!folderButton || !thermometerSection) {
+    return;
+  }
+
+  /* Bấm thư mục để cuộn xuống nhiệt kế */
+  folderButton.addEventListener("click", () => {
+    thermometerSection.scrollIntoView({
+      behavior: "smooth",
+      block: "start"
+    });
+  });
+
+  const emotionResponses = {
+    1: {
+      title: "Mức 1 – Bình tĩnh",
+      message:
+        "Cảm ơn em đã chia sẻ với cô. Em hãy tiếp tục chăm sóc bản thân và giữ những thói quen tích cực nhé."
+    },
+    2: {
+      title: "Mức 2 – Hơi buồn hoặc lo lắng",
+      message:
+        "Cô đang lắng nghe em. Em có thể nghỉ ngơi, hít thở nhẹ nhàng và kể cho cô điều đang khiến em bận tâm."
+    },
+    3: {
+      title: "Mức 3 – Cảm xúc trung bình",
+      message:
+        "Có điều gì đó đang khiến em suy nghĩ phải không? Em có thể chia sẻ từng chút một. Cô sẽ cùng em tìm cách giải quyết."
+    },
+    4: {
+      title: "Mức 4 – Cảm xúc mạnh",
+      message:
+        "Cô hiểu rằng em có thể đang trải qua một khoảng thời gian khó khăn. Em không cần phải chịu đựng một mình. Hãy tìm người lớn đáng tin cậy để chia sẻ nếu em cần giúp đỡ."
+    },
+    5: {
+      title: "Mức 5 – Cảm xúc rất mạnh",
+      message:
+        "Cô sẵn sàng lắng nghe em. Nếu em cảm thấy không an toàn hoặc sợ mình có thể bị tổn thương, hãy đến bên một người lớn đáng tin cậy ngay để được hỗ trợ."
+    }
+  };
+
+  /* Chọn mức cảm xúc */
+  levels.forEach((button) => {
+    button.addEventListener("click", () => {
+      const level = Number(
+        button.dataset.emotionLevel
+      );
+
+      const response = emotionResponses[level];
+
+      if (!response) return;
+
+      levels.forEach((item) => {
+        const isSelected = item === button;
+
+        item.classList.toggle(
+          "selected",
+          isSelected
+        );
+
+        item.setAttribute(
+          "aria-pressed",
+          String(isSelected)
+        );
+      });
+
+      /* Đổi màu bầu nhiệt kế theo mức đã chọn */
+      if (bulb) {
+        bulb.className =
+          `thermometer-bulb level-${level}`;
+      }
+
+      feedbackTitle.textContent = response.title;
+      feedbackMessage.textContent = response.message;
+
+      feedback.hidden = false;
+    });
+  });
+
+  /* Chọn lại mức cảm xúc */
+  if (resetButton) {
+    resetButton.addEventListener("click", () => {
+      levels.forEach((button) => {
+        button.classList.remove("selected");
+        button.setAttribute(
+          "aria-pressed",
+          "false"
+        );
+      });
+
+      if (bulb) {
+        bulb.className = "thermometer-bulb";
+      }
+
+      feedback.hidden = true;
+    });
+  }
+})();
 </body>
 </html>
