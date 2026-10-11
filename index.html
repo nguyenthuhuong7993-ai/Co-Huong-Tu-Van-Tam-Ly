@@ -577,16 +577,18 @@ document.getElementById("confirmMood")?.addEventListener("click", () => {
     ". Nếu muốn, em có thể chọn Tư vấn trực tuyến để trò chuyện cùng cô Hường nhé 💙";
 });
 </script>
-  
-/* ===== CHỨC NĂNG NHIỆT KẾ CẢM XÚC ===== */
 
-(() => {
-  const folderButton = document.querySelector(
-    "[data-scroll-thermometer]"
+document.addEventListener("DOMContentLoaded", function () {
+  const levelButtons = document.querySelectorAll(
+    "#nhiet-ke-cam-xuc [data-emotion-level]"
   );
 
-  const thermometerSection = document.getElementById(
-    "nhiet-ke-cam-xuc"
+  const selectedText = document.getElementById(
+    "selected-emotion-text"
+  );
+
+  const confirmButton = document.getElementById(
+    "confirm-emotion"
   );
 
   const feedback = document.getElementById(
@@ -605,110 +607,124 @@ document.getElementById("confirmMood")?.addEventListener("click", () => {
     "thermometer-reset"
   );
 
-  const levels = document.querySelectorAll(
-    "[data-emotion-level]"
-  );
-
   const bulb = document.querySelector(
-    ".thermometer-bulb"
+    "#nhiet-ke-cam-xuc .thermometer-bulb"
   );
 
-  if (!folderButton || !thermometerSection) {
-    return;
-  }
+  const folderButton = document.querySelector(
+    "[data-scroll-thermometer]"
+  );
 
-  /* Bấm thư mục để cuộn xuống nhiệt kế */
-  folderButton.addEventListener("click", () => {
-    thermometerSection.scrollIntoView({
-      behavior: "smooth",
-      block: "start"
-    });
-  });
+  let selectedLevel = null;
 
-  const emotionResponses = {
+  const responses = {
     1: {
-      title: "Mức 1 – Bình tĩnh",
+      name: "Bình tĩnh",
       message:
-        "Cảm ơn em đã chia sẻ với cô. Em hãy tiếp tục chăm sóc bản thân và giữ những thói quen tích cực nhé."
+        "Cảm ơn em đã chia sẻ với cô. Em hãy tiếp tục chăm sóc bản thân và duy trì những điều tích cực nhé."
     },
     2: {
-      title: "Mức 2 – Hơi buồn hoặc lo lắng",
+      name: "Hơi buồn hoặc lo lắng",
       message:
-        "Cô đang lắng nghe em. Em có thể nghỉ ngơi, hít thở nhẹ nhàng và kể cho cô điều đang khiến em bận tâm."
+        "Cô đang lắng nghe em. Em có thể hít thở nhẹ nhàng và kể cho cô điều đang khiến em bận tâm."
     },
     3: {
-      title: "Mức 3 – Cảm xúc trung bình",
+      name: "Cảm xúc ở mức trung bình",
       message:
-        "Có điều gì đó đang khiến em suy nghĩ phải không? Em có thể chia sẻ từng chút một. Cô sẽ cùng em tìm cách giải quyết."
+        "Có điều gì đó đang khiến em suy nghĩ phải không? Em có thể chia sẻ từng chút một với cô nhé."
     },
     4: {
-      title: "Mức 4 – Cảm xúc mạnh",
+      name: "Buồn hoặc lo lắng nhiều",
       message:
-        "Cô hiểu rằng em có thể đang trải qua một khoảng thời gian khó khăn. Em không cần phải chịu đựng một mình. Hãy tìm người lớn đáng tin cậy để chia sẻ nếu em cần giúp đỡ."
+        "Cô hiểu rằng lúc này có thể em đang gặp khó khăn. Em không cần phải chịu đựng một mình. Hãy chia sẻ với người lớn đáng tin cậy khi em cần giúp đỡ."
     },
     5: {
-      title: "Mức 5 – Cảm xúc rất mạnh",
+      name: "Cảm xúc rất mạnh",
       message:
-        "Cô sẵn sàng lắng nghe em. Nếu em cảm thấy không an toàn hoặc sợ mình có thể bị tổn thương, hãy đến bên một người lớn đáng tin cậy ngay để được hỗ trợ."
+        "Cô sẵn sàng lắng nghe em. Nếu em cảm thấy không an toàn hoặc có nguy cơ bị tổn thương, hãy tìm đến một người lớn đáng tin cậy ngay để được giúp đỡ."
     }
   };
 
-  /* Chọn mức cảm xúc */
-  levels.forEach((button) => {
-    button.addEventListener("click", () => {
-      const level = Number(
-        button.dataset.emotionLevel
-      );
+  // Bấm thư mục để cuộn đến nhiệt kế
+  if (folderButton) {
+    folderButton.addEventListener("click", function () {
+      document.getElementById("nhiet-ke-cam-xuc")
+        ?.scrollIntoView({
+          behavior: "smooth",
+          block: "start"
+        });
+    });
+  }
 
-      const response = emotionResponses[level];
+  // Chọn một mức cảm xúc
+  levelButtons.forEach(function (button) {
+    button.addEventListener("click", function () {
+      selectedLevel = Number(button.dataset.emotionLevel);
 
-      if (!response) return;
+      levelButtons.forEach(function (item) {
+        const active =
+          Number(item.dataset.emotionLevel) === selectedLevel;
 
-      levels.forEach((item) => {
-        const isSelected = item === button;
-
-        item.classList.toggle(
-          "selected",
-          isSelected
-        );
-
-        item.setAttribute(
-          "aria-pressed",
-          String(isSelected)
-        );
+        item.classList.toggle("selected", active);
+        item.setAttribute("aria-pressed", String(active));
       });
 
-      /* Đổi màu bầu nhiệt kế theo mức đã chọn */
+      const emotion = responses[selectedLevel];
+
+      selectedText.textContent =
+        "Em đã chọn mức " + selectedLevel +
+        " – " + emotion.name + ".";
+
+      confirmButton.disabled = false;
+      feedback.hidden = true;
+
       if (bulb) {
         bulb.className =
-          `thermometer-bulb level-${level}`;
+          "thermometer-bulb level-" + selectedLevel;
       }
-
-      feedbackTitle.textContent = response.title;
-      feedbackMessage.textContent = response.message;
-
-      feedback.hidden = false;
     });
   });
 
-  /* Chọn lại mức cảm xúc */
-  if (resetButton) {
-    resetButton.addEventListener("click", () => {
-      levels.forEach((button) => {
-        button.classList.remove("selected");
-        button.setAttribute(
-          "aria-pressed",
-          "false"
-        );
-      });
+  // Xác nhận lựa chọn
+  confirmButton.addEventListener("click", function () {
+    if (selectedLevel === null) {
+      selectedText.textContent =
+        "Em hãy chọn một mức cảm xúc trước nhé.";
+      return;
+    }
 
-      if (bulb) {
-        bulb.className = "thermometer-bulb";
-      }
+    const emotion = responses[selectedLevel];
 
-      feedback.hidden = true;
+    feedbackTitle.textContent =
+      "Mức " + selectedLevel + " – " + emotion.name;
+
+    feedbackMessage.textContent = emotion.message;
+    feedback.hidden = false;
+
+    feedback.scrollIntoView({
+      behavior: "smooth",
+      block: "nearest"
     });
-  }
-})();
+  });
+
+  // Chọn lại cảm xúc
+  resetButton.addEventListener("click", function () {
+    selectedLevel = null;
+
+    levelButtons.forEach(function (button) {
+      button.classList.remove("selected");
+      button.setAttribute("aria-pressed", "false");
+    });
+
+    selectedText.textContent = "Em chưa chọn mức cảm xúc.";
+    confirmButton.disabled = true;
+    feedback.hidden = true;
+
+    if (bulb) {
+      bulb.className = "thermometer-bulb";
+    }
+  });
+});
+  
 </body>
 </html>
