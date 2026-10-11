@@ -98,137 +98,67 @@ main{max-width:1440px;margin:auto;padding:clamp(18px,3vw,38px)}.hero-layout{disp
   .mood-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   .mood-card { padding: 16px; }
 }
-
-/* ===== THƯ MỤC NHIỆT KẾ CẢM XÚC ===== */
-
+  
+/* Bảo đảm các nút nhiệt kế có thể tương tác */
 .emotion-thermometer-section {
-  margin-top: 28px;
-  padding: 24px 18px;
-  text-align: center;
+  position: relative;
+  z-index: 1;
   scroll-margin-top: 24px;
 }
 
-.thermometer-question {
-  font-size: 18px;
-  font-weight: 600;
-}
-
-.thermometer-description {
-  color: #64748b;
-  line-height: 1.6;
-}
-
-/* Toàn bộ nhiệt kế */
-.emotion-thermometer {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin: 32px auto 20px;
-}
-
-/* Thân nhiệt kế */
 .thermometer-tube {
-  box-sizing: border-box;
-  width: 76px;
-  height: 270px;
-  padding: 7px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  overflow: hidden;
-  border: 3px solid #a3b8c2;
-  border-radius: 38px 38px 20px 20px;
-  background: #fff;
+  position: relative;
+  z-index: 2;
+  pointer-events: auto;
 }
 
-/* Các số nằm bên trong thân nhiệt kế */
 .thermometer-level {
-  flex: 1;
+  position: relative;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: 100%;
-  min-height: 0;
+  flex: 1;
+  min-height: 36px;
   padding: 0;
   border: none;
-  border-radius: 20px;
-  color: #263238;
-  font-size: 18px;
-  font-weight: 700;
   cursor: pointer;
-  transition: filter 0.2s, outline 0.2s;
-}
-
-.level-1 { background: #78bce0; }
-.level-2 { background: #a1d3ae; }
-.level-3 { background: #f4d16f; }
-.level-4 { background: #f5a16c; }
-.level-5 { background: #e97670; }
-
-.thermometer-level:hover {
-  filter: brightness(0.95);
+  pointer-events: auto;
+  touch-action: manipulation;
 }
 
 .thermometer-level.selected {
   outline: 3px solid #244e63;
   outline-offset: -4px;
+  box-shadow: inset 0 0 0 2px #ffffff;
 }
 
-.thermometer-level:focus-visible {
-  outline: 3px solid #244e63;
-  outline-offset: -4px;
-}
-
-/* Bầu tròn phía dưới */
-.thermometer-bulb {
-  width: 86px;
-  height: 86px;
-  box-sizing: border-box;
-  margin-top: -8px;
-  border: 3px solid #a3b8c2;
-  border-radius: 50%;
-  background: #78bce0;
-}
-
-.thermometer-scale-labels {
-  display: flex;
-  justify-content: space-between;
-  gap: 12px;
+.confirm-emotion-button {
+  display: block;
+  width: 100%;
   max-width: 320px;
-  margin: 0 auto;
-  font-size: 12px;
+  margin: 20px auto;
+  padding: 13px 18px;
+  border: none;
+  border-radius: 12px;
+  background: #267e70;
+  color: #ffffff;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  touch-action: manipulation;
+}
+
+.confirm-emotion-button:disabled {
+  background: #cbd5d9;
   color: #64748b;
-}
-
-.thermometer-feedback {
-  max-width: 480px;
-  margin: 24px auto 0;
-  padding: 18px;
-  border: 1px solid #d7e8e3;
-  border-radius: 14px;
-  background: #f2f9f7;
-  text-align: left;
-  line-height: 1.7;
-}
-
-.thermometer-feedback h3 {
-  color: #245d54;
+  cursor: not-allowed;
 }
 
 .thermometer-reset {
-  padding: 10px 16px;
-  border: 1px solid #b9d9d0;
-  border-radius: 10px;
-  background: white;
-  color: #245d54;
   cursor: pointer;
-}
-
-@media (max-width: 480px) {
-  .emotion-thermometer-section {
-    padding: 20px 12px;
-  }
-
-  .thermometer-scale-labels {
-    font-size: 11px;
-  }
+  touch-action: manipulation;
 }
 </style>
 </head>
@@ -295,98 +225,57 @@ main{max-width:1440px;margin:auto;padding:clamp(18px,3vw,38px)}.hero-layout{disp
     <p id="mood-message" aria-live="polite"></p>
   </div>
 </section>
-<!-- ================================== -->
-<!-- KHU VỰC NHIỆT KẾ CẢM XÚC -->
-<!-- ================================== -->
-<section
-  class="panel emotion-thermometer-section"
-  id="nhiet-ke-cam-xuc"
-  aria-labelledby="thermometer-title"
->
-  <h2 id="thermometer-title">🌡️ Nhiệt kế cảm xúc</h2>
+
+<section class="panel emotion-thermometer-section"
+         id="nhiet-ke-cam-xuc">
+
+  <h2>🌡️ Nhiệt kế cảm xúc</h2>
 
   <p class="thermometer-question">
     Cảm xúc hiện tại của em như thế nào?
   </p>
 
-  <p class="thermometer-description">
-    Hãy chọn mức độ phù hợp với cảm xúc của em hôm nay nhé.
-  </p>
+  <p>Em hãy chọn một mức cảm xúc từ 1 đến 5.</p>
 
-  <div
-    class="emotion-thermometer"
-    role="group"
-    aria-label="Chọn mức độ cảm xúc từ 1 đến 5"
-  >
+  <div class="emotion-thermometer">
     <div class="thermometer-tube">
 
-      <button
-        class="thermometer-level level-5"
-        type="button"
-        data-emotion-level="5"
-        aria-pressed="false"
-        aria-label="Mức 5 - Cảm xúc rất mạnh"
-      >5</button>
+      <button type="button" class="thermometer-level level-5"
+              data-emotion-level="5" aria-pressed="false">5</button>
 
-      <button
-        class="thermometer-level level-4"
-        type="button"
-        data-emotion-level="4"
-        aria-pressed="false"
-        aria-label="Mức 4 - Cảm xúc mạnh"
-      >4</button>
+      <button type="button" class="thermometer-level level-4"
+              data-emotion-level="4" aria-pressed="false">4</button>
 
-      <button
-        class="thermometer-level level-3"
-        type="button"
-        data-emotion-level="3"
-        aria-pressed="false"
-        aria-label="Mức 3 - Cảm xúc trung bình"
-      >3</button>
+      <button type="button" class="thermometer-level level-3"
+              data-emotion-level="3" aria-pressed="false">3</button>
 
-      <button
-        class="thermometer-level level-2"
-        type="button"
-        data-emotion-level="2"
-        aria-pressed="false"
-        aria-label="Mức 2 - Hơi buồn hoặc lo lắng"
-      >2</button>
+      <button type="button" class="thermometer-level level-2"
+              data-emotion-level="2" aria-pressed="false">2</button>
 
-      <button
-        class="thermometer-level level-1"
-        type="button"
-        data-emotion-level="1"
-        aria-pressed="false"
-        aria-label="Mức 1 - Bình tĩnh"
-      >1</button>
+      <button type="button" class="thermometer-level level-1"
+              data-emotion-level="1" aria-pressed="false">1</button>
 
     </div>
 
-    <div
-      class="thermometer-bulb"
-      aria-hidden="true"
-    ></div>
+    <div class="thermometer-bulb"></div>
   </div>
 
-  <div class="thermometer-scale-labels">
-    <span>1 – Bình tĩnh</span>
-    <span>5 – Cảm xúc rất mạnh</span>
-  </div>
+  <p id="selected-emotion-text" aria-live="polite">
+    Em chưa chọn mức cảm xúc.
+  </p>
 
-  <div
-    id="thermometer-feedback"
-    class="thermometer-feedback"
-    aria-live="polite"
-    hidden
-  >
+  <button type="button" id="confirm-emotion"
+          class="confirm-emotion-button" disabled>
+    Xác nhận cảm xúc
+  </button>
+
+  <div id="thermometer-feedback"
+       class="thermometer-feedback" hidden>
     <h3 id="thermometer-feedback-title"></h3>
     <p id="thermometer-feedback-message"></p>
 
-    <button
-      type="button"
-      id="thermometer-reset"
-      class="thermometer-reset"
-    >
+    <button type="button" id="thermometer-reset"
+            class="thermometer-reset">
       Chọn lại cảm xúc
     </button>
   </div>
