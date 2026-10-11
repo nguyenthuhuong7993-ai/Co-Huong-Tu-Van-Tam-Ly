@@ -21,145 +21,6 @@ main{max-width:1440px;margin:auto;padding:clamp(18px,3vw,38px)}.hero-layout{disp
 @media(max-width:1080px){.hero-layout{grid-template-columns:1fr 2fr}.qr-panel{grid-column:1/-1;display:grid;grid-template-columns:1fr auto 1fr;gap:12px;text-align:left;padding:18px 24px}.qr-panel h2,.qr-panel p{grid-column:1}.qr-frame{grid-column:2;grid-row:1/4;width:140px;margin:0}.privacy{grid-column:3;grid-row:1/4;align-self:center;border:0;padding:0;margin:0}.hero-card{min-height:430px}.portrait{flex-basis:140px}.chat-shell{grid-template-columns:1fr 240px}}
 @media(max-width:760px){.topbar{padding:13px 16px}.top-note{display:none}.brand-mark{width:45px;height:45px;border-radius:16px}.brand p{font-size:12px}main{padding:16px}.hero-layout{grid-template-columns:1fr}.options{order:2;display:grid;grid-template-columns:1fr;gap:9px;padding:12px}.option{padding:10px}.option-icon{width:46px;height:46px;flex-basis:46px;font-size:21px}.hero-card{order:1;min-height:0;display:flex;flex-direction:column;text-align:center;padding:25px 18px;gap:14px}.portrait{width:145px;flex-basis:auto;border-width:5px}.hero-copy h2{font-size:39px;margin-top:13px}.hero-copy h3{font-size:20px}.hero-copy .rule{margin:14px auto}.hero-buttons{justify-content:center}.hero-message{font-size:16px}.qr-panel{order:3;display:flex;text-align:center;padding:22px}.qr-frame{width:170px;margin:15px auto}.privacy{border-top:1px solid #d8edf1;padding-top:12px;margin-top:0}.feature-grid{grid-template-columns:1fr}.section-head{align-items:start;flex-direction:column}.chat-shell{grid-template-columns:1fr;min-height:0}.chat-side{border-left:0;border-top:1px solid var(--line)}.messages{max-height:48vh;min-height:280px;padding:14px}.chat-form{padding:10px}.chat-form textarea{font-size:16px}.chat-section{scroll-margin-top:78px}.contact-card{padding:20px}.mobile-nav{display:flex;position:fixed;bottom:0;left:0;right:0;z-index:15;background:#ffffffed;border-top:1px solid #d8edf5;padding:8px 12px calc(8px + env(safe-area-inset-bottom));justify-content:space-around;backdrop-filter:blur(12px)}.mobile-nav button{border:0;background:transparent;color:#326997;font-size:12px;font-weight:750;padding:5px 8px;display:flex;flex-direction:column;align-items:center;gap:3px}.mobile-nav span{font-size:20px}body{padding-bottom:68px}.footer{padding-bottom:18px}}
 @media(orientation:landscape) and (max-height:520px){.topbar{position:relative}.hero-layout{grid-template-columns:minmax(170px,.8fr) minmax(330px,2fr) minmax(180px,.8fr)}.hero-card{min-height:300px;padding:20px}.portrait{flex-basis:125px}.hero-copy h2{font-size:35px}.qr-panel{display:flex;text-align:center;padding:12px}.qr-frame{width:105px;margin:8px auto}.options{padding:10px;gap:7px}.option{padding:8px}.option-icon{width:38px;height:38px;flex-basis:38px}}
-/* Ảnh chân dung Cô Hường trong khung trò chuyện */
-.mini-avatar {
-  width: 44px;
-  height: 44px;
-  min-width: 44px;
-  border-radius: 50%;
-  overflow: hidden;
-  flex-shrink: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.mini-avatar img {
-  width: 60%;
-  height: 60%;
-  object-fit: cover;
-  display: block;
-  border-radius: 50%;
-}
-
-.chat-title {
-  flex: 1;
-  min-width: 0;
-}
-.mood-section {
-  max-width: 1000px;
-  margin: 36px auto;
-  padding: 20px;
-  scroll-margin-top: 24px;
-}
-.mood-card {
-  background: #fff;
-  border: 1px solid #d9eaf8;
-  border-radius: 22px;
-  padding: 24px;
-  box-shadow: 0 8px 28px rgba(40, 100, 160, .08);
-}
-.mood-card h2 { color: #1759a6; margin-top: 0; }
-.mood-grid {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 12px;
-  margin: 22px 0;
-}
-.mood-item {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 8px;
-  padding: 16px 6px;
-  border: 1px solid #dce8f2;
-  border-radius: 16px;
-  background: #f7fbff;
-  font-size: 32px;
-  cursor: pointer;
-}
-.mood-item small { color: #234d78; font-size: 13px; }
-.mood-item.selected {
-  border: 2px solid #287bd1;
-  background: #e1f2ff;
-}
-.confirm-mood {
-  width: 100%;
-  padding: 14px;
-  border: 0;
-  border-radius: 12px;
-  background: #287bd1;
-  color: white;
-  font-weight: bold;
-  cursor: pointer;
-}
-#mood-message { color: #1759a6; margin-bottom: 0; }
-@media (max-width: 600px) {
-  .mood-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-  .mood-card { padding: 16px; }
-}
-  
-/* Bảo đảm các nút nhiệt kế có thể tương tác */
-.emotion-thermometer-section {
-  position: relative;
-  z-index: 1;
-  scroll-margin-top: 24px;
-}
-
-.thermometer-tube {
-  position: relative;
-  z-index: 2;
-  pointer-events: auto;
-}
-
-.thermometer-level {
-  position: relative;
-  z-index: 3;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  flex: 1;
-  min-height: 36px;
-  padding: 0;
-  border: none;
-  cursor: pointer;
-  pointer-events: auto;
-  touch-action: manipulation;
-}
-
-.thermometer-level.selected {
-  outline: 3px solid #244e63;
-  outline-offset: -4px;
-  box-shadow: inset 0 0 0 2px #ffffff;
-}
-
-.confirm-emotion-button {
-  display: block;
-  width: 100%;
-  max-width: 320px;
-  margin: 20px auto;
-  padding: 13px 18px;
-  border: none;
-  border-radius: 12px;
-  background: #267e70;
-  color: #ffffff;
-  font-size: 16px;
-  font-weight: 600;
-  cursor: pointer;
-  touch-action: manipulation;
-}
-
-.confirm-emotion-button:disabled {
-  background: #cbd5d9;
-  color: #64748b;
-  cursor: not-allowed;
-}
-
-.thermometer-reset {
-  cursor: pointer;
-  touch-action: manipulation;
-}
 </style>
 </head>
 <body>
@@ -170,20 +31,30 @@ main{max-width:1440px;margin:auto;padding:clamp(18px,3vw,38px)}.hero-layout{disp
 <main>
   <section class="hero-layout" id="home" aria-label="Trang chủ tư vấn tâm lý">
     <aside class="panel options">
- <button class="option" type="button" data-scroll-mood><span class="option-icon">💙</span><span><strong>Cảm xúc của em</strong><small>Khám phá và chia sẻ cảm xúc</small></span></button>
-      <button class="option" type="button" data-scroll-mood><span class="option-icon">🌡️</span><span><small>Khám phá và chia sẻ cảm xúc</small></span></button>
       <button class="option" data-open-chat><span class="option-icon">☏</span><span><strong>Tư vấn trực tuyến</strong><small>Trò chuyện cùng chatbot AI</small></span></button>
       <button class="option" data-contact><span class="option-icon">♙</span><span><strong>Tư vấn trực tiếp</strong><small>Kết nối với giáo viên</small></span></button>
       <button class="option" data-contact><span class="option-icon">♡</span><span><strong>Hỗ trợ khi cần</strong><small>Giáo viên tư vấn học đường</small></span></button>
     </aside>
     <section class="panel hero-card">
-      
-<div class="portrait">
-  <img
-    src="https://raw.githubusercontent.com/nguyenthuhuong7993-ai/Phong_Tu_Van_Tam_Ly/main/Co_Huong.jpg"
-    alt="Cô Hường - Giáo viên tư vấn tâm lý học đường">
-
-</div>
+      <div class="portrait" role="img" aria-label="Hình minh họa cô giáo tư vấn thân thiện">
+        <svg viewBox="0 0 220 220" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <defs><linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#b5eaff"/><stop offset="1" stop-color="#eafaff"/></linearGradient><linearGradient id="coat" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#54b7ed"/><stop offset="1" stop-color="#287ac1"/></linearGradient></defs>
+          <rect width="220" height="220" fill="url(#bg)"/>
+          <path d="M33 220 Q38 157 77 151 L143 151 Q184 160 189 220Z" fill="url(#coat)"/>
+          <path d="M88 145 L110 177 L132 145 L124 132 L96 132Z" fill="#fff"/>
+          <path d="M88 145 L109 174 L96 190 L77 153Z" fill="#fff"/><path d="M132 145 L110 174 L125 190 L143 153Z" fill="#dff5ff"/>
+          <path d="M63 74 Q61 22 111 24 Q164 22 163 83 L158 127 Q145 153 110 153 Q76 151 62 126Z" fill="#49303b"/>
+          <ellipse cx="110" cy="91" rx="45" ry="53" fill="#f6c9b9"/>
+          <path d="M65 82 Q61 35 105 29 Q145 27 157 65 Q140 47 119 49 Q96 46 77 65Z" fill="#543644"/>
+          <path d="M66 75 Q48 109 65 137 Q76 148 83 142 L80 111Z" fill="#49303b"/><path d="M154 75 Q174 109 155 137 Q146 148 138 142 L142 109Z" fill="#49303b"/>
+          <ellipse cx="93" cy="91" rx="5" ry="7" fill="#342b36"/><ellipse cx="128" cy="91" rx="5" ry="7" fill="#342b36"/><circle cx="94" cy="89" r="1.7" fill="#fff"/><circle cx="129" cy="89" r="1.7" fill="#fff"/>
+          <path d="M83 80 Q92 73 101 80 M119 80 Q129 73 138 80" fill="none" stroke="#49303b" stroke-width="4" stroke-linecap="round"/>
+          <ellipse cx="81" cy="105" rx="9" ry="5" fill="#f3a9a6" opacity=".65"/><ellipse cx="139" cy="105" rx="9" ry="5" fill="#f3a9a6" opacity=".65"/>
+          <path d="M95 111 Q110 125 126 111 Q121 132 109 132 Q99 129 95 111Z" fill="#b7475a"/><path d="M99 115 Q110 120 122 115 Q117 125 109 125 Q103 123 99 115Z" fill="#fff"/>
+          <path d="M88 147 L75 163 L85 184 L103 169Z M132 147 L145 163 L135 184 L117 169Z" fill="#3d99d4"/>
+          <circle cx="146" cy="178" r="7" fill="#fff"/><path d="M146 173 C140 168 136 177 146 183 C156 177 152 168 146 173Z" fill="#54b7ed"/>
+        </svg>
+      </div>
       <div class="hero-copy">
         <span class="eyebrow">💙 KHÔNG GIAN AN TOÀN ĐỂ CHIA SẺ</span>
         <h2>Cô Hường</h2>
@@ -193,93 +64,13 @@ main{max-width:1440px;margin:auto;padding:clamp(18px,3vw,38px)}.hero-layout{disp
         <div class="hero-buttons"><button class="primary" data-open-chat>💬 Bắt đầu trò chuyện</button><button class="secondary" data-contact>Liên hệ giáo viên</button></div>
       </div>
     </section>
-   <aside class="panel qr-panel">
+    <aside class="panel qr-panel">
       <h2>Quét mã QR</h2><p>để truy cập<br>Chatbot tư vấn tâm lý</p>
       <div class="qr-frame" id="qrBox"><div class="qr-fallback">Mã QR sẽ hiện khi trang được đăng tải bằng đường dẫn HTTPS.</div></div>
       <div class="privacy"><span>🔒</span>An toàn · Tôn trọng<br>quyền riêng tư</div>
     </aside>
   </section>
- <section id="mood-section" class="mood-section">
-  <div class="mood-card">
-    <h2>💙 Cảm xúc hiện tại của em</h2>
-    <p>Hôm nay em cảm thấy thế nào? Hãy chọn biểu cảm phù hợp nhất nhé.</p>
 
-    <div class="mood-grid">
-      <button type="button" class="mood-item" data-mood="Vui vẻ">😄<small>Vui vẻ</small></button>
-      <button type="button" class="mood-item" data-mood="Bình yên">😌<small>Bình yên</small></button>
-      <button type="button" class="mood-item" data-mood="Hào hứng">🤩<small>Hào hứng</small></button>
-      <button type="button" class="mood-item" data-mood="Buồn">😢<small>Buồn</small></button>
-      <button type="button" class="mood-item" data-mood="Lo lắng">😟<small>Lo lắng</small></button>
-      <button type="button" class="mood-item" data-mood="Căng thẳng">😣<small>Căng thẳng</small></button>
-      <button type="button" class="mood-item" data-mood="Tức giận">😠<small>Tức giận</small></button>
-      <button type="button" class="mood-item" data-mood="Thất vọng">😞<small>Thất vọng</small></button>
-      <button type="button" class="mood-item" data-mood="Bối rối">😕<small>Bối rối</small></button>
-      <button type="button" class="mood-item" data-mood="Cô đơn">🥺<small>Cô đơn</small></button>
-      <button type="button" class="mood-item" data-mood="Mệt mỏi">😴<small>Mệt mỏi</small></button>
-      <button type="button" class="mood-item" data-mood="Khó gọi tên">😶<small>Khó gọi tên</small></button>
-    </div>
-
-    <button type="button" id="confirmMood" class="confirm-mood">
-      Xác nhận cảm xúc
-    </button>
-    <p id="mood-message" aria-live="polite"></p>
-  </div>
-</section>
-
-<section class="panel emotion-thermometer-section"
-         id="nhiet-ke-cam-xuc">
-
-  <h2>🌡️ Nhiệt kế cảm xúc</h2>
-
-  <p class="thermometer-question">
-    Cảm xúc hiện tại của em như thế nào?
-  </p>
-
-  <p>Em hãy chọn một mức cảm xúc từ 1 đến 5.</p>
-
-  <div class="emotion-thermometer">
-    <div class="thermometer-tube">
-
-      <button type="button" class="thermometer-level level-5"
-              data-emotion-level="5" aria-pressed="false">5</button>
-
-      <button type="button" class="thermometer-level level-4"
-              data-emotion-level="4" aria-pressed="false">4</button>
-
-      <button type="button" class="thermometer-level level-3"
-              data-emotion-level="3" aria-pressed="false">3</button>
-
-      <button type="button" class="thermometer-level level-2"
-              data-emotion-level="2" aria-pressed="false">2</button>
-
-      <button type="button" class="thermometer-level level-1"
-              data-emotion-level="1" aria-pressed="false">1</button>
-
-    </div>
-
-    <div class="thermometer-bulb"></div>
-  </div>
-
-  <p id="selected-emotion-text" aria-live="polite">
-    Em chưa chọn mức cảm xúc.
-  </p>
-
-  <button type="button" id="confirm-emotion"
-          class="confirm-emotion-button" disabled>
-    Xác nhận cảm xúc
-  </button>
-
-  <div id="thermometer-feedback"
-       class="thermometer-feedback" hidden>
-    <h3 id="thermometer-feedback-title"></h3>
-    <p id="thermometer-feedback-message"></p>
-
-    <button type="button" id="thermometer-reset"
-            class="thermometer-reset">
-      Chọn lại cảm xúc
-    </button>
-  </div>
-</section>
   <section class="section" id="about">
     <div class="section-head"><div><h2>Em muốn được hỗ trợ điều gì?</h2><p>Em có thể bắt đầu bằng một câu hỏi nhỏ hoặc kể điều đang khiến em băn khoăn.</p></div></div>
     <div class="feature-grid">
@@ -293,22 +84,8 @@ main{max-width:1440px;margin:auto;padding:clamp(18px,3vw,38px)}.hero-layout{disp
     <div class="section-head"><div><h2>Trò chuyện cùng Cô Hường</h2><p>Em có thể viết điều mình đang nghĩ; không cần phải diễn đạt thật hoàn hảo.</p></div><button class="secondary" id="clearChat">Làm mới hội thoại</button></div>
     <div class="chat-shell">
       <div class="chat-main">
-        <div class="chat-header">
-  <div class="mini-avatar">
-    <img
-      src="https://raw.githubusercontent.com/nguyenthuhuong7993-ai/Phong_Tu_Van_Tam_Ly/main/Co_Huong.jpg"
-      alt="Cô Hường">
-  </div>
-
-  <div class="chat-title">
-    <h2>Cô Hường · Giáo viên tư vấn Tâm lý học đường</h2>
-    <p>Lắng nghe, thấu hiểu và đồng hành</p>
-  </div>
-
-  <div class="online">Sẵn sàng</div>
-</div>
-
-<div class="messages" id="messages" aria-live="polite">
+        <div class="chat-header"><div class="mini-avatar">👩🏻‍🏫</div><div><h2>Cô Hường · Giáo viên tư vấn Tâm Lý Học Đường</h2><p>Lắng nghe, thấu hiểu và đồng hành</p></div><div class="online">Sẵn sàng</div></div>
+        <div class="messages" id="messages" aria-live="polite">
           <div class="bubble bot">Chào em 💙 Cô Hường đang lắng nghe đây. Em muốn chia sẻ điều gì hôm nay? Em có thể kể về cảm xúc, học tập, bạn bè hoặc chuyện gia đình. Em không cần nêu tên thật hay thông tin riêng tư nhé.</div>
         </div>
         <form class="chat-form" id="chatForm"><textarea id="userInput" rows="1" maxlength="4000" placeholder="Viết điều em muốn chia sẻ..." aria-label="Nội dung tin nhắn"></textarea><button class="send" type="submit" aria-label="Gửi tin nhắn">➤</button></form>
@@ -523,155 +300,6 @@ window.addEventListener("load",()=>{
   makeQR();
   if("serviceWorker" in navigator && location.protocol.startsWith("http"))navigator.serviceWorker.register("./sw.js").catch(e=>console.warn("PWA:",e));
 });
-
-/* ===== CHỨC NĂNG CHỌN VÀ XÁC NHẬN CẢM XÚC ===== */
-
-// Bấm menu "Cảm xúc của em" để cuộn xuống
-document.querySelectorAll("[data-scroll-mood]").forEach(button => {
-  button.addEventListener("click", () => {
-    const moodSection = document.getElementById("mood-section");
-
-    if (moodSection) {
-      moodSection.scrollIntoView({
-        behavior: "smooth",
-        block: "start"
-      });
-    }
-  });
-});
-
-// Cho học sinh chọn một biểu cảm
-let currentMood = "";
-
-document.querySelectorAll("#mood-section .mood-item").forEach(button => {
-  button.setAttribute("aria-pressed", "false");
-
-  button.addEventListener("click", () => {
-    document.querySelectorAll("#mood-section .mood-item").forEach(item => {
-      item.classList.remove("selected");
-      item.setAttribute("aria-pressed", "false");
-    });
-
-    button.classList.add("selected");
-    button.setAttribute("aria-pressed", "true");
-    currentMood = button.dataset.mood;
-
-    const message = document.getElementById("mood-message");
-    if (message) {
-      message.textContent = "Em đã chọn cảm xúc: " + currentMood;
-    }
-  });
-});
-
-// Xác nhận cảm xúc
-document.getElementById("confirmMood")?.addEventListener("click", () => {
-  const message = document.getElementById("mood-message");
-
-  if (!currentMood) {
-    message.textContent = "Em hãy chọn một biểu cảm trước nhé 💙";
-    return;
-  }
-
-  message.textContent =
-    "Cảm ơn em đã chia sẻ cảm xúc " + currentMood +
-    ". Nếu muốn, em có thể chọn Tư vấn trực tuyến để trò chuyện cùng cô Hường nhé 💙";
-});
 </script>
-
-(function () {
-  function initEmotionThermometer() {
-    const section = document.getElementById("nhiet-ke-cam-xuc");
-    if (!section || section.dataset.ready === "true") return;
-
-    section.dataset.ready = "true";
-
-    const buttons = section.querySelectorAll("[data-emotion-level]");
-    const selectedText = section.querySelector("#selected-emotion-text");
-    const confirmButton = section.querySelector("#confirm-emotion");
-    const feedback = section.querySelector("#thermometer-feedback");
-    const feedbackTitle = section.querySelector("#thermometer-feedback-title");
-    const feedbackMessage = section.querySelector("#thermometer-feedback-message");
-    const resetButton = section.querySelector("#thermometer-reset");
-    const bulb = section.querySelector(".thermometer-bulb");
-
-    let selectedLevel = null;
-
-    const messages = {
-      1: ["Bình tĩnh", "Cảm ơn em đã chia sẻ. Hãy tiếp tục chăm sóc bản thân nhé."],
-      2: ["Hơi buồn hoặc lo lắng", "Em có thể hít thở nhẹ nhàng và chia sẻ điều đang khiến em bận tâm."],
-      3: ["Cảm xúc trung bình", "Cô đang lắng nghe em. Em có thể kể cho cô nghe từng chút một."],
-      4: ["Buồn hoặc lo lắng nhiều", "Em không cần phải chịu đựng một mình. Hãy chia sẻ với người lớn đáng tin cậy khi cần."],
-      5: ["Cảm xúc rất mạnh", "Cô sẵn sàng lắng nghe em. Nếu em cảm thấy không an toàn, hãy tìm người lớn đáng tin cậy để được giúp đỡ ngay."]
-    };
-
-    buttons.forEach(function (button) {
-      button.addEventListener("click", function (event) {
-        event.preventDefault();
-        event.stopPropagation();
-
-        selectedLevel = Number(button.dataset.emotionLevel);
-
-        buttons.forEach(function (item) {
-          const active = item === button;
-          item.classList.toggle("selected", active);
-          item.setAttribute("aria-pressed", String(active));
-        });
-
-        if (selectedText) {
-          selectedText.textContent =
-            "Em đã chọn mức " + selectedLevel +
-            " – " + messages[selectedLevel][0] + ".";
-        }
-
-        if (confirmButton) confirmButton.disabled = false;
-        if (feedback) feedback.hidden = true;
-
-        if (bulb) {
-          bulb.className = "thermometer-bulb level-" + selectedLevel;
-        }
-      });
-    });
-
-    if (confirmButton) {
-      confirmButton.addEventListener("click", function () {
-        if (selectedLevel === null) {
-          if (selectedText) selectedText.textContent = "Em hãy chọn mức cảm xúc trước nhé.";
-          return;
-        }
-
-        if (feedbackTitle) {
-          feedbackTitle.textContent =
-            "Mức " + selectedLevel + " – " + messages[selectedLevel][0];
-        }
-
-        if (feedbackMessage) feedbackMessage.textContent = messages[selectedLevel][1];
-        if (feedback) feedback.hidden = false;
-      });
-    }
-
-    if (resetButton) {
-      resetButton.addEventListener("click", function () {
-        selectedLevel = null;
-
-        buttons.forEach(function (button) {
-          button.classList.remove("selected");
-          button.setAttribute("aria-pressed", "false");
-        });
-
-        if (selectedText) selectedText.textContent = "Em chưa chọn mức cảm xúc.";
-        if (confirmButton) confirmButton.disabled = true;
-        if (feedback) feedback.hidden = true;
-        if (bulb) bulb.className = "thermometer-bulb";
-      });
-    }
-  }
-
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", initEmotionThermometer);
-  } else {
-    initEmotionThermometer();
-  }
-})();
- 
 </body>
 </html>
