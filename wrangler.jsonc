@@ -1,0 +1,10 @@
+
+{
+  "$schema": "https://unpkg.com/wrangler@4/config-schema.json",
+  "name": "phong-tu-van-tam-ly",
+  "compatibility_date": "2026-10-12",
+  "assets": {
+    "directory": ".",
+    "not_found_handling": "single-page-application"
+  }
+}
