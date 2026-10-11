@@ -31,6 +31,81 @@
 
 @media(min-width:761px){.mobile-nav{display:none}}
 @media(orientation:landscape) and (max-height:520px) and (max-width:950px){.topbar{position:relative}.app-layout{padding-left:10px;padding-right:10px}.desktop-hero{display:grid;grid-template-columns:1fr .8fr}.hero-art{display:block;min-height:205px}.hero-copy{padding:15px}.hero-copy h2{font-size:28px}.hero-copy p{font-size:12px}.feature-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.topics{grid-template-columns:repeat(5,minmax(0,1fr))}.mobile-nav{padding-top:3px;padding-bottom:3px}.mobile-nav button{font-size:9px}.mobile-nav span{font-size:17px}}
+
+/* Tối ưu bố cục desktop ở mức zoom 100% và màn hình chiều cao vừa phải */
+@media (min-width:761px) and (max-height:1000px) {
+  .topbar{height:60px;gap:16px;padding:0 16px}
+  .brand{min-width:205px;gap:9px}
+  .brand-mark{width:42px;height:42px;font-size:32px}
+  .brand h1{font-size:19px}
+  .top-note{font-size:15px}
+  .top-actions{gap:10px}
+  .searchbox{width:220px;padding:8px 12px}
+  .user-pill img{width:34px;height:34px}
+  .app-layout{
+    grid-template-columns:minmax(205px,15.5vw) minmax(0,1fr) minmax(300px,21vw);
+    gap:12px;padding:0 12px 12px
+  }
+  .sidebar{top:60px;height:calc(100vh - 60px);min-height:0;padding-top:16px}
+  .side-links{gap:4px;padding:0 9px}
+  .side-link{gap:10px;padding:9px 11px;border-radius:13px;font-size:13px}
+  .side-link .nav-ico{width:25px;font-size:20px}
+  .side-quote{margin: auto 16px 16px;font-size:16px;line-height:1.45}
+  .side-quote span{font-size:24px;margin-top:3px}
+  .side-landscape{height:105px}
+  .school-foot{padding:8px 12px;gap:8px;font-size:10px}
+  .school-foot strong{font-size:11px}
+  .school-icon{font-size:22px}
+  .center{padding:10px 0}
+  .desktop-hero{min-height:205px;border-radius:16px}
+  .hero-art{min-height:205px}
+  .hero-copy{padding:17px 15px 17px 24px}
+  .hero-copy h2{font-size:clamp(29px,2.5vw,40px);margin-bottom:8px}
+  .hero-copy p{font-size:12px;line-height:1.55;margin-bottom:12px}
+  .primary{padding:10px 16px;font-size:12px}
+  .secondary{padding:9px 13px;font-size:12px}
+  .section{margin-top:12px}
+  .section-head{margin-bottom:7px}
+  .section-head h2{font-size:15px}
+  .feature-grid{gap:9px}
+  .feature{min-height:91px;padding:11px 10px;gap:9px;border-radius:12px}
+  .feature-ico{width:40px;height:40px;flex-basis:40px;font-size:22px}
+  .feature h3{font-size:12px;margin-bottom:4px}
+  .feature p{font-size:10px;line-height:1.4}
+  .round-arrow{width:18px;height:18px}
+  .topics{gap:8px}
+  .topic{min-height:79px;padding:7px 4px;gap:5px}
+  .topic .topic-ico{font-size:27px}
+  .topic strong{font-size:10px}
+  .articles{gap:9px}
+  .article-art{height:56px}
+  .article-body{padding:7px 8px}
+  .article h3{font-size:10px;line-height:1.35}
+  .article p{font-size:9px}
+  .rightbar{padding-top:10px;gap:10px}
+  .chat-preview{padding:11px;border-radius:14px}
+  .preview-head{gap:8px;margin-bottom:8px}
+  .bot-avatar{width:40px;height:40px;font-size:24px}
+  .preview-head h3{font-size:13px}
+  .preview-head p{font-size:10px}
+  .online-pill{margin:5px 0 8px 48px;padding:4px 8px;font-size:10px}
+  .preview-message{padding:10px;font-size:11px;line-height:1.45}
+  .suggestion-pills{gap:6px;margin-top:7px}
+  .suggestion-pills button{padding:8px 10px;font-size:10px}
+  .preview-input{gap:7px;margin-top:8px}
+  .preview-input input{padding:10px 12px;font-size:11px}
+  .preview-input button{width:38px;height:38px}
+  .positive-card,.quick-help{padding:11px;border-radius:13px}
+}
+@media (min-width:761px) and (max-height:800px) {
+  .desktop-hero,.hero-art{min-height:185px}
+  .feature{min-height:82px;padding:9px}
+  .topic{min-height:70px}
+  .section{margin-top:9px}
+  .article-art{height:48px}
+  .side-landscape{height:82px}
+}
+
 </style></head>
 <body>
 <header class="topbar"><div class="brand"><div class="brand-mark" aria-hidden="true">💗</div><div><h1>Cô Hường</h1><p>Tư vấn tâm lý học đường</p></div></div><div class="top-note">Lắng nghe – Thấu hiểu – Đồng hành ♡</div><div class="top-actions"><label class="searchbox">⌕ <input id="siteSearch" placeholder="Tìm kiếm..." aria-label="Tìm kiếm"></label><button class="notification" aria-label="Thông báo" data-contact>♧<b>2</b></button><div class="user-pill"><img src="https://raw.githubusercontent.com/nguyenthuhuong7993-ai/Phong_Tu_Van_Tam_Ly/main/Co_Huong.jpg" alt="Ảnh đại diện"><span>Xin chào,<br>Học sinh THCS</span></div></div></header>
