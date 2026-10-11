@@ -56,6 +56,54 @@ main{max-width:1440px;margin:auto;padding:clamp(18px,3vw,38px)}.hero-layout{disp
 <main>
   <section class="hero-layout" id="home" aria-label="Trang chủ tư vấn tâm lý">
     <aside class="panel options">
+<div class="mood-picker">
+  <h2>💙 Hôm nay em cảm thấy thế nào?</h2>
+  <p>Hãy chọn cảm xúc của em nhé!</p>
+
+  <div class="mood-grid" id="moodGrid">
+    <button type="button" class="mood-item" data-mood="Vui vẻ">
+      <span>😄</span><small>Vui vẻ</small>
+    </button>
+    <button type="button" class="mood-item" data-mood="Bình yên">
+      <span>😌</span><small>Bình yên</small>
+    </button>
+    <button type="button" class="mood-item" data-mood="Hào hứng">
+      <span>🤩</span><small>Hào hứng</small>
+    </button>
+    <button type="button" class="mood-item" data-mood="Buồn">
+      <span>😢</span><small>Buồn</small>
+    </button>
+    <button type="button" class="mood-item" data-mood="Lo lắng">
+      <span>😟</span><small>Lo lắng</small>
+    </button>
+    <button type="button" class="mood-item" data-mood="Căng thẳng">
+      <span>😣</span><small>Căng thẳng</small>
+    </button>
+    <button type="button" class="mood-item" data-mood="Tức giận">
+      <span>😠</span><small>Tức giận</small>
+    </button>
+    <button type="button" class="mood-item" data-mood="Thất vọng">
+      <span>😞</span><small>Thất vọng</small>
+    </button>
+    <button type="button" class="mood-item" data-mood="Bối rối">
+      <span>😕</span><small>Bối rối</small>
+    </button>
+    <button type="button" class="mood-item" data-mood="Cô đơn">
+      <span>🥺</span><small>Cô đơn</small>
+    </button>
+    <button type="button" class="mood-item" data-mood="Mệt mỏi">
+      <span>😴</span><small>Mệt mỏi</small>
+    </button>
+    <button type="button" class="mood-item" data-mood="Khó gọi tên">
+      <span>😶</span><small>Khó gọi tên</small>
+    </button>
+  </div>
+
+  <button type="button" id="confirmMood" class="confirm-mood">
+    Xác nhận cảm xúc
+  </button>
+  <p class="mood-note">Mọi cảm xúc đều xứng đáng được lắng nghe 💙</p>
+</div>
       <button class="option" data-open-chat><span class="option-icon">☏</span><span><strong>Tư vấn trực tuyến</strong><small>Trò chuyện cùng chatbot AI</small></span></button>
       <button class="option" data-contact><span class="option-icon">♙</span><span><strong>Tư vấn trực tiếp</strong><small>Kết nối với giáo viên</small></span></button>
       <button class="option" data-contact><span class="option-icon">♡</span><span><strong>Hỗ trợ khi cần</strong><small>Giáo viên tư vấn học đường</small></span></button>
