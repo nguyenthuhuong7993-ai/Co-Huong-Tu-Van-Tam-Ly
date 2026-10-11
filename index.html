@@ -21,6 +21,31 @@ main{max-width:1440px;margin:auto;padding:clamp(18px,3vw,38px)}.hero-layout{disp
 @media(max-width:1080px){.hero-layout{grid-template-columns:1fr 2fr}.qr-panel{grid-column:1/-1;display:grid;grid-template-columns:1fr auto 1fr;gap:12px;text-align:left;padding:18px 24px}.qr-panel h2,.qr-panel p{grid-column:1}.qr-frame{grid-column:2;grid-row:1/4;width:140px;margin:0}.privacy{grid-column:3;grid-row:1/4;align-self:center;border:0;padding:0;margin:0}.hero-card{min-height:430px}.portrait{flex-basis:140px}.chat-shell{grid-template-columns:1fr 240px}}
 @media(max-width:760px){.topbar{padding:13px 16px}.top-note{display:none}.brand-mark{width:45px;height:45px;border-radius:16px}.brand p{font-size:12px}main{padding:16px}.hero-layout{grid-template-columns:1fr}.options{order:2;display:grid;grid-template-columns:1fr;gap:9px;padding:12px}.option{padding:10px}.option-icon{width:46px;height:46px;flex-basis:46px;font-size:21px}.hero-card{order:1;min-height:0;display:flex;flex-direction:column;text-align:center;padding:25px 18px;gap:14px}.portrait{width:145px;flex-basis:auto;border-width:5px}.hero-copy h2{font-size:39px;margin-top:13px}.hero-copy h3{font-size:20px}.hero-copy .rule{margin:14px auto}.hero-buttons{justify-content:center}.hero-message{font-size:16px}.qr-panel{order:3;display:flex;text-align:center;padding:22px}.qr-frame{width:170px;margin:15px auto}.privacy{border-top:1px solid #d8edf1;padding-top:12px;margin-top:0}.feature-grid{grid-template-columns:1fr}.section-head{align-items:start;flex-direction:column}.chat-shell{grid-template-columns:1fr;min-height:0}.chat-side{border-left:0;border-top:1px solid var(--line)}.messages{max-height:48vh;min-height:280px;padding:14px}.chat-form{padding:10px}.chat-form textarea{font-size:16px}.chat-section{scroll-margin-top:78px}.contact-card{padding:20px}.mobile-nav{display:flex;position:fixed;bottom:0;left:0;right:0;z-index:15;background:#ffffffed;border-top:1px solid #d8edf5;padding:8px 12px calc(8px + env(safe-area-inset-bottom));justify-content:space-around;backdrop-filter:blur(12px)}.mobile-nav button{border:0;background:transparent;color:#326997;font-size:12px;font-weight:750;padding:5px 8px;display:flex;flex-direction:column;align-items:center;gap:3px}.mobile-nav span{font-size:20px}body{padding-bottom:68px}.footer{padding-bottom:18px}}
 @media(orientation:landscape) and (max-height:520px){.topbar{position:relative}.hero-layout{grid-template-columns:minmax(170px,.8fr) minmax(330px,2fr) minmax(180px,.8fr)}.hero-card{min-height:300px;padding:20px}.portrait{flex-basis:125px}.hero-copy h2{font-size:35px}.qr-panel{display:flex;text-align:center;padding:12px}.qr-frame{width:105px;margin:8px auto}.options{padding:10px;gap:7px}.option{padding:8px}.option-icon{width:38px;height:38px;flex-basis:38px}}
+/* Ảnh chân dung Cô Hường trong khung trò chuyện */
+.mini-avatar {
+  width: 44px;
+  height: 44px;
+  min-width: 44px;
+  border-radius: 50%;
+  overflow: hidden;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mini-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  border-radius: 50%;
+}
+
+.chat-title {
+  flex: 1;
+  min-width: 0;
+}
 </style>
 </head>
 <body>
@@ -84,8 +109,22 @@ main{max-width:1440px;margin:auto;padding:clamp(18px,3vw,38px)}.hero-layout{disp
     <div class="section-head"><div><h2>Trò chuyện cùng Cô Hường</h2><p>Em có thể viết điều mình đang nghĩ; không cần phải diễn đạt thật hoàn hảo.</p></div><button class="secondary" id="clearChat">Làm mới hội thoại</button></div>
     <div class="chat-shell">
       <div class="chat-main">
-        <div class="chat-header"><div class="mini-avatar">👩🏻‍🏫</div><div><h2>Cô Hường · Giáo viên tư vấn Tâm Lý Học Đường</h2><p>Lắng nghe, thấu hiểu và đồng hành</p></div><div class="online">Sẵn sàng</div></div>
-        <div class="messages" id="messages" aria-live="polite">
+        <div class="chat-header">
+  <div class="mini-avatar">
+    <img
+      src="https://raw.githubusercontent.com/nguyenthuhuong7993-ai/Phong_Tu_Van_Tam_Ly/main/Co_Huong.jpg"
+      alt="Cô Hường">
+  </div>
+
+  <div class="chat-title">
+    <h2>Cô Hường · Giáo viên tư vấn Tâm lý học đường</h2>
+    <p>Lắng nghe, thấu hiểu và đồng hành</p>
+  </div>
+
+  <div class="online">Sẵn sàng</div>
+</div>
+
+<div class="messages" id="messages" aria-live="polite">
           <div class="bubble bot">Chào em 💙 Cô Hường đang lắng nghe đây. Em muốn chia sẻ điều gì hôm nay? Em có thể kể về cảm xúc, học tập, bạn bè hoặc chuyện gia đình. Em không cần nêu tên thật hay thông tin riêng tư nhé.</div>
         </div>
         <form class="chat-form" id="chatForm"><textarea id="userInput" rows="1" maxlength="4000" placeholder="Viết điều em muốn chia sẻ..." aria-label="Nội dung tin nhắn"></textarea><button class="send" type="submit" aria-label="Gửi tin nhắn">➤</button></form>
