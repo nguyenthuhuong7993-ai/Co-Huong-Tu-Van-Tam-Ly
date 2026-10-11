@@ -35,8 +35,8 @@ main{max-width:1440px;margin:auto;padding:clamp(18px,3vw,38px)}.hero-layout{disp
 }
 
 .mini-avatar img {
-  width: 100%;
-  height: 100%;
+  width: 60%;
+  height: 60%;
   object-fit: cover;
   display: block;
   border-radius: 50%;
@@ -109,6 +109,7 @@ main{max-width:1440px;margin:auto;padding:clamp(18px,3vw,38px)}.hero-layout{disp
   <section class="hero-layout" id="home" aria-label="Trang chủ tư vấn tâm lý">
     <aside class="panel options">
  <button class="option" type="button" data-scroll-mood><span class="option-icon">💙</span><span><strong>Cảm xúc của em</strong><small>Khám phá và chia sẻ cảm xúc</small></span></button>
+      <button class="option" type="button" data-scroll-mood><span class="option-icon">🌡️</span><span><small>Khám phá và chia sẻ cảm xúc</small></span></button>
       <button class="option" data-open-chat><span class="option-icon">☏</span><span><strong>Tư vấn trực tuyến</strong><small>Trò chuyện cùng chatbot AI</small></span></button>
       <button class="option" data-contact><span class="option-icon">♙</span><span><strong>Tư vấn trực tiếp</strong><small>Kết nối với giáo viên</small></span></button>
       <button class="option" data-contact><span class="option-icon">♡</span><span><strong>Hỗ trợ khi cần</strong><small>Giáo viên tư vấn học đường</small></span></button>
@@ -160,6 +161,102 @@ main{max-width:1440px;margin:auto;padding:clamp(18px,3vw,38px)}.hero-layout{disp
       Xác nhận cảm xúc
     </button>
     <p id="mood-message" aria-live="polite"></p>
+  </div>
+</section>
+<!-- ================================== -->
+<!-- KHU VỰC NHIỆT KẾ CẢM XÚC -->
+<!-- ================================== -->
+<section
+  class="panel emotion-thermometer-section"
+  id="nhiet-ke-cam-xuc"
+  aria-labelledby="thermometer-title"
+>
+  <h2 id="thermometer-title">🌡️ Nhiệt kế cảm xúc</h2>
+
+  <p class="thermometer-question">
+    Cảm xúc hiện tại của em như thế nào?
+  </p>
+
+  <p class="thermometer-description">
+    Hãy chọn mức độ phù hợp với cảm xúc của em hôm nay nhé.
+  </p>
+
+  <div
+    class="emotion-thermometer"
+    role="group"
+    aria-label="Chọn mức độ cảm xúc từ 1 đến 5"
+  >
+    <div class="thermometer-tube">
+
+      <button
+        class="thermometer-level level-5"
+        type="button"
+        data-emotion-level="5"
+        aria-pressed="false"
+        aria-label="Mức 5 - Cảm xúc rất mạnh"
+      >5</button>
+
+      <button
+        class="thermometer-level level-4"
+        type="button"
+        data-emotion-level="4"
+        aria-pressed="false"
+        aria-label="Mức 4 - Cảm xúc mạnh"
+      >4</button>
+
+      <button
+        class="thermometer-level level-3"
+        type="button"
+        data-emotion-level="3"
+        aria-pressed="false"
+        aria-label="Mức 3 - Cảm xúc trung bình"
+      >3</button>
+
+      <button
+        class="thermometer-level level-2"
+        type="button"
+        data-emotion-level="2"
+        aria-pressed="false"
+        aria-label="Mức 2 - Hơi buồn hoặc lo lắng"
+      >2</button>
+
+      <button
+        class="thermometer-level level-1"
+        type="button"
+        data-emotion-level="1"
+        aria-pressed="false"
+        aria-label="Mức 1 - Bình tĩnh"
+      >1</button>
+
+    </div>
+
+    <div
+      class="thermometer-bulb"
+      aria-hidden="true"
+    ></div>
+  </div>
+
+  <div class="thermometer-scale-labels">
+    <span>1 – Bình tĩnh</span>
+    <span>5 – Cảm xúc rất mạnh</span>
+  </div>
+
+  <div
+    id="thermometer-feedback"
+    class="thermometer-feedback"
+    aria-live="polite"
+    hidden
+  >
+    <h3 id="thermometer-feedback-title"></h3>
+    <p id="thermometer-feedback-message"></p>
+
+    <button
+      type="button"
+      id="thermometer-reset"
+      class="thermometer-reset"
+    >
+      Chọn lại cảm xúc
+    </button>
   </div>
 </section>
   <section class="section" id="about">
