@@ -46,6 +46,58 @@ main{max-width:1440px;margin:auto;padding:clamp(18px,3vw,38px)}.hero-layout{disp
   flex: 1;
   min-width: 0;
 }
+.mood-section {
+  max-width: 1000px;
+  margin: 36px auto;
+  padding: 20px;
+  scroll-margin-top: 24px;
+}
+.mood-card {
+  background: #fff;
+  border: 1px solid #d9eaf8;
+  border-radius: 22px;
+  padding: 24px;
+  box-shadow: 0 8px 28px rgba(40, 100, 160, .08);
+}
+.mood-card h2 { color: #1759a6; margin-top: 0; }
+.mood-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+  margin: 22px 0;
+}
+.mood-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 16px 6px;
+  border: 1px solid #dce8f2;
+  border-radius: 16px;
+  background: #f7fbff;
+  font-size: 32px;
+  cursor: pointer;
+}
+.mood-item small { color: #234d78; font-size: 13px; }
+.mood-item.selected {
+  border: 2px solid #287bd1;
+  background: #e1f2ff;
+}
+.confirm-mood {
+  width: 100%;
+  padding: 14px;
+  border: 0;
+  border-radius: 12px;
+  background: #287bd1;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+}
+#mood-message { color: #1759a6; margin-bottom: 0; }
+@media (max-width: 600px) {
+  .mood-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .mood-card { padding: 16px; }
+} 
 </style>
 </head>
 <body>
@@ -56,54 +108,7 @@ main{max-width:1440px;margin:auto;padding:clamp(18px,3vw,38px)}.hero-layout{disp
 <main>
   <section class="hero-layout" id="home" aria-label="Trang chủ tư vấn tâm lý">
     <aside class="panel options">
-<div class="mood-picker">
-  <h2>💙 Hôm nay em cảm thấy thế nào?</h2>
-  <p>Hãy chọn cảm xúc của em nhé!</p>
-
-  <div class="mood-grid" id="moodGrid">
-    <button type="button" class="mood-item" data-mood="Vui vẻ">
-      <span>😄</span><small>Vui vẻ</small>
-    </button>
-    <button type="button" class="mood-item" data-mood="Bình yên">
-      <span>😌</span><small>Bình yên</small>
-    </button>
-    <button type="button" class="mood-item" data-mood="Hào hứng">
-      <span>🤩</span><small>Hào hứng</small>
-    </button>
-    <button type="button" class="mood-item" data-mood="Buồn">
-      <span>😢</span><small>Buồn</small>
-    </button>
-    <button type="button" class="mood-item" data-mood="Lo lắng">
-      <span>😟</span><small>Lo lắng</small>
-    </button>
-    <button type="button" class="mood-item" data-mood="Căng thẳng">
-      <span>😣</span><small>Căng thẳng</small>
-    </button>
-    <button type="button" class="mood-item" data-mood="Tức giận">
-      <span>😠</span><small>Tức giận</small>
-    </button>
-    <button type="button" class="mood-item" data-mood="Thất vọng">
-      <span>😞</span><small>Thất vọng</small>
-    </button>
-    <button type="button" class="mood-item" data-mood="Bối rối">
-      <span>😕</span><small>Bối rối</small>
-    </button>
-    <button type="button" class="mood-item" data-mood="Cô đơn">
-      <span>🥺</span><small>Cô đơn</small>
-    </button>
-    <button type="button" class="mood-item" data-mood="Mệt mỏi">
-      <span>😴</span><small>Mệt mỏi</small>
-    </button>
-    <button type="button" class="mood-item" data-mood="Khó gọi tên">
-      <span>😶</span><small>Khó gọi tên</small>
-    </button>
-  </div>
-
-  <button type="button" id="confirmMood" class="confirm-mood">
-    Xác nhận cảm xúc
-  </button>
-  <p class="mood-note">Mọi cảm xúc đều xứng đáng được lắng nghe 💙</p>
-</div>
+ <button class="option" type="button" data-scroll-mood><span class="option-icon">💙</span><span><strong>Cảm xúc của em</strong><small>Khám phá và chia sẻ cảm xúc</small></span></button>
       <button class="option" data-open-chat><span class="option-icon">☏</span><span><strong>Tư vấn trực tuyến</strong><small>Trò chuyện cùng chatbot AI</small></span></button>
       <button class="option" data-contact><span class="option-icon">♙</span><span><strong>Tư vấn trực tiếp</strong><small>Kết nối với giáo viên</small></span></button>
       <button class="option" data-contact><span class="option-icon">♡</span><span><strong>Hỗ trợ khi cần</strong><small>Giáo viên tư vấn học đường</small></span></button>
@@ -125,7 +130,33 @@ main{max-width:1440px;margin:auto;padding:clamp(18px,3vw,38px)}.hero-layout{disp
         <div class="hero-buttons"><button class="primary" data-open-chat>💬 Bắt đầu trò chuyện</button><button class="secondary" data-contact>Liên hệ giáo viên</button></div>
       </div>
     </section>
-    <aside class="panel qr-panel">
+    <section id="mood-section" class="mood-section">
+  <div class="mood-card">
+    <h2>💙 Cảm xúc hiện tại của em</h2>
+    <p>Hôm nay em cảm thấy thế nào? Hãy chọn biểu cảm phù hợp nhất nhé.</p>
+
+    <div class="mood-grid">
+      <button type="button" class="mood-item" data-mood="Vui vẻ">😄<small>Vui vẻ</small></button>
+      <button type="button" class="mood-item" data-mood="Bình yên">😌<small>Bình yên</small></button>
+      <button type="button" class="mood-item" data-mood="Hào hứng">🤩<small>Hào hứng</small></button>
+      <button type="button" class="mood-item" data-mood="Buồn">😢<small>Buồn</small></button>
+      <button type="button" class="mood-item" data-mood="Lo lắng">😟<small>Lo lắng</small></button>
+      <button type="button" class="mood-item" data-mood="Căng thẳng">😣<small>Căng thẳng</small></button>
+      <button type="button" class="mood-item" data-mood="Tức giận">😠<small>Tức giận</small></button>
+      <button type="button" class="mood-item" data-mood="Thất vọng">😞<small>Thất vọng</small></button>
+      <button type="button" class="mood-item" data-mood="Bối rối">😕<small>Bối rối</small></button>
+      <button type="button" class="mood-item" data-mood="Cô đơn">🥺<small>Cô đơn</small></button>
+      <button type="button" class="mood-item" data-mood="Mệt mỏi">😴<small>Mệt mỏi</small></button>
+      <button type="button" class="mood-item" data-mood="Khó gọi tên">😶<small>Khó gọi tên</small></button>
+    </div>
+
+    <button type="button" id="confirmMood" class="confirm-mood">
+      Xác nhận cảm xúc
+    </button>
+    <p id="mood-message" aria-live="polite"></p>
+  </div>
+</section>
+        <aside class="panel qr-panel">
       <h2>Quét mã QR</h2><p>để truy cập<br>Chatbot tư vấn tâm lý</p>
       <div class="qr-frame" id="qrBox"><div class="qr-fallback">Mã QR sẽ hiện khi trang được đăng tải bằng đường dẫn HTTPS.</div></div>
       <div class="privacy"><span>🔒</span>An toàn · Tôn trọng<br>quyền riêng tư</div>
@@ -374,6 +405,59 @@ function makeQR(){
 window.addEventListener("load",()=>{
   makeQR();
   if("serviceWorker" in navigator && location.protocol.startsWith("http"))navigator.serviceWorker.register("./sw.js").catch(e=>console.warn("PWA:",e));
+});
+
+/* ===== CHỨC NĂNG CHỌN VÀ XÁC NHẬN CẢM XÚC ===== */
+
+// Bấm menu "Cảm xúc của em" để cuộn xuống
+document.querySelectorAll("[data-scroll-mood]").forEach(button => {
+  button.addEventListener("click", () => {
+    const moodSection = document.getElementById("mood-section");
+
+    if (moodSection) {
+      moodSection.scrollIntoView({
+        behavior: "smooth",
+        block: "start"
+      });
+    }
+  });
+});
+
+// Cho học sinh chọn một biểu cảm
+let currentMood = "";
+
+document.querySelectorAll("#mood-section .mood-item").forEach(button => {
+  button.setAttribute("aria-pressed", "false");
+
+  button.addEventListener("click", () => {
+    document.querySelectorAll("#mood-section .mood-item").forEach(item => {
+      item.classList.remove("selected");
+      item.setAttribute("aria-pressed", "false");
+    });
+
+    button.classList.add("selected");
+    button.setAttribute("aria-pressed", "true");
+    currentMood = button.dataset.mood;
+
+    const message = document.getElementById("mood-message");
+    if (message) {
+      message.textContent = "Em đã chọn cảm xúc: " + currentMood;
+    }
+  });
+});
+
+// Xác nhận cảm xúc
+document.getElementById("confirmMood")?.addEventListener("click", () => {
+  const message = document.getElementById("mood-message");
+
+  if (!currentMood) {
+    message.textContent = "Em hãy chọn một biểu cảm trước nhé 💙";
+    return;
+  }
+
+  message.textContent =
+    "Cảm ơn em đã chia sẻ cảm xúc " + currentMood +
+    ". Nếu muốn, em có thể chọn Tư vấn trực tuyến để trò chuyện cùng cô Hường nhé 💙";
 });
 </script>
 </body>
