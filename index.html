@@ -101,7 +101,7 @@ main{max-width:1440px;margin:auto;padding:clamp(18px,3vw,38px)}.hero-layout{disp
 
   <section class="section" id="contact">
     <div class="section-head"><div><h2>Kết nối với giáo viên tư vấn</h2><p>Khi cần người hỗ trợ trực tiếp, em có thể liên hệ giáo viên phụ trách.</p></div></div>
-    <div class="contact-card"><div class="contact-info"><h3>👩🏻‍🏫 Giáo viên tư vấn tâm lý học đường</h3><p>🏫 Trường THCS</p><p>📞 <strong>0989836893</strong></p><p>✉️ nguyenthuhuong7993@gmail.com</p><p>🕐 Thời gian làm việc: <strong>7:00 – 22:00</strong></p></div><div class="contact-actions"><a class="primary" href="tel:0989836893">📞 Gọi điện</a><a class="secondary" href="mailto:nguyenthuhuong7993@gmail.com">✉️ Gửi email</a></div></div>
+    <div class="contact-card"><div class="contact-info"><h3>👩🏻‍🏫 Giáo viên tư vấn tâm lý học đường</h3><p>🏫 Trường THCS Phụng Công</p><p>📞 <strong>0989836893</strong></p><p>✉️ nguyenthuhuong7993@gmail.com</p><p>🕐 Thời gian làm việc: <strong>7:00 – 22:00</strong></p></div><div class="contact-actions"><a class="primary" href="tel:0989836893">📞 Gọi điện</a><a class="secondary" href="mailto:nguyenthuhuong7993@gmail.com">✉️ Gửi email</a></div></div>
   </section>
   <footer class="footer">© <span id="year"></span> Cô Hường · Giáo viên tư vấn Tâm lý Học đường<br>Chia sẻ vừa đủ để được hỗ trợ; hãy bảo vệ thông tin riêng tư của em.</footer>
 </main>
@@ -115,7 +115,7 @@ main{max-width:1440px;margin:auto;padding:clamp(18px,3vw,38px)}.hero-layout{disp
 const WORKER_URL = "https://phong-tu-van-tam-ly.nguyenthuhuong7993.workers.dev";
 const COUNSELOR = {
   name: "Cô Hường - Giáo viên tư vấn tâm lý học đường",
-  school: "Trường THCS Phụng Công",
+  school: "Trường THCS",
   phone: "0989836893",
   email: "nguyenthuhuong7993@gmail.com",
   workingTime: "7:00 - 22:00"
@@ -280,7 +280,7 @@ async function sendMessage(text){
     $("typing")?.remove();
     console.error("Chat integration error; switching to local knowledge:",err);
     const localReply = getLocalFallbackReply(content);
-    addBubble(localReply + "\n\n(Đang trả lời bằng kho kiến thức dự phòng; cần kiểm tra Cloudflare Worker để bật AI trực tuyến.)", "bot");
+    addBubble(localReply, "bot");
     chatHistory.push({role:"assistant",content:localReply});
   }finally{clearTimeout(requestTimeout);isSending=false;$("userInput").focus({preventScroll:true})}
 }
