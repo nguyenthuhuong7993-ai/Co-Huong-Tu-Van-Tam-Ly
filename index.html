@@ -97,7 +97,139 @@ main{max-width:1440px;margin:auto;padding:clamp(18px,3vw,38px)}.hero-layout{disp
 @media (max-width: 600px) {
   .mood-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   .mood-card { padding: 16px; }
-} 
+}
+
+/* ===== THƯ MỤC NHIỆT KẾ CẢM XÚC ===== */
+
+.emotion-thermometer-section {
+  margin-top: 28px;
+  padding: 24px 18px;
+  text-align: center;
+  scroll-margin-top: 24px;
+}
+
+.thermometer-question {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.thermometer-description {
+  color: #64748b;
+  line-height: 1.6;
+}
+
+/* Toàn bộ nhiệt kế */
+.emotion-thermometer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 32px auto 20px;
+}
+
+/* Thân nhiệt kế */
+.thermometer-tube {
+  box-sizing: border-box;
+  width: 76px;
+  height: 270px;
+  padding: 7px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow: hidden;
+  border: 3px solid #a3b8c2;
+  border-radius: 38px 38px 20px 20px;
+  background: #fff;
+}
+
+/* Các số nằm bên trong thân nhiệt kế */
+.thermometer-level {
+  flex: 1;
+  width: 100%;
+  min-height: 0;
+  padding: 0;
+  border: none;
+  border-radius: 20px;
+  color: #263238;
+  font-size: 18px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: filter 0.2s, outline 0.2s;
+}
+
+.level-1 { background: #78bce0; }
+.level-2 { background: #a1d3ae; }
+.level-3 { background: #f4d16f; }
+.level-4 { background: #f5a16c; }
+.level-5 { background: #e97670; }
+
+.thermometer-level:hover {
+  filter: brightness(0.95);
+}
+
+.thermometer-level.selected {
+  outline: 3px solid #244e63;
+  outline-offset: -4px;
+}
+
+.thermometer-level:focus-visible {
+  outline: 3px solid #244e63;
+  outline-offset: -4px;
+}
+
+/* Bầu tròn phía dưới */
+.thermometer-bulb {
+  width: 86px;
+  height: 86px;
+  box-sizing: border-box;
+  margin-top: -8px;
+  border: 3px solid #a3b8c2;
+  border-radius: 50%;
+  background: #78bce0;
+}
+
+.thermometer-scale-labels {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  max-width: 320px;
+  margin: 0 auto;
+  font-size: 12px;
+  color: #64748b;
+}
+
+.thermometer-feedback {
+  max-width: 480px;
+  margin: 24px auto 0;
+  padding: 18px;
+  border: 1px solid #d7e8e3;
+  border-radius: 14px;
+  background: #f2f9f7;
+  text-align: left;
+  line-height: 1.7;
+}
+
+.thermometer-feedback h3 {
+  color: #245d54;
+}
+
+.thermometer-reset {
+  padding: 10px 16px;
+  border: 1px solid #b9d9d0;
+  border-radius: 10px;
+  background: white;
+  color: #245d54;
+  cursor: pointer;
+}
+
+@media (max-width: 480px) {
+  .emotion-thermometer-section {
+    padding: 20px 12px;
+  }
+
+  .thermometer-scale-labels {
+    font-size: 11px;
+  }
+}
 </style>
 </head>
 <body>
