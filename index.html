@@ -21,6 +21,80 @@ main{max-width:1440px;margin:auto;padding:clamp(18px,3vw,38px)}.hero-layout{disp
 @media(max-width:1080px){.hero-layout{grid-template-columns:1fr 2fr}.qr-panel{grid-column:1/-1;display:grid;grid-template-columns:1fr auto 1fr;gap:12px;text-align:left;padding:18px 24px}.qr-panel h2,.qr-panel p{grid-column:1}.qr-frame{grid-column:2;grid-row:1/4;width:140px;margin:0}.privacy{grid-column:3;grid-row:1/4;align-self:center;border:0;padding:0;margin:0}.hero-card{min-height:430px}.portrait{flex-basis:140px}.chat-shell{grid-template-columns:1fr 240px}}
 @media(max-width:760px){.topbar{padding:13px 16px}.top-note{display:none}.brand-mark{width:45px;height:45px;border-radius:16px}.brand p{font-size:12px}main{padding:16px}.hero-layout{grid-template-columns:1fr}.options{order:2;display:grid;grid-template-columns:1fr;gap:9px;padding:12px}.option{padding:10px}.option-icon{width:46px;height:46px;flex-basis:46px;font-size:21px}.hero-card{order:1;min-height:0;display:flex;flex-direction:column;text-align:center;padding:25px 18px;gap:14px}.portrait{width:145px;flex-basis:auto;border-width:5px}.hero-copy h2{font-size:39px;margin-top:13px}.hero-copy h3{font-size:20px}.hero-copy .rule{margin:14px auto}.hero-buttons{justify-content:center}.hero-message{font-size:16px}.qr-panel{order:3;display:flex;text-align:center;padding:22px}.qr-frame{width:170px;margin:15px auto}.privacy{border-top:1px solid #d8edf1;padding-top:12px;margin-top:0}.feature-grid{grid-template-columns:1fr}.section-head{align-items:start;flex-direction:column}.chat-shell{grid-template-columns:1fr;min-height:0}.chat-side{border-left:0;border-top:1px solid var(--line)}.messages{max-height:48vh;min-height:280px;padding:14px}.chat-form{padding:10px}.chat-form textarea{font-size:16px}.chat-section{scroll-margin-top:78px}.contact-card{padding:20px}.mobile-nav{display:flex;position:fixed;bottom:0;left:0;right:0;z-index:15;background:#ffffffed;border-top:1px solid #d8edf5;padding:8px 12px calc(8px + env(safe-area-inset-bottom));justify-content:space-around;backdrop-filter:blur(12px)}.mobile-nav button{border:0;background:transparent;color:#326997;font-size:12px;font-weight:750;padding:5px 8px;display:flex;flex-direction:column;align-items:center;gap:3px}.mobile-nav span{font-size:20px}body{padding-bottom:68px}.footer{padding-bottom:18px}}
 @media(orientation:landscape) and (max-height:520px){.topbar{position:relative}.hero-layout{grid-template-columns:minmax(170px,.8fr) minmax(330px,2fr) minmax(180px,.8fr)}.hero-card{min-height:300px;padding:20px}.portrait{flex-basis:125px}.hero-copy h2{font-size:35px}.qr-panel{display:flex;text-align:center;padding:12px}.qr-frame{width:105px;margin:8px auto}.options{padding:10px;gap:7px}.option{padding:8px}.option-icon{width:38px;height:38px;flex-basis:38px}}
+/* Ảnh chân dung Cô Hường trong khung trò chuyện */
+.mini-avatar {
+  width: 44px;
+  height: 44px;
+  min-width: 44px;
+  border-radius: 50%;
+  overflow: hidden;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mini-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  border-radius: 50%;
+}
+
+.chat-title {
+  flex: 1;
+  min-width: 0;
+}
+
+/* GIAO DIỆN MỚI: bảng điều khiển desktop + bố cục ứng dụng trên điện thoại */
+:root{--blue:#246ff2;--blue2:#4f9cff;--sky:#edf7ff;--mint:#edfff6;--ink:#102f70;--muted:#6881a8;--line:#e1edff;--shadow:0 5px 20px #2b70bd12}
+body{background:#f5f9ff;color:#12336f}
+.topbar{height:76px;padding:10px 28px 10px 300px;background:#ffffffed;border-bottom:1px solid #e3edff}
+.brand-mark{background:linear-gradient(135deg,#ffd56b,#ed6fae 48%,#4aa6ff);font-size:34px}
+.brand-mark:after{content:"";position:absolute}
+.brand h1{font-size:23px;color:#123b8b}.brand p{color:#55719f}
+.top-note{font-family:"Segoe UI",sans-serif;font-style:italic;color:#1b55ad;font-size:17px}
+.app-sidebar{position:fixed;z-index:12;left:0;top:76px;bottom:0;width:260px;padding:20px 14px 14px;background:linear-gradient(180deg,#fff 0%,#f0f7ff 80%,#e6f8f4 100%);border-right:1px solid #e0ecff;display:flex;flex-direction:column;gap:7px}
+.sidebar-brand{display:flex;align-items:center;gap:12px;padding:4px 10px 18px;border-bottom:1px solid #e7efff;margin-bottom:6px}
+.sidebar-brand>span{font-size:30px}.sidebar-brand b{display:block;font-size:16px}.sidebar-brand small{display:block;color:#7488ad;margin-top:3px}
+.side-link{display:flex;align-items:center;gap:13px;text-align:left;border:0;background:transparent;color:#23477f;border-radius:15px;padding:12px 14px;font-weight:700;font-size:14px}
+.side-link span{width:27px;text-align:center;font-size:22px;color:#3266bd}.side-link:hover,.side-link.active{background:linear-gradient(100deg,#367ff1,#4c86ed);color:#fff}.side-link:hover span,.side-link.active span{color:#fff}
+.sidebar-quote{margin:auto 6px 18px;text-align:center;color:#174baf;font-style:italic;font-size:17px;line-height:1.6;transform:rotate(-3deg)}.sidebar-quote span{font-size:24px}
+.sidebar-school{padding:14px 7px 4px;border-top:1px solid #dceaff;font-size:12px;line-height:1.8}.sidebar-school small{padding-left:27px;color:#5d76a0}
+main{max-width:none;margin:0 0 0 260px;padding:20px 24px 32px}
+.hero-layout{grid-template-columns:minmax(0,1.9fr) minmax(230px,.8fr);gap:18px}
+.options{display:none}.hero-card{min-height:250px;padding:28px 32px;border-radius:22px;box-shadow:var(--shadow);background:linear-gradient(110deg,#f2f8ff,#e7f8ff 55%,#e8fff4)}
+.portrait{flex-basis:190px;aspect-ratio:1;border-radius:22px}.portrait img{width:100%;height:100%;object-fit:cover}
+.hero-copy h2{font-size:clamp(36px,3vw,52px);margin:8px 0;color:#174da7}.hero-copy h3{font-size:19px}.hero-copy .rule{margin:12px 0;width:100px;height:3px}.hero-message{font-size:16px;font-weight:500}
+.qr-panel{border-radius:22px;padding:18px;background:linear-gradient(155deg,#fff,#f0f8ff);box-shadow:var(--shadow)}.qr-frame{width:130px;margin:12px 0}.qr-panel h2{font-size:21px}
+.section{margin-top:22px}.section-head{margin-bottom:12px}.section-head h2{font-size:22px}.section-head p{font-size:13px}
+.feature-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}.feature{border:1px solid #e3edff;border-radius:17px;padding:17px;background:#fff}.feature:nth-child(1){background:linear-gradient(120deg,#eff7ff,#fff)}.feature:nth-child(2){background:linear-gradient(120deg,#f7efff,#fff)}.feature:nth-child(3){background:linear-gradient(120deg,#fff0f5,#fff)}.feature h3{font-size:15px}.feature p{font-size:12px}
+.chat-section{scroll-margin-top:90px}.chat-shell{border-radius:20px}.contact-card{border-radius:20px}
+.resource-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}.resource-card{display:flex;flex-direction:column;align-items:flex-start;text-align:left;gap:8px;background:#fff;border:1px solid #e0ebff;border-radius:17px;padding:17px;color:#173b7a;box-shadow:var(--shadow)}.resource-card span{font-size:28px}.resource-card b{font-size:14px}.resource-card small{font-size:12px;color:#6780a7;line-height:1.5}.resource-card:hover{transform:translateY(-2px);border-color:#9bc7ff}
+.share-panel,.feeling-panel{background:linear-gradient(110deg,#fff4f7,#f1f8ff);border:1px solid #e5eaff;border-radius:20px;padding:22px;display:flex;align-items:center;gap:20px;box-shadow:var(--shadow)}.share-illustration{font-size:54px}.share-panel h3{margin:0 0 8px}.share-panel p{color:#526f9e;line-height:1.6;margin:0 0 15px}.feeling-panel{display:block;background:#fff}.feeling-options{display:grid;grid-template-columns:repeat(6,1fr);gap:10px}.feeling-options button{border:1px solid #e1ecff;background:#f8fbff;border-radius:15px;padding:13px 6px;font-size:27px;color:#204b8d}.feeling-options span{display:block;font-size:12px;margin-top:6px}.feeling-options button.selected{background:#eaf3ff;border-color:#4c8df5}.feeling-panel p{color:#59749d;line-height:1.6}
+.mobile-nav{display:none}
+@media(max-width:1100px){.topbar{padding-left:280px}.hero-layout{grid-template-columns:1fr}.qr-panel{display:none}.hero-card{min-height:230px}.resource-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:760px){
+ .topbar{height:66px;padding:8px 14px;position:sticky;top:0}.brand-mark{width:42px;height:42px;font-size:28px}.brand h1{font-size:19px}.brand p{font-size:11px}.top-note{display:none}
+ .app-sidebar{display:none}main{margin:0;padding:12px 12px 92px}
+ .hero-layout{display:block}.hero-card{display:flex;flex-direction:column;text-align:center;gap:12px;padding:22px 16px;min-height:0;border-radius:22px}.portrait{width:142px;flex:0 0 auto;aspect-ratio:1;border-radius:50%;border:5px solid white}.hero-copy h2{font-size:35px;margin:8px 0}.hero-copy h3{font-size:16px}.hero-copy .rule{margin:10px auto}.hero-message{font-size:14px}.hero-buttons{justify-content:center;margin-top:16px}.primary,.secondary{padding:12px 15px;font-size:13px}
+ .feature-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.feature{padding:14px;border-radius:16px}.feature .emoji{width:40px;height:40px;font-size:21px;margin-bottom:9px}.feature h3{font-size:13px}.feature p{font-size:12px}
+ .section{margin-top:22px}.section-head h2{font-size:19px}.section-head p{font-size:12px;line-height:1.5}
+ .resource-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.resource-card{padding:13px}.resource-card b{font-size:12px}.resource-card small{font-size:11px}
+ .share-panel{padding:16px;gap:10px;align-items:flex-start}.share-illustration{font-size:36px}.share-panel h3{font-size:16px}.share-panel p{font-size:13px}
+ .feeling-options{grid-template-columns:repeat(3,1fr);gap:8px}.feeling-options button{font-size:25px;padding:11px 4px}.feeling-options span{font-size:11px}
+ .chat-shell{grid-template-columns:1fr}.chat-side{padding:15px}.messages{max-height:48vh;min-height:260px}.chat-header h2{font-size:15px}.contact-card{padding:17px}.contact-info h3{font-size:17px}
+ .mobile-nav{display:flex;position:fixed;bottom:0;left:0;right:0;z-index:20;background:#ffffffed;border-top:1px solid #dce9ff;padding:7px 4px calc(7px + env(safe-area-inset-bottom));justify-content:space-around;backdrop-filter:blur(14px)}
+ .mobile-nav button{font-size:10px;color:#31578f;min-width:0;padding:4px 7px}.mobile-nav span{font-size:20px}
+ body{padding-bottom:0}.footer{padding-bottom:20px}
+}
+
+
+.chat-preview{align-items:stretch;text-align:left;justify-content:flex-start;gap:13px;background:linear-gradient(160deg,#fff,#f0f7ff);padding:20px}
+.preview-head{display:flex;gap:11px;align-items:center}.preview-head h2{font-size:17px;margin:0 0 3px;text-align:left}.preview-head p{font-size:12px;font-weight:500}.preview-bot{width:48px;height:48px;border-radius:50%;background:#dceeff;display:grid;place-items:center;font-size:27px;flex-shrink:0}.chat-preview .online{margin:0 0 0 58px}.preview-message{align-self:flex-end;background:#fff;border:1px solid #e0edff;border-radius:18px 18px 5px 18px;padding:15px;font-size:13px;line-height:1.65;box-shadow:0 4px 14px #4e87c40d}.chat-preview .primary{align-self:stretch}.chat-preview .privacy{margin-top:auto;font-size:12px}
+@media(max-width:1100px){.chat-preview{display:none}}
+@media(max-width:760px){.chat-preview{display:none}}
 </style>
 </head>
 <body>
@@ -28,6 +102,17 @@ main{max-width:1440px;margin:auto;padding:clamp(18px,3vw,38px)}.hero-layout{disp
   <div class="brand"><div class="brand-mark" aria-hidden="true">♡</div><div><h1>Cô Hường</h1><p> Giáo viên tư vấn Tâm lý Học đường</p></div></div>
   <div class="top-note"><span class="heart">♥</span> Lắng nghe <span>•</span> Thấu hiểu <span>•</span> Đồng hành</div>
 </header>
+<aside class="app-sidebar" aria-label="Điều hướng chính">
+  <div class="sidebar-brand"><span>💙</span><div><b>Cô Hường</b><small>Không gian an toàn</small></div></div>
+  <button class="side-link active" data-go="home"><span>⌂</span> Trang chủ</button>
+  <button class="side-link" data-open-chat><span>▤</span> Trò chuyện với Cô Hường</button>
+  <button class="side-link" data-go="resources"><span>▣</span> Tài liệu & kỹ năng sống</button>
+  <button class="side-link" data-go="share"><span>♡</span> Góc chia sẻ</button>
+  <button class="side-link" data-go="feelings"><span>☻</span> Nhật ký cảm xúc</button>
+  <button class="side-link" data-go="contact"><span>▦</span> Lịch hẹn tư vấn</button>
+  <div class="sidebar-quote">“Bạn không đơn độc,<br>luôn có người lắng nghe.”<br><span>♡</span></div>
+  <div class="sidebar-school">🏫 Trường THCS Phụng Công<br><small>Đồng hành cùng học sinh</small></div>
+</aside>
 <main>
   <section class="hero-layout" id="home" aria-label="Trang chủ tư vấn tâm lý">
     <aside class="panel options">
@@ -36,25 +121,13 @@ main{max-width:1440px;margin:auto;padding:clamp(18px,3vw,38px)}.hero-layout{disp
       <button class="option" data-contact><span class="option-icon">♡</span><span><strong>Hỗ trợ khi cần</strong><small>Giáo viên tư vấn học đường</small></span></button>
     </aside>
     <section class="panel hero-card">
-      <div class="portrait" role="img" aria-label="Hình minh họa cô giáo tư vấn thân thiện">
-        <svg viewBox="0 0 220 220" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-          <defs><linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#b5eaff"/><stop offset="1" stop-color="#eafaff"/></linearGradient><linearGradient id="coat" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#54b7ed"/><stop offset="1" stop-color="#287ac1"/></linearGradient></defs>
-          <rect width="220" height="220" fill="url(#bg)"/>
-          <path d="M33 220 Q38 157 77 151 L143 151 Q184 160 189 220Z" fill="url(#coat)"/>
-          <path d="M88 145 L110 177 L132 145 L124 132 L96 132Z" fill="#fff"/>
-          <path d="M88 145 L109 174 L96 190 L77 153Z" fill="#fff"/><path d="M132 145 L110 174 L125 190 L143 153Z" fill="#dff5ff"/>
-          <path d="M63 74 Q61 22 111 24 Q164 22 163 83 L158 127 Q145 153 110 153 Q76 151 62 126Z" fill="#49303b"/>
-          <ellipse cx="110" cy="91" rx="45" ry="53" fill="#f6c9b9"/>
-          <path d="M65 82 Q61 35 105 29 Q145 27 157 65 Q140 47 119 49 Q96 46 77 65Z" fill="#543644"/>
-          <path d="M66 75 Q48 109 65 137 Q76 148 83 142 L80 111Z" fill="#49303b"/><path d="M154 75 Q174 109 155 137 Q146 148 138 142 L142 109Z" fill="#49303b"/>
-          <ellipse cx="93" cy="91" rx="5" ry="7" fill="#342b36"/><ellipse cx="128" cy="91" rx="5" ry="7" fill="#342b36"/><circle cx="94" cy="89" r="1.7" fill="#fff"/><circle cx="129" cy="89" r="1.7" fill="#fff"/>
-          <path d="M83 80 Q92 73 101 80 M119 80 Q129 73 138 80" fill="none" stroke="#49303b" stroke-width="4" stroke-linecap="round"/>
-          <ellipse cx="81" cy="105" rx="9" ry="5" fill="#f3a9a6" opacity=".65"/><ellipse cx="139" cy="105" rx="9" ry="5" fill="#f3a9a6" opacity=".65"/>
-          <path d="M95 111 Q110 125 126 111 Q121 132 109 132 Q99 129 95 111Z" fill="#b7475a"/><path d="M99 115 Q110 120 122 115 Q117 125 109 125 Q103 123 99 115Z" fill="#fff"/>
-          <path d="M88 147 L75 163 L85 184 L103 169Z M132 147 L145 163 L135 184 L117 169Z" fill="#3d99d4"/>
-          <circle cx="146" cy="178" r="7" fill="#fff"/><path d="M146 173 C140 168 136 177 146 183 C156 177 152 168 146 173Z" fill="#54b7ed"/>
-        </svg>
-      </div>
+      
+<div class="portrait">
+  <img
+    src="https://raw.githubusercontent.com/nguyenthuhuong7993-ai/Phong_Tu_Van_Tam_Ly/main/Co_Huong.jpg"
+    alt="Cô Hường - Giáo viên tư vấn tâm lý học đường">
+
+</div>
       <div class="hero-copy">
         <span class="eyebrow">💙 KHÔNG GIAN AN TOÀN ĐỂ CHIA SẺ</span>
         <h2>Cô Hường</h2>
@@ -64,10 +137,13 @@ main{max-width:1440px;margin:auto;padding:clamp(18px,3vw,38px)}.hero-layout{disp
         <div class="hero-buttons"><button class="primary" data-open-chat>💬 Bắt đầu trò chuyện</button><button class="secondary" data-contact>Liên hệ giáo viên</button></div>
       </div>
     </section>
-    <aside class="panel qr-panel">
-      <h2>Quét mã QR</h2><p>để truy cập<br>Chatbot tư vấn tâm lý</p>
-      <div class="qr-frame" id="qrBox"><div class="qr-fallback">Mã QR sẽ hiện khi trang được đăng tải bằng đường dẫn HTTPS.</div></div>
+    <aside class="panel qr-panel chat-preview">
+      <div class="preview-head"><span class="preview-bot">🤖</span><div><h2>Chat với Cô Hường AI</h2><p>Luôn sẵn sàng lắng nghe bạn</p></div></div>
+      <div class="online">Trực tuyến</div>
+      <div class="preview-message">Xin chào bạn! 💛<br>Mình là Cô Hường AI. Bạn có thể chia sẻ với mình bất cứ điều gì đang khiến bạn băn khoăn. Mình luôn lắng nghe và đồng hành cùng bạn! 💙</div>
+      <button class="primary" data-open-chat>💬 Bắt đầu trò chuyện</button>
       <div class="privacy"><span>🔒</span>An toàn · Tôn trọng<br>quyền riêng tư</div>
+      <div class="qr-frame" id="qrBox" aria-hidden="true" style="display:none"><div class="qr-fallback">QR</div></div>
     </aside>
   </section>
 
@@ -84,8 +160,22 @@ main{max-width:1440px;margin:auto;padding:clamp(18px,3vw,38px)}.hero-layout{disp
     <div class="section-head"><div><h2>Trò chuyện cùng Cô Hường</h2><p>Em có thể viết điều mình đang nghĩ; không cần phải diễn đạt thật hoàn hảo.</p></div><button class="secondary" id="clearChat">Làm mới hội thoại</button></div>
     <div class="chat-shell">
       <div class="chat-main">
-        <div class="chat-header"><div class="mini-avatar">👩🏻‍🏫</div><div><h2>Cô Hường · Giáo viên tư vấn Tâm Lý Học Đường</h2><p>Lắng nghe, thấu hiểu và đồng hành</p></div><div class="online">Sẵn sàng</div></div>
-        <div class="messages" id="messages" aria-live="polite">
+        <div class="chat-header">
+  <div class="mini-avatar">
+    <img
+      src="https://raw.githubusercontent.com/nguyenthuhuong7993-ai/Phong_Tu_Van_Tam_Ly/main/Co_Huong.jpg"
+      alt="Cô Hường">
+  </div>
+
+  <div class="chat-title">
+    <h2>Cô Hường · Giáo viên tư vấn Tâm lý học đường</h2>
+    <p>Lắng nghe, thấu hiểu và đồng hành</p>
+  </div>
+
+  <div class="online">Sẵn sàng</div>
+</div>
+
+<div class="messages" id="messages" aria-live="polite">
           <div class="bubble bot">Chào em 💙 Cô Hường đang lắng nghe đây. Em muốn chia sẻ điều gì hôm nay? Em có thể kể về cảm xúc, học tập, bạn bè hoặc chuyện gia đình. Em không cần nêu tên thật hay thông tin riêng tư nhé.</div>
         </div>
         <form class="chat-form" id="chatForm"><textarea id="userInput" rows="1" maxlength="4000" placeholder="Viết điều em muốn chia sẻ..." aria-label="Nội dung tin nhắn"></textarea><button class="send" type="submit" aria-label="Gửi tin nhắn">➤</button></form>
@@ -99,13 +189,32 @@ main{max-width:1440px;margin:auto;padding:clamp(18px,3vw,38px)}.hero-layout{disp
     </div>
   </section>
 
+  <section class="section" id="resources">
+    <div class="section-head"><div><h2>📚 Tài liệu & kỹ năng sống</h2><p>Những nội dung ngắn gọn giúp em hiểu mình và chăm sóc sức khỏe tinh thần.</p></div></div>
+    <div class="resource-grid">
+      <button class="resource-card" data-topic="Cảm xúc"><span>🌈</span><b>Nhận biết và quản lý cảm xúc</b><small>Hiểu cảm xúc – Làm chủ bản thân</small></button>
+      <button class="resource-card" data-topic="Giao tiếp"><span>🤝</span><b>Kỹ năng giao tiếp</b><small>Tự tin kết nối – Xây dựng bạn bè</small></button>
+      <button class="resource-card" data-topic="Học tập"><span>🌱</span><b>Vượt qua áp lực học tập</b><small>Học hiệu quả – Sống tích cực</small></button>
+      <button class="resource-card" data-topic="An toàn"><span>🛡️</span><b>An toàn học đường</b><small>Nhận biết ranh giới và tìm trợ giúp</small></button>
+    </div>
+  </section>
+  <section class="section" id="share">
+    <div class="section-head"><div><h2>💗 Góc chia sẻ</h2><p>Một lời nhắn tích cực dành cho em hôm nay.</p></div></div>
+    <div class="share-panel"><div class="share-illustration">🌿</div><div><h3>Em xứng đáng được lắng nghe</h3><p>Không cần phải ổn mọi lúc. Hãy bắt đầu bằng một điều nhỏ: gọi tên cảm xúc, nghỉ ngơi khi cần và tìm người đáng tin cậy để trò chuyện.</p><button class="primary" data-open-chat>Chia sẻ cùng Cô Hường →</button></div></div>
+  </section>
+  <section class="section" id="feelings">
+    <div class="section-head"><div><h2>☀️ Nhật ký cảm xúc</h2><p>Chọn cảm xúc gần với em lúc này. Lựa chọn chỉ lưu trên thiết bị đang dùng.</p></div></div>
+    <div class="feeling-panel"><div class="feeling-options">
+      <button data-feeling="Vui vẻ">😊<span>Vui vẻ</span></button><button data-feeling="Bình thường">😐<span>Bình thường</span></button><button data-feeling="Buồn">😟<span>Buồn</span></button><button data-feeling="Lo lắng">😰<span>Lo lắng</span></button><button data-feeling="Căng thẳng">😣<span>Căng thẳng</span></button><button data-feeling="Bối rối">😕<span>Bối rối</span></button>
+    </div><p id="feelingResponse" aria-live="polite">Cảm xúc nào cũng đáng được lắng nghe. Em có thể chọn một cảm xúc để nhận lời nhắn động viên.</p><button class="primary" data-open-chat>Kể thêm với Cô Hường</button></div>
+  </section>
   <section class="section" id="contact">
     <div class="section-head"><div><h2>Kết nối với giáo viên tư vấn</h2><p>Khi cần người hỗ trợ trực tiếp, em có thể liên hệ giáo viên phụ trách.</p></div></div>
     <div class="contact-card"><div class="contact-info"><h3>👩🏻‍🏫 Giáo viên tư vấn tâm lý học đường</h3><p>🏫 Trường THCS Phụng Công</p><p>📞 <strong>0989836893</strong></p><p>✉️ nguyenthuhuong7993@gmail.com</p><p>🕐 Thời gian làm việc: <strong>7:00 – 22:00</strong></p></div><div class="contact-actions"><a class="primary" href="tel:0989836893">📞 Gọi điện</a><a class="secondary" href="mailto:nguyenthuhuong7993@gmail.com">✉️ Gửi email</a></div></div>
   </section>
   <footer class="footer">© <span id="year"></span> Cô Hường · Giáo viên tư vấn Tâm lý Học đường<br>Chia sẻ vừa đủ để được hỗ trợ; hãy bảo vệ thông tin riêng tư của em.</footer>
 </main>
-<nav class="mobile-nav" aria-label="Điều hướng nhanh"><button id="navHome"><span>⌂</span>Trang chủ</button><button data-open-chat><span>💬</span>Trò chuyện</button><button data-contact><span>☎</span>Liên hệ</button></nav>
+<nav class="mobile-nav" aria-label="Điều hướng nhanh"><button id="navHome"><span>⌂</span>Trang chủ</button><button data-open-chat><span>💬</span>Trò chuyện</button><button data-go="resources"><span>▣</span>Tài liệu</button><button data-go="feelings"><span>☻</span>Cảm xúc</button><button data-go="contact"><span>♙</span>Cá nhân</button></nav>
 <div class="toast" id="toast" role="status"></div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js" defer></script>
 <script>
@@ -289,6 +398,10 @@ $("userInput").addEventListener("keydown",e=>{if(e.key==="Enter"&&!e.shiftKey){e
 $("userInput").addEventListener("input",e=>{e.target.style.height="auto";e.target.style.height=Math.min(e.target.scrollHeight,130)+"px"});
 document.querySelectorAll(".suggestions button").forEach(b=>b.addEventListener("click",()=>sendMessage(b.textContent)));
 $("clearChat").addEventListener("click",()=>{messages.innerHTML="";chatHistory=[];addBubble("Mình bắt đầu cuộc trò chuyện mới nhé 💙 Em có thể chia sẻ điều đang khiến em băn khoăn. Đừng gửi thông tin nhận dạng riêng tư.","bot")});
+document.querySelectorAll("[data-go]").forEach(b=>b.addEventListener("click",()=>{const target=$(b.dataset.go);if(target)target.scrollIntoView({behavior:"smooth",block:"start"});document.querySelectorAll(".side-link").forEach(x=>x.classList.toggle("active",x.dataset.go===b.dataset.go));}));
+document.querySelectorAll("[data-topic]").forEach(b=>b.addEventListener("click",()=>{openChat();setTimeout(()=>sendMessage("Cô Hường ơi, em muốn tìm hiểu về "+b.dataset.topic.toLowerCase()+" và kỹ năng sống."),400)}));
+const feelingMessages={"Vui vẻ":"Thật tuyệt khi em đang cảm thấy vui! Em có thể ghi nhớ điều gì đã làm ngày hôm nay trở nên tốt đẹp nhé 💛","Bình thường":"Cảm thấy bình thường cũng hoàn toàn ổn. Em có thể dành một chút thời gian quan sát xem mình cần gì lúc này.","Buồn":"Cô gửi em một lời động viên 💙 Em không cần phải tự vượt qua một mình. Nếu muốn, em có thể kể với một người em tin tưởng.","Lo lắng":"Mình thử thở chậm vài nhịp và chia việc đang lo thành từng bước nhỏ nhé. Em có thể tìm người lớn đáng tin để cùng nghĩ cách.","Căng thẳng":"Em có thể tạm nghỉ, uống nước và chọn một việc nhỏ để làm trước. Nếu áp lực kéo dài, hãy chia sẻ với người lớn em tin tưởng.","Bối rối":"Không cần phải hiểu rõ mọi thứ ngay lập tức. Em có thể viết ra điều mình biết, điều chưa rõ và hỏi người em tin tưởng."};
+document.querySelectorAll("[data-feeling]").forEach(b=>b.addEventListener("click",()=>{document.querySelectorAll("[data-feeling]").forEach(x=>x.classList.remove("selected"));b.classList.add("selected");$("feelingResponse").textContent=feelingMessages[b.dataset.feeling]||"Cảm xúc của em đáng được lắng nghe."; }));
 $("year").textContent=new Date().getFullYear();
 function makeQR(){
   const box=$("qrBox");
