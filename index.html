@@ -210,11 +210,52 @@ body.chat-open .chat-close-mobile{display:inline-flex;align-items:center;justify
   }
 </style>
 
+
+<style id="emotion-scan-styles">
+#emotion-scan .emotion-scan-card{max-width:900px;margin:0 auto}
+#emotion-scan .scan-heading{display:flex;gap:14px;align-items:center;margin-bottom:18px}
+#emotion-scan .scan-heading h2{margin:0 0 6px}
+#emotion-scan .scan-heading p{margin:0;color:#63718a;line-height:1.55}
+#emotion-scan .scan-heading-icon{width:58px;height:58px;border-radius:18px;background:#e9f4ff;display:grid;place-items:center;font-size:28px;flex-shrink:0}
+#emotion-scan .scan-privacy-note{background:#eff8f4;border:1px solid #cfe9dc;border-radius:14px;padding:13px 15px;color:#285c48;line-height:1.6;margin:14px 0 18px}
+#emotion-scan .scan-camera-panel{border:1px solid #e2eaf4;border-radius:18px;padding:14px;background:#fbfdff}
+#emotion-scan .scan-video-wrap{position:relative;width:100%;aspect-ratio:16/9;min-height:220px;max-height:480px;background:#101827;border-radius:14px;overflow:hidden;display:grid;place-items:center}
+#emotion-scan #emotionScanVideo{width:100%;height:100%;object-fit:contain;display:none;background:#101827}
+#emotion-scan .scan-video-placeholder{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:9px;color:#e8eef8;text-align:center;padding:20px}
+#emotion-scan .scan-video-placeholder span{font-size:38px}
+#emotion-scan .scan-video-placeholder small{max-width:360px;color:#b9c6d9;line-height:1.5}
+#emotion-scan .scan-video-overlay{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:18px;color:#fff;background:rgba(7,18,35,.25);font-weight:700;text-shadow:0 1px 5px #111}
+#emotion-scan .scan-focus-frame{width:min(42%,220px);height:min(62%,260px);border:2px solid #91f0c0;border-radius:48% 48% 42% 42%;box-shadow:0 0 0 999px rgba(0,0,0,.06)}
+#emotion-scan .scan-camera-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:13px}
+#emotion-scan .scan-camera-actions button{margin:0}
+#emotion-scan .scan-secondary{border:1px solid #d6e1ef;background:#fff;color:#34506f;border-radius:12px;padding:11px 16px;font-weight:600;cursor:pointer}
+#emotion-scan button:disabled{opacity:.5;cursor:not-allowed}
+#emotion-scan .scan-status{font-size:13px;color:#5f6f86;margin:12px 2px 0;line-height:1.55}
+#emotion-scan .scan-report,#emotion-scan .scan-result{margin-top:18px;padding:17px;border-radius:16px;border:1px solid #dbe7f4;background:#f7fbff}
+#emotion-scan .scan-report h3,#emotion-scan .scan-result h3{margin:0 0 12px;color:#244b80}
+#emotion-scan .scan-report-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+#emotion-scan .scan-report-item{padding:12px;border-radius:12px;background:#fff;border:1px solid #e5edf6}
+#emotion-scan .scan-report-item small{display:block;color:#6c7c91;margin-bottom:5px}
+#emotion-scan .scan-report-disclaimer,#emotion-scan .scan-help-note{font-size:12px;line-height:1.6;color:#68778b;margin:12px 0 0}
+#emotion-scan .scan-self-check{margin-top:22px;padding-top:20px;border-top:1px solid #e7edf5}
+#emotion-scan .scan-self-check h3{margin:0 0 6px;color:#254b80}
+#emotion-scan .scan-self-check>p{color:#68778b;margin:0 0 16px;line-height:1.5}
+#emotion-scan .scan-self-check .field{margin:14px 0}
+#emotion-scan .scan-self-check select{width:100%;min-height:44px;border:1px solid #d8e2ef;border-radius:10px;padding:10px;background:#fff;color:#23364d}
+#emotion-scan #scanIntensity{width:100%;accent-color:#4b8fe8}
+#emotion-scan .scan-range-labels{display:flex;justify-content:space-between;font-size:12px;color:#7b8798}
+#emotion-scan .scan-result .scan-result-mood{font-size:19px;font-weight:750;color:#244b80;margin-bottom:8px}
+#emotion-scan .scan-result ul{padding-left:21px;line-height:1.7}
+#emotion-scan .scan-result .scan-result-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px}
+#emotion-scan .scan-result .scan-result-actions button{margin:0}
+@media(max-width:600px){#emotion-scan .scan-heading{align-items:flex-start}#emotion-scan .scan-heading-icon{width:46px;height:46px;border-radius:14px;font-size:23px}#emotion-scan .scan-video-wrap{min-height:190px}#emotion-scan .scan-report-grid{grid-template-columns:1fr}#emotion-scan .scan-camera-actions{display:grid;grid-template-columns:1fr}#emotion-scan .scan-camera-actions button{width:100%}}
+</style>
+
 </head>
 <body>
 <header class="topbar"><div class="brand"><div class="brand-mark" aria-hidden="true">💗</div><div><h1>Cô Hường</h1><p>Tư vấn tâm lý học đường</p></div></div><div class="top-note">Lắng nghe – Thấu hiểu – Đồng hành ♡</div><div class="top-actions"><label class="searchbox">⌕ <input id="siteSearch" placeholder="Tìm kiếm..." aria-label="Tìm kiếm"></label><button class="notification" aria-label="Thông báo" data-contact>♧<b>2</b></button><div class="user-pill"><img src="https://raw.githubusercontent.com/nguyenthuhuong7993-ai/Phong_Tu_Van_Tam_Ly/main/Co_Huong.jpg" alt="Ảnh đại diện"><span>Xin chào,<br>Học sinh THCS</span></div></div></header>
 <div class="app-layout">
-<aside class="sidebar"><nav class="side-links" aria-label="Menu chính"><button class="side-link active" data-page="home"><span class="nav-ico">⌂</span>Trang chủ</button><button class="side-link" data-page="emotion"><span class="nav-ico">☻</span>Nhật ký cảm xúc</button><button class="side-link" data-open-chat><span class="nav-ico">▣</span>Trò chuyện với Cô Hường</button><button class="side-link" data-page="sharing"><span class="nav-ico">♡</span>Góc chia sẻ</button><button class="side-link" data-page="resources"><span class="nav-ico">▤</span>Tài liệu & Kỹ năng sống</button><button class="side-link" data-page="feedback"><span class="nav-ico">💙</span>Đánh giá sau tư vấn</button><button class="side-link" data-page="booking"><span class="nav-ico">▦</span>Lịch hẹn tư vấn</button><button class="side-link" data-contact><span class="nav-ico">⚙</span>Cài đặt & hỗ trợ</button></nav><div class="side-quote">“Bạn không đơn độc,<br>luôn có người lắng nghe!”<span>♡</span></div><div class="side-landscape" aria-hidden="true"></div><div class="school-foot"><span class="school-icon">🏫</span><div><strong>Trường THCS Phụng Công</strong><br>Đồng hành cùng học sinh</div></div></aside>
+<aside class="sidebar"><nav class="side-links" aria-label="Menu chính"><button class="side-link active" data-page="home"><span class="nav-ico">⌂</span>Trang chủ</button><button class="side-link" data-page="emotion-scan"><span class="nav-ico">📷</span>Quét mã cảm xúc</button><button class="side-link" data-page="emotion"><span class="nav-ico">☻</span>Nhật ký cảm xúc</button><button class="side-link" data-open-chat><span class="nav-ico">▣</span>Trò chuyện với Cô Hường</button><button class="side-link" data-page="sharing"><span class="nav-ico">♡</span>Góc chia sẻ</button><button class="side-link" data-page="resources"><span class="nav-ico">▤</span>Tài liệu & Kỹ năng sống</button><button class="side-link" data-page="feedback"><span class="nav-ico">💙</span>Đánh giá sau tư vấn</button><button class="side-link" data-page="booking"><span class="nav-ico">▦</span>Lịch hẹn tư vấn</button><button class="side-link" data-contact><span class="nav-ico">⚙</span>Cài đặt & hỗ trợ</button></nav><div class="side-quote">“Bạn không đơn độc,<br>luôn có người lắng nghe!”<span>♡</span></div><div class="side-landscape" aria-hidden="true"></div><div class="school-foot"><span class="school-icon">🏫</span><div><strong>Trường THCS Phụng Công</strong><br>Đồng hành cùng học sinh</div></div></aside>
 <main class="center">
 <section id="home" class="home-page active">
 <div class="desktop-hero"><div class="hero-copy"><div class="mobile-welcome">💙 KHÔNG GIAN AN TOÀN ĐỂ CHIA SẺ</div><h2>Chào bạn! <span>♡</span></h2><p>Mỗi cảm xúc của bạn đều đáng được lắng nghe. Cô Hường luôn ở đây, sẵn sàng đồng hành cùng bạn!</p><button class="primary" data-open-chat>▣ &nbsp; Bắt đầu trò chuyện &nbsp; →</button></div><div class="hero-art" role="img" aria-label="Cô Hường trò chuyện và lắng nghe học sinh"></div></div>
@@ -244,6 +285,21 @@ body.chat-open .chat-close-mobile{display:inline-flex;align-items:center;justify
   <button type="button" class="knowledge-back" id="knowledgeBackHome">← Quay lại trang chủ</button>
   <div id="knowledgeView"></div>
 </div></section>
+<section class="subpage" id="emotion-scan">
+  <div class="subpage-card emotion-scan-card">
+    <div class="scan-heading"><div class="scan-heading-icon">📷</div><div><h2>Quét mã cảm xúc</h2><p>Tự động kiểm tra webcam trong 10 giây, sau đó tạo báo cáo kỹ thuật và gợi ý hỗ trợ chung — không cần điền biểu mẫu.</p></div></div>
+    <div class="scan-privacy-note"><strong>🔒 Riêng tư:</strong> Webcam cần được em cho phép. Thử nghiệm phân tích biểu cảm chỉ chạy sau khi em đồng ý, xử lý khung hình ngay trên trình duyệt và không lưu/gửi ảnh hoặc video. Mô hình có thể nhầm lẫn; biểu cảm khuôn mặt không xác định cảm xúc thật hay tình trạng tâm lý.</div><label class="scan-consent" style="display:flex;gap:10px;align-items:flex-start;margin:12px 0;padding:12px;border:1px solid #dbe7f4;border-radius:12px;background:#fff;line-height:1.5"><input id="emotionScanExpressionConsent" type="checkbox" style="margin-top:4px;flex-shrink:0"><span>Em đồng ý thử nghiệm phân tích <strong>mẫu biểu cảm hình ảnh</strong> trên thiết bị này. Em hiểu kết quả có thể sai, không phải đánh giá tâm lý và có thể bỏ chọn bất cứ lúc nào.</span></label>
+    <div class="scan-camera-panel">
+      <div class="scan-video-wrap"><video id="emotionScanVideo" autoplay muted playsinline aria-label="Hình ảnh webcam trực tiếp"></video><div id="emotionScanPlaceholder" class="scan-video-placeholder"><span>📷</span><strong>Camera chưa được bật</strong><small>Vào mục này để bắt đầu tự động; em cần cho phép trình duyệt sử dụng camera.</small></div><div id="emotionScanOverlay" class="scan-video-overlay" hidden><span class="scan-focus-frame"></span><span id="emotionScanCountdown">Đang kiểm tra hình ảnh…</span></div></div>
+      <div class="scan-camera-actions"><button class="primary" type="button" id="emotionScanStart">📷 Bật lại webcam</button><button class="primary" type="button" id="emotionScanRun" disabled>Quét lại 10 giây</button><button class="scan-secondary" type="button" id="emotionScanStop" disabled>Dừng camera</button></div>
+      <p id="emotionScanStatus" class="scan-status" role="status" aria-live="polite">Khi mở mục này, camera sẽ tự khởi động nếu em đã cấp quyền. Em có thể dừng bất cứ lúc nào hoặc dùng phần tự đánh giá mà không cần webcam.</p>
+    </div>
+    <div id="emotionScanImageReport" class="scan-report" hidden><h3>📋 Báo cáo kiểm tra hình ảnh</h3><div id="emotionScanImageReportBody"></div><p class="scan-report-disclaimer">Báo cáo kiểm tra webcam, ánh sáng và khuôn mặt; nếu học sinh đồng ý, mô hình thử nghiệm có thể mô tả mẫu biểu cảm hình ảnh. Nhãn biểu cảm không xác định cảm xúc thật hoặc tình trạng tâm lý. Báo cáo chỉ tồn tại trong phiên hiện tại; phiên bản này chưa có hệ thống đăng nhập, phân quyền và lưu trữ bảo mật nên không lưu báo cáo lên máy chủ.</p></div>
+    <div class="scan-self-check"><h3>🌿 Tổng kết tự động</h3><p>Sau khi quét, hệ thống sẽ mô tả mẫu biểu cảm hình ảnh nếu mô hình thử nghiệm hoạt động và em đã đồng ý. Đây chỉ là dấu hiệu quan sát được, không khẳng định cảm xúc thật của em.</p></div>
+    <div id="emotionScanResult" class="scan-result" role="status" aria-live="polite" hidden></div>
+    <p class="scan-help-note">Báo cáo tự động chỉ phản ánh điều camera và trình duyệt kiểm tra được, không phải đánh giá tâm lý. Nếu em đang gặp khó khăn hoặc cần giúp đỡ, hãy trò chuyện với người lớn đáng tin cậy hoặc giáo viên tư vấn.</p>
+  </div>
+</section>
 <section class="subpage" id="emotion"><div class="subpage-card"><h2>🌈 Giải mã cảm xúc</h2><p>Hôm nay bạn đang cảm thấy thế nào? Chọn cảm xúc gần với trải nghiệm của bạn nhất.</p><div class="emotion-grid" id="emotionGrid"><button class="emotion-btn" data-emotion="Vui vẻ"><span>😄</span>Vui vẻ</button><button class="emotion-btn" data-emotion="Bình thường"><span>😐</span>Bình thường</button><button class="emotion-btn" data-emotion="Buồn bã"><span>😢</span>Buồn bã</button><button class="emotion-btn" data-emotion="Lo lắng"><span>😟</span>Lo lắng</button><button class="emotion-btn" data-emotion="Căng thẳng"><span>😣</span>Căng thẳng</button><button class="emotion-btn" data-emotion="Bối rối"><span>😕</span>Bối rối</button><button class="emotion-btn" data-emotion="Mệt mỏi"><span>😔</span>Mệt mỏi</button><button class="emotion-btn" data-emotion="Chán nản"><span>😞</span>Chán nản</button><button class="emotion-btn" data-emotion="Thờ ơ"><span>😶</span>Thờ ơ</button></div><div class="field"><label for="emotionNote">Bạn muốn ghi lại điều gì?</label><textarea id="emotionNote" rows="3" placeholder="Viết vài dòng về cảm xúc hôm nay (không bắt buộc)..."></textarea></div><button class="primary" id="saveEmotion">Ghi nhận cảm xúc</button><div class="journal-result" id="journalResult" role="status"></div><p style="font-size:11px">Lưu ý: ghi nhận này chỉ tồn tại trong phiên mở trang hiện tại, trừ khi bạn có tích hợp hệ thống lưu trữ riêng.</p></div></section>
 <section class="subpage" id="booking"><div class="subpage-card"><h2>🗓️ Đặt lịch tư vấn</h2><p>Điền thông tin cần thiết để chuẩn bị liên hệ với giáo viên. Biểu mẫu này chưa tự gửi dữ liệu lên máy chủ.</p><form id="bookingForm"><div class="field"><label for="bookingName">Tên muốn xưng hô (không bắt buộc)</label><input id="bookingName" placeholder="Ví dụ: Minh"></div><div class="field"><label for="bookingDate">Ngày mong muốn</label><input id="bookingDate" type="date" required></div><div class="field"><label for="bookingTime">Khung giờ</label><select id="bookingTime"><option>08:00 - 09:00</option><option>09:00 - 10:00</option><option>10:00 - 11:00</option><option>14:00 - 15:00</option><option>15:00 - 16:00</option><option>16:00 - 17:00</option></select></div><div class="field"><label for="bookingTopic">Điều bạn muốn trao đổi (không bắt buộc)</label><textarea id="bookingTopic" rows="3" placeholder="Không cần ghi thông tin riêng tư nhạy cảm"></textarea></div><button class="primary" type="submit">Chuẩn bị yêu cầu tư vấn →</button></form><div id="bookingResult" class="journal-result" role="status"></div><p>Liên hệ trực tiếp: <strong>0989836893</strong> · 7:00–22:00</p></div></section>
 <section class="subpage" id="sharing"><div class="subpage-card"><h2>💗 Góc chia sẻ</h2><p>Nơi cùng nhau lan tỏa sự tử tế, những kinh nghiệm tích cực và lời động viên.</p><div class="field"><label for="shareText">Bạn muốn chia sẻ lời nhắn tích cực nào?</label><textarea id="shareText" rows="3" maxlength="500" placeholder="Không ghi tên đầy đủ hoặc thông tin nhận dạng..."></textarea></div><button class="primary" id="shareButton">Xem lời nhắn của mình</button><div id="shareResult" class="journal-result"></div><div class="post"><strong>🌱 Bạn đồng hành</strong><p>“Hôm nay mình đã cố gắng vượt qua điều khiến mình lo lắng. Mình tự hào vì đã không bỏ cuộc.”</p></div><div class="post"><strong>💙 Một lời nhắc dịu dàng</strong><p>“Bạn không cần hoàn hảo mới xứng đáng được yêu thương và tôn trọng.”</p></div><div class="notice">Các lời nhắn bạn nhập chỉ hiển thị trên thiết bị hiện tại; chưa được đăng công khai hoặc gửi tới máy chủ.</div></div></section>
@@ -5671,5 +5727,257 @@ $('bookingForm').addEventListener('submit',e=>{e.preventDefault();const date=$('
 $('shareButton').addEventListener('click',()=>{const t=$('shareText').value.trim();$('shareResult').textContent=t?'Lời nhắn của bạn: “'+t+'” — hãy cân nhắc không đưa thông tin riêng tư vào lời chia sẻ.':'Bạn hãy viết một lời nhắn trước khi xem lại nhé.';$('shareResult').classList.add('show');});
 $('siteSearch').addEventListener('keydown',e=>{if(e.key==='Enter'){const q=e.target.value.trim();if(q){openChat();$('previewInput').value='Em muốn tìm hiểu về '+q;$('previewInput').focus({preventScroll:true});}}});
 </script>
+
+<script id="emotion-scan-script">
+(() => {
+  const byId = id => document.getElementById(id);
+  const video = byId('emotionScanVideo');
+  if (!video) return;
+  const startBtn = byId('emotionScanStart');
+  const scanBtn = byId('emotionScanRun');
+  const stopBtn = byId('emotionScanStop');
+  const status = byId('emotionScanStatus');
+  const placeholder = byId('emotionScanPlaceholder');
+  const overlay = byId('emotionScanOverlay');
+  const countdown = byId('emotionScanCountdown');
+  const report = byId('emotionScanImageReport');
+  const reportBody = byId('emotionScanImageReportBody');
+  const result = byId('emotionScanResult');
+  const expressionConsent = byId('emotionScanExpressionConsent');
+  let expressionModelReady = false;
+  let expressionModelLoading = null;
+  let expressionSamples = [];
+  const MODEL_URL = 'https://justadudewhohacks.github.io/face-api.js/models';
+  let stream = null;
+  let scanTimer = null;
+  let scanInterval = null;
+  let scanStartedAt = 0;
+  let brightnessSamples = [];
+  let faceSamples = 0;
+  let faceDetectionAvailable = false;
+  let scanning = false;
+  let autoStartPending = false;
+  let faceDetector = null;
+  async function loadExpressionModel() {
+    if (expressionModelReady && window.faceapi) return true;
+    if (expressionModelLoading) return expressionModelLoading;
+    expressionModelLoading = (async () => {
+      if (!window.faceapi) {
+        await new Promise((resolve, reject) => {
+          const script = document.createElement('script');
+          script.src = 'https://cdn.jsdelivr.net/npm/face-api.js@0.22.2/dist/face-api.min.js';
+          script.onload = resolve; script.onerror = () => reject(new Error('Không tải được thư viện phân tích biểu cảm'));
+          document.head.appendChild(script);
+        });
+      }
+      if (!window.faceapi) throw new Error('Thư viện phân tích biểu cảm không sẵn sàng');
+      await window.faceapi.nets.tinyFaceDetector.loadFromUri(MODEL_URL);
+      await window.faceapi.nets.faceExpressionNet.loadFromUri(MODEL_URL);
+      expressionModelReady = true; return true;
+    })().catch(err => { expressionModelLoading = null; throw err; });
+    return expressionModelLoading;
+  }
+  async function sampleExpression() {
+    if (!expressionConsent?.checked || !window.faceapi || !expressionModelReady || !video.videoWidth) return;
+    try {
+      const detection = await window.faceapi.detectSingleFace(video, new window.faceapi.TinyFaceDetectorOptions({ inputSize: 224, scoreThreshold: 0.5 })).withFaceExpressions();
+      if (detection?.expressions) expressionSamples.push({ ...detection.expressions });
+    } catch (_) {}
+  }
+  try { if ("FaceDetector" in window) { faceDetector = new FaceDetector({ fastMode: true, maxDetectedFaces: 5 }); faceDetectionAvailable = true; } } catch (_) { faceDetector = null; faceDetectionAvailable = false; }
+
+  function setStatus(message) { status.textContent = message; }
+  function stopCamera(message = 'Camera đã dừng. Hình ảnh không được lưu.') {
+    if (scanTimer) clearTimeout(scanTimer);
+    if (scanInterval) clearInterval(scanInterval);
+    scanTimer = null; scanInterval = null; scanning = false;
+    if (stream) stream.getTracks().forEach(track => track.stop());
+    stream = null; video.srcObject = null; video.style.display = 'none';
+    autoStartPending = false;
+    placeholder.hidden = false; overlay.hidden = true;
+    startBtn.disabled = false; scanBtn.disabled = true; stopBtn.disabled = true;
+    if (message) setStatus(message);
+  }
+
+  startBtn.addEventListener('click', async () => {
+    if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+      setStatus('Trình duyệt không hỗ trợ webcam hoặc trang chưa chạy trên HTTPS/localhost. Hãy mở WEBAPP bằng HTTPS và thử lại.');
+      return;
+    }
+    startBtn.disabled = true;
+    setStatus('Đang xin quyền sử dụng webcam…');
+    try {
+      stream = await navigator.mediaDevices.getUserMedia({
+        audio: false,
+        video: { facingMode: 'user', width: { ideal: 640 }, height: { ideal: 480 } }
+      });
+      video.srcObject = stream;
+      video.style.display = 'block';
+      placeholder.hidden = true;
+      await video.play();
+      scanBtn.disabled = false; stopBtn.disabled = false;
+      if (expressionConsent?.checked) {
+        setStatus('Đang tải mô hình thử nghiệm biểu cảm về trình duyệt. Khung hình được xử lý tạm thời trên thiết bị…');
+        try { await loadExpressionModel(); } catch (_) { setStatus('Không tải được mô hình biểu cảm; vẫn tiếp tục kiểm tra camera trong 10 giây.'); }
+      }
+      setStatus('Webcam đã bật. Tự động kiểm tra trong 10 giây… Hình ảnh không được lưu hoặc gửi lên máy chủ.');
+      runAutomaticScan();
+    } catch (err) {
+      stream = null; startBtn.disabled = false;
+      const message = err && err.name === 'NotAllowedError'
+        ? 'Bạn chưa cấp quyền camera. Hãy cho phép camera trong trình duyệt nếu muốn tiếp tục.'
+        : err && err.name === 'NotFoundError'
+          ? 'Không tìm thấy webcam trên thiết bị này.'
+          : 'Không mở được webcam. Hãy kiểm tra camera đang được ứng dụng khác sử dụng hay không.';
+      setStatus(message);
+    }
+  });
+
+  async function sampleFacePresence() {
+    if (!faceDetector || !video.videoWidth || !video.videoHeight) return;
+    try { const faces = await faceDetector.detect(video); if (faces && faces.length) faceSamples++; } catch (_) {}
+  }
+
+  function sampleBrightness() {
+    if (!video.videoWidth || !video.videoHeight) return;
+    try {
+      const canvas = document.createElement('canvas');
+      canvas.width = 32; canvas.height = 24;
+      const ctx = canvas.getContext('2d', { willReadFrequently: true });
+      ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+      const data = ctx.getImageData(0, 0, canvas.width, canvas.height).data;
+      let total = 0, count = 0;
+      for (let i = 0; i < data.length; i += 4) {
+        total += 0.2126 * data[i] + 0.7152 * data[i + 1] + 0.0722 * data[i + 2];
+        count++;
+      }
+      if (count) brightnessSamples.push(total / count);
+      // Canvas chỉ dùng trong bộ nhớ để ước lượng độ sáng, không xuất ảnh hoặc lưu lại.
+    } catch (_) { /* Có thể trình duyệt chặn đọc khung hình; vẫn cho phép tự đánh giá. */ }
+  }
+
+  function runAutomaticScan() {
+    if (!stream || scanning) return;
+    scanning = true; scanStartedAt = Date.now(); brightnessSamples = []; faceSamples = 0; expressionSamples = [];
+    report.hidden = true; result.hidden = true;
+    overlay.hidden = false; scanBtn.disabled = true; startBtn.disabled = true;
+    setStatus('Đang kiểm tra webcam, ánh sáng và sự hiện diện của khuôn mặt (nếu trình duyệt hỗ trợ) trong 10 giây…');
+    sampleBrightness(); sampleFacePresence(); sampleExpression();
+    scanInterval = setInterval(() => {
+      sampleBrightness(); sampleFacePresence(); sampleExpression(); sampleExpression();
+      const left = Math.max(0, 10 - Math.floor((Date.now() - scanStartedAt) / 1000));
+      countdown.textContent = `Đang kiểm tra hình ảnh · ${left}s`;
+    }, 1000);
+    countdown.textContent = 'Đang kiểm tra hình ảnh · 10s';
+    scanTimer = setTimeout(() => {
+      clearInterval(scanInterval); scanInterval = null; scanning = false; overlay.hidden = true;
+      const elapsed = Math.round((Date.now() - scanStartedAt) / 1000);
+      const width = video.videoWidth || 0;
+      const height = video.videoHeight || 0;
+      const avg = brightnessSamples.length ? brightnessSamples.reduce((a,b)=>a+b,0) / brightnessSamples.length : null;
+      let lightLabel = 'Chưa đủ dữ liệu để ước lượng';
+      if (avg !== null) lightLabel = avg < 65 ? 'Có thể hơi tối — hãy tăng ánh sáng' : avg > 205 ? 'Có thể quá sáng — tránh ngược sáng' : 'Độ sáng tương đối phù hợp';
+      const samples = brightnessSamples.length;
+      reportBody.replaceChildren();
+      const grid = document.createElement('div'); grid.className = 'scan-report-grid';
+      const items = [
+        ['Tình trạng webcam', stream && stream.active ? 'Đang nhận hình ảnh' : 'Luồng camera đã gián đoạn'],
+        ['Thời gian kiểm tra', `${elapsed} giây`],
+        ['Độ phân giải', width && height ? `${width} × ${height}` : 'Không đọc được thông số'],
+        ['Ước lượng ánh sáng', lightLabel],
+        ['Mẫu đo độ sáng', samples ? `${samples} lần đo tạm thời` : 'Không có mẫu đo'],
+        ['Phát hiện khuôn mặt', faceDetectionAvailable ? (faceSamples > 0 ? 'Phát hiện khuôn mặt trong một hoặc nhiều khung hình' : 'Chưa phát hiện khuôn mặt rõ trong các lần kiểm tra') : 'Trình duyệt không hỗ trợ tính năng phát hiện khuôn mặt']
+      ];
+      items.forEach(([label,value]) => {
+        const item = document.createElement('div'); item.className = 'scan-report-item';
+        const small = document.createElement('small'); small.textContent = label;
+        const strong = document.createElement('strong'); strong.textContent = value;
+        item.append(small,strong); grid.append(item);
+      });
+      reportBody.append(grid); report.hidden = false;
+      renderAutomaticSupportReport({ faceSupported: faceDetectionAvailable, faceDetected: faceSamples > 0, expression: summarizeExpression() });
+      scanBtn.disabled = false; startBtn.disabled = false;
+      setStatus('Đã hoàn tất quét tự động 10 giây. Báo cáo biểu cảm (nếu được đồng ý và mô hình tải thành công) chỉ là ước lượng hình ảnh, không phải kết luận về cảm xúc thật hay tình trạng tâm lý.');
+    }, 10000);
+  }
+  scanBtn.addEventListener('click', runAutomaticScan);
+
+  function summarizeExpression() {
+    if (!expressionConsent?.checked || !expressionSamples.length) return null;
+    const keys = ['neutral','happy','sad','angry','fearful','disgusted','surprised'];
+    const avg = Object.fromEntries(keys.map(k => [k, expressionSamples.reduce((sum, row) => sum + (row[k] || 0), 0) / expressionSamples.length]));
+    const top = keys.sort((a,b) => avg[b] - avg[a])[0];
+    const labels = { neutral: 'nét mặt tương đối trung tính', happy: 'mẫu biểu cảm giống mỉm cười/vui', sad: 'mẫu biểu cảm giống buồn', angry: 'mẫu biểu cảm giống cau có/giận dữ', fearful: 'mẫu biểu cảm giống sợ hãi', disgusted: 'mẫu biểu cảm giống nhăn mặt/khó chịu', surprised: 'mẫu biểu cảm giống ngạc nhiên' };
+    return { label: labels[top], confidence: avg[top], samples: expressionSamples.length };
+  }
+
+  function renderAutomaticSupportReport(technical) {
+    result.replaceChildren();
+    const title = document.createElement('h3');
+    title.textContent = '🌿 Tổng kết quét tự động';
+    const summary = document.createElement('p');
+    summary.textContent = technical.faceSupported
+      ? (technical.faceDetected
+          ? 'Camera đã ghi nhận khuôn mặt trong ít nhất một khung hình. Điều này chỉ xác nhận sự hiện diện trong khung hình, không cho biết học sinh đang vui, buồn, lo âu hay có vấn đề tâm lý.'
+          : 'Chưa phát hiện khuôn mặt rõ trong các lần kiểm tra. Hãy kiểm tra vị trí camera, ánh sáng và khung hình nếu muốn quét lại. Không thể suy ra cảm xúc từ kết quả này.')
+      : 'Trình duyệt này không hỗ trợ phát hiện khuôn mặt tích hợp. Hệ thống vẫn kiểm tra được trạng thái camera và một số đặc điểm kỹ thuật của hình ảnh.';
+    let supportLines = [
+      'Nếu em cảm thấy ổn, hãy tiếp tục những thói quen giúp em học tập, nghỉ ngơi và kết nối với mọi người.',
+      'Nếu có điều đang khiến em băn khoăn, em có thể ghi lại trong Nhật ký cảm xúc rồi chia sẻ với Cô Hường hoặc người lớn mà em tin tưởng. Em chỉ cần kể những điều mình đã sẵn sàng chia sẻ.',
+      'Nếu khó khăn kéo dài hoặc ảnh hưởng đến giấc ngủ, việc học hay sinh hoạt, hãy nhờ người lớn đáng tin cậy hỗ trợ kết nối với chuyên viên phù hợp.'
+    ];
+    if (technical.expression) {
+      const pct = Math.round(technical.expression.confidence * 100);
+      const expression = document.createElement('p');
+      expression.innerHTML = '<strong>Nhận xét sơ bộ từ hình ảnh:</strong> ';
+      const message = document.createElement('span');
+      const label = technical.expression.label;
+      const supportive = {
+        'mẫu biểu cảm giống buồn': 'Mô hình ghi nhận một số dấu hiệu trên khuôn mặt giống biểu cảm buồn. Cô không thể biết chắc em đang buồn chỉ qua hình ảnh, nhưng nếu điều này đúng với cảm nhận của em, em có thể viết vài dòng trong Nhật ký cảm xúc rồi trò chuyện với Cô Hường để chia sẻ điều đang khiến em bận lòng.',
+        'mẫu biểu cảm giống mỉm cười/vui': 'Mô hình ghi nhận một số dấu hiệu giống biểu cảm mỉm cười. Cô hy vọng em đang có điều tích cực; tuy vậy, nét mặt không cho biết đầy đủ cảm xúc bên trong. Nếu em muốn, hãy ghi lại điều làm em vui trong Nhật ký cảm xúc.',
+        'mẫu biểu cảm giống sợ hãi': 'Mô hình ghi nhận một số dấu hiệu hình ảnh giống biểu cảm sợ hãi. Điều này không chứng minh em đang sợ. Nếu em thực sự thấy bất an hoặc có điều khiến em lo ngại, hãy chia sẻ với Cô Hường hay người lớn đáng tin cậy; nếu đang không an toàn, hãy tìm người lớn ở gần em ngay.',
+        'mẫu biểu cảm giống cau có/giận dữ': 'Mô hình ghi nhận một số dấu hiệu giống biểu cảm cau mày hoặc căng nét mặt. Điều đó không có nghĩa là em đang tức giận. Nếu có chuyện làm em khó chịu, em có thể ghi lại trong Nhật ký cảm xúc và trao đổi với Cô Hường khi sẵn sàng.',
+        'mẫu biểu cảm giống ngạc nhiên': 'Mô hình ghi nhận một số dấu hiệu giống biểu cảm ngạc nhiên. Khuôn mặt không cho biết nguyên nhân hay cảm xúc thật của em. Nếu có chuyện khiến em bất ngờ hoặc bối rối, em có thể ghi lại và chia sẻ với Cô Hường.',
+        'mẫu biểu cảm giống nhăn mặt/khó chịu': 'Mô hình ghi nhận một số dấu hiệu giống nhăn mặt hoặc khó chịu. Đây có thể do nhiều nguyên nhân, kể cả ánh sáng hay góc quay, nên không thể kết luận em đang cảm thấy thế nào. Nếu có điều làm em khó chịu, em có thể viết vào Nhật ký cảm xúc rồi trò chuyện với Cô Hường.',
+        'nét mặt tương đối trung tính': 'Mô hình ghi nhận nét mặt tương đối trung tính trong các khung hình đã lấy mẫu. Điều này không có nghĩa là em không có cảm xúc; nhiều cảm xúc không thể hiện rõ trên khuôn mặt. Nếu muốn chia sẻ điều gì, Nhật ký cảm xúc và cuộc trò chuyện với Cô Hường luôn sẵn sàng.'
+      };
+      message.textContent = (supportive[label] || 'Mô hình ghi nhận ' + label + '. Kết quả này chỉ mô tả mẫu biểu cảm hình ảnh và không xác định cảm xúc thật của em.') + ` (ước lượng mô hình khoảng ${pct}%, ${technical.expression.samples} mẫu).`;
+      expression.append(message); result.append(expression);
+      supportLines = [supportive[label] || 'Nếu em muốn hiểu rõ cảm xúc của mình, em có thể ghi lại điều đang diễn ra trong Nhật ký cảm xúc và trao đổi với Cô Hường.', 'Kết quả từ camera có thể nhầm lẫn; em là người hiểu rõ nhất trải nghiệm của mình. Em không cần phải làm theo gợi ý nếu thấy không phù hợp.'];
+    } else if (expressionConsent?.checked) {
+      const expression = document.createElement('p'); expression.textContent = 'Chưa thu được đủ mẫu để mô tả biểu cảm. Có thể mô hình chưa tải được, ánh sáng chưa phù hợp hoặc khuôn mặt không nằm rõ trong khung hình. Hệ thống không đoán cảm xúc khi chưa có kết quả.'; result.append(expression);
+    } else {
+      const expression = document.createElement('p'); expression.textContent = 'Chưa bật phân tích mẫu biểu cảm. Nếu muốn dùng tính năng thử nghiệm này, em cần tự đồng ý trước khi quét. Nếu không, báo cáo chỉ kiểm tra camera và chất lượng hình ảnh.'; result.append(expression);
+    }
+    const adviceTitle = document.createElement('strong');
+    adviceTitle.textContent = technical.expression ? 'Gợi ý bước tiếp theo' : 'Gợi ý hỗ trợ';
+    const list = document.createElement('ul');
+    supportLines.forEach(text => { const li = document.createElement('li'); li.textContent = text; list.append(li); });
+    const caveat = document.createElement('p');
+    caveat.className = 'scan-report-disclaimer';
+    caveat.textContent = 'Giới hạn: đây không phải đánh giá hay chẩn đoán tâm lý. Mô hình biểu cảm có thể nhầm lẫn do ánh sáng, góc mặt, chất lượng camera và khác biệt cá nhân; không dùng kết quả để gắn nhãn, xếp loại hoặc quyết định hỗ trợ học sinh. Phân tích chỉ được thử khi có đồng ý; ảnh/video không được lưu hoặc gửi lên máy chủ, báo cáo chỉ hiển thị trong phiên hiện tại.';
+    result.append(title, summary, adviceTitle, list, caveat);
+    const actions = document.createElement('div'); actions.className = 'scan-result-actions';
+    const journalBtn = document.createElement('button'); journalBtn.className = 'primary'; journalBtn.type = 'button'; journalBtn.textContent = 'Mở Nhật ký cảm xúc';
+    journalBtn.addEventListener('click', () => { if (typeof window.showPage === 'function') window.showPage('emotion'); else document.querySelector('[data-page="emotion"]')?.click(); });
+    const chatBtn = document.createElement('button'); chatBtn.className = 'scan-secondary'; chatBtn.type = 'button'; chatBtn.textContent = 'Trò chuyện với Cô Hường';
+    chatBtn.addEventListener('click', () => document.querySelector('[data-open-chat]')?.click());
+    actions.append(journalBtn, chatBtn); result.append(actions); result.hidden = false;
+  }
+
+  document.querySelectorAll('[data-page="emotion-scan"]').forEach(button => button.addEventListener('click', () => {
+    // Dừng phiên trước nếu có, sau đó tự xin quyền và khởi động camera khi vào mục.
+    stopCamera('Đang khởi động webcam tự động…');
+    setTimeout(() => { if (document.getElementById('emotion-scan')?.classList.contains('active')) startBtn.click(); }, 80);
+  }));
+  document.querySelectorAll('[data-page]').forEach(button => button.addEventListener('click', () => {
+    if (button.dataset.page !== 'emotion-scan' && stream) stopCamera('Camera đã dừng khi rời mục Quét mã cảm xúc.');
+  }));
+  expressionConsent?.addEventListener('change', () => { if (!expressionConsent.checked) expressionSamples = []; });
+  stopBtn.addEventListener('click', () => stopCamera());
+  window.addEventListener('pagehide', () => stopCamera(''));
+})();
+</script>
+
 </body>
 </html>
