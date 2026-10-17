@@ -5615,11 +5615,40 @@ $("userInput").addEventListener("input",e=>{e.target.style.height="auto";e.targe
 document.querySelectorAll(".suggestions button").forEach(b=>b.addEventListener("click",()=>sendMessage(b.textContent)));
 $("clearChat").addEventListener("click",()=>{messages.innerHTML="";chatHistory=[];addBubble("Mình bắt đầu cuộc trò chuyện mới nhé 💙 Em có thể chia sẻ điều đang khiến em băn khoăn. Đừng gửi thông tin nhận dạng riêng tư.","bot")});
 $("year").textContent=new Date().getFullYear();
-function makeQR(){
-  const box=$("qrBox");
-  if(!location.protocol.startsWith("http")){box.innerHTML='<div class="qr-fallback">Sau khi đăng lên GitHub Pages, mã QR sẽ tự tạo theo đường dẫn trang này.</div>';return}
-  if(window.QRCode){box.innerHTML="";new QRCode(box,{text:location.href.split("#")[0],width:190,height:190,colorDark:"#174f91",colorLight:"#ffffff",correctLevel:QRCode.CorrectLevel.H})}
-  else setTimeout(()=>{if(window.QRCode)makeQR();},600);
+
+function makeQR() {
+  const box = $("qrBox");
+
+  // Không có vùng chứa mã QR thì dừng, tránh gây lỗi.
+  if (!box) {
+    console.warn("Không tìm thấy phần tử qrBox.");
+    return;
+  }
+
+  if (!location.protocol.startsWith("http")) {
+    box.innerHTML =
+      '<div class="qr-fallback">Hãy mở WEBAPP qua địa chỉ HTTPS để tạo mã QR.</div>';
+    return;
+  }
+
+  if (window.QRCode) {
+    box.innerHTML = "";
+
+    new QRCode(box, {
+      text: location.href.split("#")[0],
+      width: 190,
+      height: 190,
+      colorDark: "#174f91",
+      colorLight: "#ffffff",
+      correctLevel: QRCode.CorrectLevel.H
+    });
+  } else {
+    setTimeout(() => {
+      if (document.getElementById("qrBox")) {
+        makeQR();
+      }
+    }, 600);
+  }
 }
 window.addEventListener("load",()=>{
   makeQR();
