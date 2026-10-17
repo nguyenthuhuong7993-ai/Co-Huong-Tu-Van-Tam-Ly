@@ -5743,12 +5743,18 @@ $('feedbackForm').addEventListener('submit',async event=>{
       headers:{'Content-Type':'application/json'},
       body:JSON.stringify(record)
     });
-    let saveData={};try{saveData=await saveResponse.json()}catch{}
-    if(!saveResponse.ok||!saveData.ok)throw new Error(saveData.error||('HTTP '+saveResponse.status));
-    saveStatus.textContent='Đã gửi yêu cầu thành công. Hồ sơ PDF đã được tạo và lưu vào Google Drive.';
+    const responseText=await saveResponse.text();
+    let saveData={};
+    try{saveData=JSON.parse(responseText)}catch{saveData={raw:responseText}}
+    if(!saveResponse.ok||saveData.ok!==true){
+      const detail=saveData.error||saveData.message||saveData.raw||('HTTP '+saveResponse.status);
+      throw new Error('Máy chủ trả về HTTP '+saveResponse.status+'. '+String(detail).slice(0,500));
+    }
+    saveStatus.textContent='Máy chủ xác nhận đã nhận và lưu hồ sơ. Cô vui lòng kiểm tra thư mục Google Drive để xác nhận file PDF.';
   }catch(err){
     console.error('Lưu hồ sơ tư vấn thất bại:',err);
-    saveStatus.textContent='Chưa lưu được hồ sơ PDF. Cô Hường cần kiểm tra cấu hình Worker/Google Apps Script rồi thử lại; không coi hồ sơ là đã lưu.';
+    const detail=(err&&err.message)?err.message:'Lỗi không xác định';
+    saveStatus.textContent='CHƯA LƯU ĐƯỢC PDF. Chi tiết kỹ thuật: '+detail+'. Hồ sơ chưa được xác nhận lưu; báo giáo viên quản trị kiểm tra Worker và Apps Script.';
   }
 });
 // Điều hướng các mục trong giao diện mới; vẫn giữ nguyên logic chatbot và kho kiến thức hiện có.
