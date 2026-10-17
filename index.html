@@ -160,6 +160,15 @@ body.chat-open .rightbar>.chat-preview{display:flex;flex-direction:column;positi
 body.chat-open .rightbar>.chat-preview .preview-message{max-height:220px}
 body.chat-open .chat-close-mobile{display:inline-flex;align-items:center;justify-content:center;border:0;border-radius:50%;width:34px;height:34px;background:#e7f1ff;color:#174b9f;font-size:22px;flex-shrink:0;cursor:pointer}
 @media(max-width:760px){#chatbotLauncher{right:15px;bottom:82px;width:52px;height:52px}body.chat-open .rightbar>.chat-preview{display:flex}}
+
+/* Mobile navigation: all nine destinations are available via horizontal swipe. */
+@media(max-width:760px){
+ .mobile-nav{display:flex;justify-content:flex-start;gap:4px;overflow-x:auto;overflow-y:hidden;white-space:nowrap;scrollbar-width:thin;-webkit-overflow-scrolling:touch;padding:6px 8px calc(6px + env(safe-area-inset-bottom));}
+ .mobile-nav button{flex:0 0 76px;min-width:76px;max-width:76px;min-height:48px;font-size:9px;line-height:1.15;white-space:normal;justify-content:center;border-radius:10px;padding:4px 2px;}
+ .mobile-nav button span{font-size:19px;line-height:1.1}
+ .mobile-nav button.active{background:#edf3ff;color:#2b66ed}
+ .mobile-nav::-webkit-scrollbar{height:3px}.mobile-nav::-webkit-scrollbar-thumb{background:#c6d8fa;border-radius:8px}
+}
 </style>
 <style id="feedback-original-image-style">
 .feedback-banner.feedback-banner-original{display:block;margin:-14px -16px 14px;padding:0;border-radius:21px 21px 12px 12px;overflow:hidden;background:transparent;border-bottom:1px solid #f1e9d9;min-height:0;gap:0}
@@ -331,7 +340,7 @@ body.student-entry-locked{overflow:hidden}body.student-entry-locked>.topbar,body
 <aside class="rightbar"><section class="chat-preview"><div class="preview-head"><div class="bot-avatar">🤖</div><div><h3>Chat với Cô Hường AI</h3><p>Luôn sẵn sàng lắng nghe bạn</p></div><button class="text-link" data-open-chat aria-label="Mở trò chuyện">⚙</button><button class="chat-close-mobile" type="button" id="closeMobileChat" aria-label="Đóng trò chuyện">×</button></div><div class="online-pill">● Trực tuyến</div><div class="preview-message" id="preview-message">Chào bạn! 👋<br>Mình là Cô Hường AI.<br>Bạn có thể chia sẻ với mình bất cứ điều gì đang khiến bạn băn khoăn, lo lắng hay cần hỗ trợ. Mình luôn lắng nghe và đồng hành cùng bạn! 💙</div><div class="suggestion-pills"><button data-open-chat>Tôi đang cảm thấy buồn, không muốn đi học...</button><button data-open-chat>Làm sao để tự tin hơn?</button><button data-open-chat>Tôi nên làm gì khi bị bạn bè hiểu lầm?</button><button data-open-chat>Giúp tôi giải tỏa áp lực học tập...</button></div><form class="preview-input" id="previewForm"><input id="previewInput" placeholder="Nhập tin nhắn của bạn..." aria-label="Tin nhắn nhanh"><button type="submit" aria-label="Gửi tin nhắn">➤</button></form></section><section class="positive-card"><span class="sun">☀️</span><div><h3>Tin nhắn tích cực mỗi ngày</h3><p>“Bạn có thể không kiểm soát được mọi chuyện, nhưng bạn có thể kiểm soát cách mình phản ứng với chúng.”</p></div></section><section class="quick-help"><h3>Hỗ trợ nhanh</h3><div class="help-grid"><button class="help-item" data-contact><span>📞</span><strong>Đường dây nóng</strong><small>0989836893</small></button><button class="help-item" data-open-chat><span>💬</span><strong>Tư vấn online</strong><small>Chat với Cô Hường</small></button><button class="help-item" data-page="resources"><span>📘</span><strong>Cẩm nang</strong><small>Tài liệu hữu ích</small></button></div><p style="font-size:10px;text-align:center;background:#eaf4ff;border-radius:10px;padding:10px;margin:12px 0 0">🛡️ Bảo mật thông tin · Tôn trọng · Đồng hành</p></section></aside>
 </div>
 <button id="chatbotLauncher" type="button" aria-label="Mở trò chuyện với Cô Hường AI" title="Trò chuyện với Cô Hường">💬</button>
-<nav class="mobile-nav" aria-label="Điều hướng nhanh"><button class="active" data-page="home"><span>⌂</span>Trang chủ</button><button data-open-chat><span>▣</span>Trò chuyện</button><button data-page="resources"><span>▤</span>Tài liệu</button><button data-page="profile"><span>♙</span>Cá nhân</button></nav>
+<nav class="mobile-nav" aria-label="Điều hướng chính trên điện thoại"><button class="active" data-page="home"><span>⌂</span>Trang chủ</button><button data-page="emotion-scan"><span>📷</span>Quét cảm xúc</button><button data-page="emotion"><span>☻</span>Nhật ký</button><button data-open-chat><span>▣</span>Trò chuyện</button><button data-page="sharing"><span>♡</span>Góc chia sẻ</button><button data-page="resources"><span>▤</span>Tài liệu</button><button data-page="feedback"><span>💙</span>Đánh giá</button><button data-page="booking"><span>▦</span>Đặt lịch</button><button data-page="profile"><span>⚙</span>Hỗ trợ</button></nav>
 <div class="toast" id="toast" role="status"></div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js" defer></script>
 <script>
